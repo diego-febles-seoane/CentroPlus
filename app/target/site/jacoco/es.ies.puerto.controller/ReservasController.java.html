@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReservasController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">centroplus</a> &gt; <a href="index.source.html" class="el_package">es.ies.puerto.controller</a> &gt; <span class="el_source">ReservasController.java</span></div><h1>ReservasController.java</h1><pre class="source lang-java linenums">package es.ies.puerto.controller;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import es.ies.puerto.modelo.Reservas;
+import es.ies.puerto.service.sqlite.ReservasService;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+<span class="fc" id="L23">public class ReservasController implements Initializable {</span>
+
+    @FXML
+    private TableView&lt;Reservas&gt; reservasTable;
+    @FXML
+    private TableColumn&lt;Reservas, Integer&gt; colIdReserva;
+    @FXML
+    private TableColumn&lt;Reservas, Integer&gt; colIdUsuario;
+    @FXML
+    private TableColumn&lt;Reservas, Integer&gt; colIdActividad;
+    @FXML
+    private TableColumn&lt;Reservas, String&gt; colFecha;
+    @FXML
+    private TableColumn&lt;Reservas, String&gt; colEstado;
+
+    private ReservasService service;
+<span class="fc" id="L39">    private ObservableList&lt;Reservas&gt; data = FXCollections.observableArrayList();</span>
+
+    public void setService(ReservasService service) {
+<span class="fc" id="L42">        this.service = service;</span>
+<span class="fc" id="L43">    }</span>
+
+    private ReservasService getService() {
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if (service == null) {</span>
+<span class="fc" id="L47">            service = new ReservasService();</span>
+        }
+<span class="fc" id="L49">        return service;</span>
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+<span class="fc" id="L54">        colIdReserva.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;idReserva&quot;));</span>
+<span class="fc" id="L55">        colIdUsuario.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;id&quot;));</span>
+<span class="fc" id="L56">        colIdActividad.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;idActividad&quot;));</span>
+<span class="fc" id="L57">        colFecha.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;fecha&quot;));</span>
+<span class="fc" id="L58">        colEstado.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;estado&quot;));</span>
+
+<span class="fc" id="L60">        loadData();</span>
+<span class="fc" id="L61">    }</span>
+
+    @FXML
+    public void loadData() {
+<span class="fc" id="L65">        data.clear();</span>
+<span class="fc" id="L66">        List&lt;Reservas&gt; list = getService().findAll();</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        if (list != null) {</span>
+<span class="fc" id="L68">            data.addAll(list);</span>
+        }
+<span class="fc" id="L70">        reservasTable.setItems(data);</span>
+<span class="fc" id="L71">    }</span>
+
+    @FXML
+    public void cancelarReserva() {
+<span class="fc" id="L75">        Reservas selected = reservasTable.getSelectionModel().getSelectedItem();</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        if (selected != null) {</span>
+<span class="fc" id="L77">            getService().delete(selected.getIdReserva());</span>
+<span class="fc" id="L78">            loadData();</span>
+        }
+<span class="fc" id="L80">    }</span>
+
+    @FXML
+    public void nuevaReserva() {
+        try {
+<span class="fc" id="L85">            FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/es/ies/puerto/view/add_reserva.fxml&quot;));</span>
+<span class="fc" id="L86">            Parent root = loader.load();</span>
+
+<span class="fc" id="L88">            AddReservaController controller = loader.getController();</span>
+
+<span class="fc" id="L90">            Stage stage = new Stage();</span>
+<span class="fc" id="L91">            stage.initModality(Modality.APPLICATION_MODAL);</span>
+<span class="fc" id="L92">            stage.setTitle(&quot;Nueva Reserva&quot;);</span>
+<span class="fc" id="L93">            stage.setScene(new Scene(root));</span>
+<span class="fc" id="L94">            stage.showAndWait();</span>
+
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">            if (controller.isGuardado()) {</span>
+<span class="nc" id="L97">                loadData();</span>
+            }
+<span class="nc" id="L99">        } catch (IOException e) {</span>
+<span class="nc" id="L100">            e.printStackTrace();</span>
+        }
+<span class="fc" id="L102">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

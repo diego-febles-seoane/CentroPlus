@@ -7,12 +7,16 @@ import es.ies.puerto.repository.IActividadesRepository;
 import es.ies.puerto.repository.sqlite.ActividadesRepository;
 import es.ies.puerto.service.IActividadesService;
 
-public class ActividadesService extends SQLiteConnectionManager implements IActividadesService{
+public class ActividadesService implements IActividadesService{
 
-    private final IActividadesRepository repository;
+    private IActividadesRepository repository;
 
     public ActividadesService(){
         this.repository = new ActividadesRepository();                    
+    }
+
+    public ActividadesService(IActividadesRepository repository){
+        this.repository = repository;
     }
 
     @Override

@@ -82,6 +82,22 @@ public class IncidenciasTest {
         Assertions.assertEquals(incidencia, incidencia, "Debe de ser igual a sí misma");
     }
 
+    @DisplayName("Test que verifica equals con null y otro tipo")
+    @Order(5)
+    @Test
+    void incidenciaEqualsNullOtherTypeTest(){
+        Assertions.assertNotEquals(incidencia, null);
+        Assertions.assertNotEquals(incidencia, "cadena");
+    }
+
+    @DisplayName("Test que verifica hashCode")
+    @Order(5)
+    @Test
+    void incidenciaHashCodeTest(){
+        Incidencias incidencia2 = new Incidencias(1);
+        Assertions.assertEquals(incidencia.hashCode(), incidencia2.hashCode());
+    }
+
     @DisplayName("Test que verifica toString")
     @Order(6)
     @Test

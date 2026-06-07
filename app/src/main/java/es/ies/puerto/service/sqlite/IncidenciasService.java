@@ -8,12 +8,16 @@ import es.ies.puerto.repository.IIncidenciasRepository;
 import es.ies.puerto.repository.sqlite.IncidenciasRepository;
 import es.ies.puerto.service.IIncidenciasService;
 
-public class IncidenciasService extends SQLiteConnectionManager implements IIncidenciasService{
+public class IncidenciasService implements IIncidenciasService{
 
-    private final IIncidenciasRepository repository;
+    private IIncidenciasRepository repository;
 
     public IncidenciasService(){
         this.repository = new IncidenciasRepository();                    
+    }
+
+    public IncidenciasService(IIncidenciasRepository repository){
+        this.repository = repository;
     }
 
     @Override

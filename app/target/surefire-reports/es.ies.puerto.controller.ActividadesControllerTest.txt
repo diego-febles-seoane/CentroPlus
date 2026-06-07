@@ -1,0 +1,34 @@
+-------------------------------------------------------------------------------
+Test set: es.ies.puerto.controller.ActividadesControllerTest
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 141.9 s <<< FAILURE! -- in es.ies.puerto.controller.ActividadesControllerTest
+es.ies.puerto.controller.ActividadesControllerTest.newActividadSuccessTest -- Time elapsed: 1.543 s <<< ERROR!
+java.lang.RuntimeException: 
+Wanted but not invoked:
+service.findAll();
+-> at es.ies.puerto.service.sqlite.ActividadesService.findAll(ActividadesService.java:39)
+Actually, there were zero interactions with this mock.
+
+	at org.testfx.util.WaitForAsyncUtils.waitFor(WaitForAsyncUtils.java:276)
+	at org.testfx.api.FxRobot.interact(FxRobot.java:416)
+	at es.ies.puerto.controller.ActividadesControllerTest.newActividadSuccessTest(ActividadesControllerTest.java:186)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: Wanted but not invoked:
+service.findAll();
+-> at es.ies.puerto.service.sqlite.ActividadesService.findAll(ActividadesService.java:39)
+Actually, there were zero interactions with this mock.
+
+	at es.ies.puerto.service.sqlite.ActividadesService.findAll(ActividadesService.java:39)
+	at es.ies.puerto.controller.ActividadesControllerTest.lambda$newActividadSuccessTest$8(ActividadesControllerTest.java:188)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:457)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:456)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+

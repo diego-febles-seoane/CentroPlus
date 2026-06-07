@@ -75,6 +75,22 @@ class ReservasTest {
         Assertions.assertEquals(reserva, reserva, "Debe de ser igual a sí misma");
     }
 
+    @DisplayName("Test que verifica equals con null y otro tipo")
+    @Order(5)
+    @Test
+    void reservaEqualsNullOtherTypeTest(){
+        Assertions.assertNotEquals(reserva, null);
+        Assertions.assertNotEquals(reserva, "cadena");
+    }
+
+    @DisplayName("Test que verifica hashCode")
+    @Order(5)
+    @Test
+    void reservaHashCodeTest(){
+        Reservas reserva2 = new Reservas(1);
+        Assertions.assertEquals(reserva.hashCode(), reserva2.hashCode());
+    }
+
     @DisplayName("Test que verifica toString")
     @Order(6)
     @Test

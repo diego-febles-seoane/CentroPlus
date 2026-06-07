@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Validaciones.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">centroplus</a> &gt; <a href="index.source.html" class="el_package">es.ies.puerto.tools</a> &gt; <span class="el_source">Validaciones.java</span></div><h1>Validaciones.java</h1><pre class="source lang-java linenums">package es.ies.puerto.tools;
+
+import java.util.regex.Pattern;
+
+<span class="nc" id="L5">public class Validaciones {</span>
+
+    public static boolean esNombreValido(String nombre) {
+<span class="fc bfc" id="L8" title="All 4 branches covered.">        if (nombre == null || nombre.isBlank()) {</span>
+<span class="fc" id="L9">            return false;</span>
+        }
+<span class="fc" id="L11">        String regex = &quot;[a-zA-Z\\s]{1,50}&quot;;</span>
+<span class="fc" id="L12">        return Pattern.matches(regex, nombre);</span>
+    }
+
+    public static boolean esEmailValido(String email) {
+<span class="fc bfc" id="L16" title="All 4 branches covered.">        if (email == null || email.isBlank()) {</span>
+<span class="fc" id="L17">            return false;</span>
+        }
+<span class="fc" id="L19">        String regex = &quot;[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}&quot;;</span>
+<span class="fc" id="L20">        return Pattern.matches(regex, email);</span>
+    }
+
+    public static boolean esTelefonoValido(String telefono) {
+<span class="pc bpc" id="L24" title="1 of 4 branches missed.">        if (telefono == null || telefono.isBlank()) {</span>
+<span class="fc" id="L25">            return false;</span>
+        }
+<span class="fc" id="L27">        String regex = &quot;^[0-9]{9}$&quot;;</span>
+<span class="fc" id="L28">        return Pattern.matches(regex, telefono);</span>
+    }
+
+    public static boolean esDniValido(String dni) {
+<span class="pc bpc" id="L32" title="1 of 4 branches missed.">        if (dni == null || dni.isBlank()) {</span>
+<span class="fc" id="L33">            return false;</span>
+        }
+<span class="fc" id="L35">        String regex = &quot;^[0-9]{8}[A-Z]$&quot;;</span>
+<span class="fc" id="L36">        return Pattern.matches(regex, dni);</span>
+    }
+
+    public static boolean esDescripcionValida(String descripcion) {
+<span class="fc bfc" id="L40" title="All 4 branches covered.">        if (descripcion == null || descripcion.isBlank()) {</span>
+<span class="fc" id="L41">            return false;</span>
+        }
+<span class="fc" id="L43">        return true;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AddReservaController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">centroplus</a> &gt; <a href="index.source.html" class="el_package">es.ies.puerto.controller</a> &gt; <span class="el_source">AddReservaController.java</span></div><h1>AddReservaController.java</h1><pre class="source lang-java linenums">package es.ies.puerto.controller;
+
+import java.net.URL;
+import java.time.format.DateTimeFormatter;
+import java.util.ResourceBundle;
+
+import es.ies.puerto.modelo.Reservas;
+import es.ies.puerto.service.sqlite.ReservasService;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+<span class="fc" id="L17">public class AddReservaController implements Initializable {</span>
+
+    @FXML
+    private TextField idReservaField;
+    @FXML
+    private TextField idUsuarioField;
+    @FXML
+    private TextField idActividadField;
+    @FXML
+    private DatePicker fechaPicker;
+    @FXML
+    private ComboBox&lt;String&gt; estadoCombo;
+
+    private ReservasService service;
+<span class="fc" id="L31">    private boolean guardado = false;</span>
+
+    public void setService(ReservasService service) {
+<span class="fc" id="L34">        this.service = service;</span>
+<span class="fc" id="L35">    }</span>
+
+    private ReservasService getService() {
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        if (service == null) {</span>
+<span class="nc" id="L39">            service = new ReservasService();</span>
+        }
+<span class="fc" id="L41">        return service;</span>
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+<span class="fc" id="L46">        estadoCombo.getItems().addAll(&quot;PENDIENTE&quot;, &quot;CONFIRMADA&quot;, &quot;CANCELADA&quot;);</span>
+<span class="fc" id="L47">        estadoCombo.getSelectionModel().selectFirst();</span>
+<span class="fc" id="L48">    }</span>
+
+    public boolean isGuardado() {
+<span class="fc" id="L51">        return guardado;</span>
+    }
+
+    @FXML
+    public void guardar() {
+        try {
+<span class="fc" id="L57">            int idReserva = Integer.parseInt(idReservaField.getText());</span>
+<span class="fc" id="L58">            int idUsuario = Integer.parseInt(idUsuarioField.getText());</span>
+<span class="fc" id="L59">            int idActividad = Integer.parseInt(idActividadField.getText());</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">            String fecha = fechaPicker.getValue() != null ? fechaPicker.getValue().format(DateTimeFormatter.ISO_DATE) : &quot;&quot;;</span>
+<span class="fc" id="L61">            String estado = estadoCombo.getValue();</span>
+
+<span class="fc" id="L63">            Reservas reserva = new Reservas(idReserva, idUsuario, idActividad, fecha, estado);</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">            if (getService().save(reserva)) {</span>
+<span class="fc" id="L65">                guardado = true;</span>
+<span class="fc" id="L66">                cerrar();</span>
+<span class="fc" id="L67">            } else {</span>
+<span class="fc" id="L68">                mostrarError(&quot;No se pudo guardar la reserva. Asegúrate de que el usuario y la actividad existan.&quot;);</span>
+            }
+<span class="fc" id="L70">        } catch (NumberFormatException e) {</span>
+<span class="fc" id="L71">            mostrarError(&quot;Los campos de ID deben ser números.&quot;);</span>
+        }
+<span class="fc" id="L73">    }</span>
+
+    @FXML
+    public void cancelar() {
+<span class="fc" id="L77">        cerrar();</span>
+<span class="fc" id="L78">    }</span>
+
+    private void cerrar() {
+<span class="fc" id="L81">        Stage stage = (Stage) idReservaField.getScene().getWindow();</span>
+<span class="fc" id="L82">        stage.close();</span>
+<span class="fc" id="L83">    }</span>
+
+    private void mostrarError(String mensaje) {
+<span class="fc" id="L86">        Alert alert = new Alert(Alert.AlertType.ERROR);</span>
+<span class="fc" id="L87">        alert.setContentText(mensaje);</span>
+<span class="fc" id="L88">        alert.showAndWait();</span>
+<span class="fc" id="L89">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

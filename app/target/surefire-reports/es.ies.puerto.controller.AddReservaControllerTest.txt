@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: es.ies.puerto.controller.AddReservaControllerTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.556 s -- in es.ies.puerto.controller.AddReservaControllerTest

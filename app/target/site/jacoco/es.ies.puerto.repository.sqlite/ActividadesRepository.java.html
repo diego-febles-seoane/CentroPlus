@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ActividadesRepository.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">centroplus</a> &gt; <a href="index.source.html" class="el_package">es.ies.puerto.repository.sqlite</a> &gt; <span class="el_source">ActividadesRepository.java</span></div><h1>ActividadesRepository.java</h1><pre class="source lang-java linenums">package es.ies.puerto.repository.sqlite;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import es.ies.puerto.connection.SQLiteConnectionManager;
+import es.ies.puerto.modelo.Actividades;
+import es.ies.puerto.repository.IActividadesRepository;
+
+<span class="fc" id="L13">public class ActividadesRepository extends SQLiteConnectionManager implements IActividadesRepository{</span>
+
+    @Override
+    public boolean save(Actividades actividad) {
+<span class="fc" id="L17">        try (Connection connection = getConnection();</span>
+<span class="fc" id="L18">            PreparedStatement sentencia = connection.prepareStatement(&quot;INSERT INTO actividades (id, nombre, tipo_actividad, duracion, precio, plazas_maximas, plazas_ocupadas) VALUES (?,?,?,?,?,?,?)&quot;)){</span>
+<span class="fc" id="L19">            sentencia.setInt(1, actividad.getId());</span>
+<span class="fc" id="L20">            sentencia.setString(2, actividad.getNombre());</span>
+<span class="fc" id="L21">            sentencia.setString(3, actividad.getTipoActividad());</span>
+<span class="fc" id="L22">            sentencia.setInt(4, actividad.getDuracion());</span>
+<span class="fc" id="L23">            sentencia.setDouble(5, actividad.getPrecio());</span>
+<span class="fc" id="L24">            sentencia.setInt(6, actividad.getPlazasMaximas());</span>
+<span class="fc" id="L25">            sentencia.setInt(7, actividad.getPlazasOcupadas());</span>
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">            return sentencia.executeUpdate() &gt; 0;</span>
+<span class="fc" id="L27">        } catch (Exception e) {</span>
+<span class="fc" id="L28">            System.err.println(&quot;Error guardando actividad: &quot; + e.getMessage());</span>
+<span class="fc" id="L29">            return false;</span>
+        }
+    }
+
+    @Override
+    public boolean update(Actividades actividad) {
+<span class="fc" id="L35">        try (Connection connection = getConnection();</span>
+<span class="fc" id="L36">            PreparedStatement sentencia = connection.prepareStatement(&quot;UPDATE actividades SET nombre = ?, tipo_actividad = ?, duracion = ?, precio = ?, plazas_maximas = ?, plazas_ocupadas = ? WHERE id = ?&quot;)){</span>
+<span class="fc" id="L37">            sentencia.setString(1, actividad.getNombre());</span>
+<span class="fc" id="L38">            sentencia.setString(2, actividad.getTipoActividad());</span>
+<span class="fc" id="L39">            sentencia.setInt(3, actividad.getDuracion());</span>
+<span class="fc" id="L40">            sentencia.setDouble(4, actividad.getPrecio());</span>
+<span class="fc" id="L41">            sentencia.setInt(5, actividad.getPlazasMaximas());</span>
+<span class="fc" id="L42">            sentencia.setInt(6, actividad.getPlazasOcupadas());</span>
+<span class="fc" id="L43">            sentencia.setInt(7, actividad.getId());</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">            return sentencia.executeUpdate() &gt; 0;</span>
+<span class="fc" id="L45">        } catch (Exception e) {</span>
+<span class="fc" id="L46">            System.err.println(&quot;Error actualizando actividad: &quot; + e.getMessage());</span>
+<span class="fc" id="L47">            return false;</span>
+        }
+    }
+
+    @Override
+    public Actividades findById(int id) {
+<span class="fc" id="L53">        try (Connection connection = getConnection();</span>
+<span class="fc" id="L54">        PreparedStatement setencia = connection.prepareStatement(&quot;SELECT * FROM actividades WHERE id =?&quot;)){</span>
+<span class="fc" id="L55">            setencia.setInt(1, id);</span>
+<span class="fc" id="L56">            ResultSet resultado = setencia.executeQuery();</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">            if (resultado.next()) {</span>
+<span class="fc" id="L58">                String nombre = resultado.getString(&quot;nombre&quot;);</span>
+<span class="fc" id="L59">                String tipoActividad = resultado.getString(&quot;tipo_actividad&quot;);</span>
+<span class="fc" id="L60">                int duracion = resultado.getInt(&quot;duracion&quot;);</span>
+<span class="fc" id="L61">                int precio = resultado.getInt(&quot;precio&quot;);</span>
+<span class="fc" id="L62">                int plazas_maximas = resultado.getInt(&quot;plazas_maximas&quot;);</span>
+<span class="fc" id="L63">                int plazas_ocupadas = resultado.getInt(&quot;plazas_ocupadas&quot;);</span>
+<span class="fc" id="L64">                return new Actividades(id, nombre, tipoActividad, duracion, precio, plazas_maximas, plazas_ocupadas);</span>
+            }
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">        } catch (Exception e) {</span>
+<span class="fc" id="L67">            System.err.println(&quot;Error buscando actividad por ID: &quot; + e.getMessage());</span>
+        }
+<span class="fc" id="L69">        return null;</span>
+    }
+
+    @Override
+    public List&lt;Actividades&gt; findAll() {
+<span class="fc" id="L74">        List&lt;Actividades&gt; actividades = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L75">        try (Connection connection = getConnection();</span>
+<span class="fc" id="L76">        PreparedStatement setencia = connection.prepareStatement(&quot;SELECT * FROM actividades&quot;)){</span>
+<span class="fc" id="L77">            ResultSet resultado = setencia.executeQuery();</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">            while (resultado.next()) {</span>
+<span class="fc" id="L79">                int id = resultado.getInt(&quot;id&quot;);</span>
+<span class="fc" id="L80">                String nombre = resultado.getString(&quot;nombre&quot;);</span>
+<span class="fc" id="L81">                String tipoActividad = resultado.getString(&quot;tipo_actividad&quot;);</span>
+<span class="fc" id="L82">                int duracion = resultado.getInt(&quot;duracion&quot;);</span>
+<span class="fc" id="L83">                int precio = resultado.getInt(&quot;precio&quot;);</span>
+<span class="fc" id="L84">                int plazas_maximas = resultado.getInt(&quot;plazas_maximas&quot;);</span>
+<span class="fc" id="L85">                int plazas_ocupadas = resultado.getInt(&quot;plazas_ocupadas&quot;);</span>
+<span class="fc" id="L86">                actividades.add(new Actividades(id, nombre, tipoActividad, duracion, precio, plazas_maximas, plazas_ocupadas));</span>
+            }
+<span class="fc" id="L88">        } catch (Exception e) {</span>
+<span class="fc" id="L89">            System.err.println(&quot;Error buscando todas las actividades: &quot; + e.getMessage());</span>
+        }
+<span class="fc" id="L91">        return actividades;</span>
+    }
+
+    @Override
+    public boolean delete(int id) {
+<span class="fc" id="L96">        try (Connection connection = getConnection();</span>
+<span class="fc" id="L97">        PreparedStatement setencia = connection.prepareStatement(&quot;DELETE FROM actividades WHERE id = ?&quot;)){</span>
+<span class="fc" id="L98">            setencia.setInt(1, id);</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">            return setencia.executeUpdate() &gt; 0;</span>
+<span class="fc" id="L100">        } catch (Exception e) {</span>
+<span class="fc" id="L101">            System.err.println(&quot;Error eliminando actividad: &quot; + e.getMessage());</span>
+<span class="fc" id="L102">            return false;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

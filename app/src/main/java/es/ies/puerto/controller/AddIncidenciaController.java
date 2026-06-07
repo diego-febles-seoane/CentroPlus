@@ -1,5 +1,10 @@
 package es.ies.puerto.controller;
 
+import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ResourceBundle;
+
 import es.ies.puerto.modelo.Incidencias;
 import es.ies.puerto.service.sqlite.IncidenciasService;
 import javafx.fxml.FXML;
@@ -10,21 +15,32 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ResourceBundle;
-
 public class AddIncidenciaController implements Initializable {
 
-    @FXML private TextField idIncidenciaField;
-    @FXML private TextField idUsuarioField;
-    @FXML private TextField asuntoField;
-    @FXML private TextArea descripcionArea;
-    @FXML private ComboBox<String> estadoCombo;
+    @FXML
+    private TextField idIncidenciaField;
+    @FXML
+    private TextField idUsuarioField;
+    @FXML
+    private TextField asuntoField;
+    @FXML
+    private TextArea descripcionArea;
+    @FXML
+    private ComboBox<String> estadoCombo;
 
-    private IncidenciasService service = new IncidenciasService();
+    private IncidenciasService service;
     private boolean guardado = false;
+
+    public void setService(IncidenciasService service) {
+        this.service = service;
+    }
+
+    private IncidenciasService getService() {
+        if (service == null) {
+            service = new IncidenciasService();
+        }
+        return service;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -47,7 +63,7 @@ public class AddIncidenciaController implements Initializable {
             String estado = estadoCombo.getValue();
 
             Incidencias incidencia = new Incidencias(idIncidencia, idUsuario, asunto, descripcion, fecha, estado);
-            if (service.save(incidencia)) {
+            if (getService().save(incidencia)) {
                 guardado = true;
                 cerrar();
             } else {

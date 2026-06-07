@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UsuariosController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">centroplus</a> &gt; <a href="index.source.html" class="el_package">es.ies.puerto.controller</a> &gt; <span class="el_source">UsuariosController.java</span></div><h1>UsuariosController.java</h1><pre class="source lang-java linenums">package es.ies.puerto.controller;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import es.ies.puerto.modelo.Usuario;
+import es.ies.puerto.service.sqlite.UsuarioService;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+<span class="fc" id="L23">public class UsuariosController implements Initializable {</span>
+
+    @FXML
+    private TableView&lt;Usuario&gt; usuariosTable;
+    @FXML
+    private TableColumn&lt;Usuario, Integer&gt; colId;
+    @FXML
+    private TableColumn&lt;Usuario, String&gt; colNombre;
+    @FXML
+    private TableColumn&lt;Usuario, String&gt; colDni;
+    @FXML
+    private TableColumn&lt;Usuario, String&gt; colEmail;
+    @FXML
+    private TableColumn&lt;Usuario, String&gt; colTelefono;
+    @FXML
+    private TableColumn&lt;Usuario, String&gt; colTipo;
+
+    private UsuarioService service;
+<span class="fc" id="L41">    private ObservableList&lt;Usuario&gt; data = FXCollections.observableArrayList();</span>
+
+    public void setService(UsuarioService service) {
+<span class="fc" id="L44">        this.service = service;</span>
+<span class="fc" id="L45">    }</span>
+
+    private UsuarioService getService() {
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (service == null) {</span>
+<span class="fc" id="L49">            service = new UsuarioService();</span>
+        }
+<span class="fc" id="L51">        return service;</span>
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+<span class="fc" id="L56">        colId.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;id&quot;));</span>
+<span class="fc" id="L57">        colNombre.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;nombre&quot;));</span>
+<span class="fc" id="L58">        colDni.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;dni&quot;));</span>
+<span class="fc" id="L59">        colEmail.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;email&quot;));</span>
+<span class="fc" id="L60">        colTelefono.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;telefono&quot;));</span>
+<span class="fc" id="L61">        colTipo.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;tipo_usuario&quot;));</span>
+
+<span class="fc" id="L63">        loadData();</span>
+<span class="fc" id="L64">    }</span>
+
+    @FXML
+    public void loadData() {
+<span class="fc" id="L68">        data.clear();</span>
+<span class="fc" id="L69">        List&lt;Usuario&gt; list = getService().findAll();</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        if (list != null) {</span>
+<span class="fc" id="L71">            data.addAll(list);</span>
+        }
+<span class="fc" id="L73">        usuariosTable.setItems(data);</span>
+<span class="fc" id="L74">    }</span>
+
+    @FXML
+    public void deleteUsuario() {
+<span class="fc" id="L78">        Usuario selected = usuariosTable.getSelectionModel().getSelectedItem();</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        if (selected != null) {</span>
+<span class="fc" id="L80">            getService().delete(selected.getId());</span>
+<span class="fc" id="L81">            loadData();</span>
+        }
+<span class="fc" id="L83">    }</span>
+
+    @FXML
+    public void nuevoUsuario() {
+        try {
+<span class="fc" id="L88">            FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/es/ies/puerto/view/add_usuario.fxml&quot;));</span>
+<span class="fc" id="L89">            Parent root = loader.load();</span>
+
+<span class="fc" id="L91">            AddUsuarioController controller = loader.getController();</span>
+
+<span class="fc" id="L93">            Stage stage = new Stage();</span>
+<span class="fc" id="L94">            stage.initModality(Modality.APPLICATION_MODAL);</span>
+<span class="fc" id="L95">            stage.setTitle(&quot;Añadir Usuario&quot;);</span>
+<span class="fc" id="L96">            stage.setScene(new Scene(root));</span>
+<span class="fc" id="L97">            stage.showAndWait();</span>
+
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">            if (controller.isGuardado()) {</span>
+<span class="nc" id="L100">                loadData();</span>
+            }
+<span class="nc" id="L102">        } catch (IOException e) {</span>
+<span class="nc" id="L103">            e.printStackTrace();</span>
+        }
+<span class="fc" id="L105">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

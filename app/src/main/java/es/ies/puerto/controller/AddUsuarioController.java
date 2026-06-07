@@ -1,5 +1,8 @@
 package es.ies.puerto.controller;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import es.ies.puerto.modelo.Usuario;
 import es.ies.puerto.service.sqlite.UsuarioService;
 import javafx.fxml.FXML;
@@ -9,20 +12,34 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 public class AddUsuarioController implements Initializable {
 
-    @FXML private TextField idField;
-    @FXML private TextField nombreField;
-    @FXML private TextField dniField;
-    @FXML private TextField emailField;
-    @FXML private TextField telefonoField;
-    @FXML private ComboBox<String> tipoCombo;
+    @FXML
+    private TextField idField;
+    @FXML
+    private TextField nombreField;
+    @FXML
+    private TextField dniField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private TextField telefonoField;
+    @FXML
+    private ComboBox<String> tipoCombo;
 
-    private UsuarioService service = new UsuarioService();
+    private UsuarioService service;
     private boolean guardado = false;
+
+    public void setService(UsuarioService service) {
+        this.service = service;
+    }
+
+    private UsuarioService getService() {
+        if (service == null) {
+            service = new UsuarioService();
+        }
+        return service;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -45,7 +62,7 @@ public class AddUsuarioController implements Initializable {
             String tipo = tipoCombo.getValue();
 
             Usuario usuario = new Usuario(id, nombre, dni, email, telefono, tipo);
-            if (service.save(usuario)) {
+            if (getService().save(usuario)) {
                 guardado = true;
                 cerrar();
             } else {

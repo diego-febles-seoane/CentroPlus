@@ -1,25 +1,24 @@
 package es.ies.puerto.controller;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+
 import es.ies.puerto.modelo.Incidencias;
 import es.ies.puerto.service.sqlite.IncidenciasService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import java.io.IOException;
 
 public class IncidenciasController implements Initializable {
 
@@ -41,10 +40,19 @@ public class IncidenciasController implements Initializable {
     private IncidenciasService service;
     private ObservableList<Incidencias> data = FXCollections.observableArrayList();
 
+    public void setService(IncidenciasService service) {
+        this.service = service;
+    }
+
+    private IncidenciasService getService() {
+        if (service == null) {
+            service = new IncidenciasService();
+        }
+        return service;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        service = new IncidenciasService();
-
         colIdIncidencia.setCellValueFactory(new PropertyValueFactory<>("idIncidencia"));
         colIdUsuario.setCellValueFactory(new PropertyValueFactory<>("id"));
         colAsunto.setCellValueFactory(new PropertyValueFactory<>("asunto"));
@@ -58,11 +66,20 @@ public class IncidenciasController implements Initializable {
     @FXML
     public void loadData() {
         data.clear();
-        List<Incidencias> list = service.findAll();
+        List<Incidencias> list = getService().findAll();
         if (list != null) {
             data.addAll(list);
         }
         incidenciasTable.setItems(data);
+    }
+
+    @FXML
+    public void deleteIncidencia() {
+        Incidencias selected = incidenciasTable.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            getService().delete(selected.getIdIncidencia());
+            loadData();
+        }
     }
 
     @FXML

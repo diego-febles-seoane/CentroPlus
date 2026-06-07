@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ActividadesTest {
 
@@ -100,9 +99,9 @@ class ActividadesTest {
     @Order(10)
     @Test
     void actividadCancelarPlazaConPlazasTest() {
-        // plazas_ocupadas = 15 > 0, cancelar devuelve true
         boolean resultado = actividad.cancelarPlaza();
         Assertions.assertTrue(resultado, "cancelarPlaza debe devolver true cuando hay plazas ocupadas");
+        Assertions.assertEquals(14, actividad.getPlazasOcupadas());
     }
 
     @DisplayName("cancelarPlaza con 0 plazas ocupadas devuelve false")
@@ -131,15 +130,19 @@ class ActividadesTest {
     @Order(13)
     @Test
     void actividadSettersTest() {
+        actividad.setId(10);
         actividad.setNombre("Natación");
         actividad.setTipoActividad("Deporte");
         actividad.setDuracion(3);
+        actividad.setPrecio(40.0);
         actividad.setPlazasMaximas(20);
         actividad.setPlazasOcupadas(10);
 
+        Assertions.assertEquals(10, actividad.getId());
         Assertions.assertEquals("Natación", actividad.getNombre());
         Assertions.assertEquals("Deporte", actividad.getTipoActividad());
         Assertions.assertEquals(3, actividad.getDuracion());
+        Assertions.assertEquals(40.0, actividad.getPrecio(), 0.001);
         Assertions.assertEquals(20, actividad.getPlazasMaximas());
         Assertions.assertEquals(10, actividad.getPlazasOcupadas());
     }

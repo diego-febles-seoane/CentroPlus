@@ -15,18 +15,22 @@ public class Actividades {
     /**
      * Constructor por defecto
      */
-    public Actividades(){
+    public Actividades() {
 
     }
+
     /**
      * Constructor para busqueda
+     *
      * @param id Identificador de la actividad
      */
-    public Actividades(int id){
+    public Actividades(int id) {
         this.id = id;
     }
+
     /**
      * Constructor de la clase
+     *
      * @param id Identificador de la actividad
      * @param nombre Nombre de la actividad
      * @param tipoActividad Tipo de la actividad
@@ -81,7 +85,7 @@ public class Actividades {
         return this.precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 
@@ -101,11 +105,11 @@ public class Actividades {
         this.plazasOcupadas = plazasOcupadas;
     }
 
-
     @Override
     public boolean equals(Object o) {
-        if (o == this)
+        if (o == this) {
             return true;
+        }
         if (!(o instanceof Actividades)) {
             return false;
         }
@@ -118,8 +122,8 @@ public class Actividades {
         return Objects.hash(id);
     }
 
-    public boolean cancelarPlaza(){
-        if(plazasOcupadas <= 0){
+    public boolean cancelarPlaza() {
+        if (plazasOcupadas <= 0) {
             return false;
         }
         plazasOcupadas--;
@@ -128,14 +132,14 @@ public class Actividades {
 
     @Override
     public String toString() {
-        return "{" +
-            " id='" + getId() + "'" +
-            ", nombre='" + getNombre() + "'" +
-            ", tipoActividad='" + getTipoActividad() + "'" +
-            ", duracion='" + getDuracion() + "'" +
-            ", precio='" + getPrecio() + "'" +
-            ", plazasMaximas='" + getPlazasMaximas() + "'" +
-            ", plazasOcupadas='" + getPlazasOcupadas() + "'" +
-            "}";
+        return "{"
+                + " id='" + getId() + "'"
+                + ", nombre='" + getNombre() + "'"
+                + ", tipoActividad='" + getTipoActividad() + "'"
+                + ", duracion='" + getDuracion() + "'"
+                + ", precio='" + getPrecio() + "'"
+                + ", plazasMaximas='" + getPlazasMaximas() + "'"
+                + ", plazasOcupadas='" + getPlazasOcupadas() + "'"
+                + "}";
     }
 }

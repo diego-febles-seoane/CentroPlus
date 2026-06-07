@@ -8,12 +8,16 @@ import es.ies.puerto.repository.IUsuarioRepository;
 import es.ies.puerto.repository.sqlite.UsuarioRepository;
 import es.ies.puerto.service.IUsuarioService;
 
-public class UsuarioService extends SQLiteConnectionManager implements IUsuarioService{
+public class UsuarioService implements IUsuarioService{
 
-    private final IUsuarioRepository repository;
+    private IUsuarioRepository repository;
 
     public UsuarioService(){
         this.repository = new UsuarioRepository();                    
+    }
+
+    public UsuarioService(IUsuarioRepository repository){
+        this.repository = repository;
     }
 
     @Override

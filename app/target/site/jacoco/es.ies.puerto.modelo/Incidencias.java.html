@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Incidencias.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">centroplus</a> &gt; <a href="index.source.html" class="el_package">es.ies.puerto.modelo</a> &gt; <span class="el_source">Incidencias.java</span></div><h1>Incidencias.java</h1><pre class="source lang-java linenums">package es.ies.puerto.modelo;
+
+import java.util.Objects;
+
+public class Incidencias extends Reservas{
+    
+    int idIncidencia;
+    String asunto;
+    String descripcion;
+    String fecha;
+    String estado;
+
+    public Incidencias(){
+<span class="fc" id="L14">        super();</span>
+<span class="fc" id="L15">    }</span>
+
+<span class="fc" id="L17">    public Incidencias(int idIncidencia){</span>
+<span class="fc" id="L18">        this.idIncidencia = idIncidencia;</span>
+<span class="fc" id="L19">    }</span>
+
+    public Incidencias(int idIncidencia, int idUsuario, String asunto, String descripcion, String fecha, String estado) {
+<span class="fc" id="L22">        super();</span>
+<span class="fc" id="L23">        setId(idUsuario);</span>
+<span class="fc" id="L24">        this.idIncidencia = idIncidencia;</span>
+<span class="fc" id="L25">        this.asunto = asunto;</span>
+<span class="fc" id="L26">        this.descripcion = descripcion;</span>
+<span class="fc" id="L27">        this.fecha = fecha;</span>
+<span class="fc" id="L28">        this.estado = estado;</span>
+<span class="fc" id="L29">    }</span>
+
+    public int getIdIncidencia() {
+<span class="fc" id="L32">        return this.idIncidencia;</span>
+    }
+
+    public void setIdIncidencia(int idIncidencia) {
+<span class="fc" id="L36">        this.idIncidencia = idIncidencia;</span>
+<span class="fc" id="L37">    }</span>
+
+    public String getAsunto() {
+<span class="fc" id="L40">        return this.asunto;</span>
+    }
+
+    public void setAsunto(String asunto) {
+<span class="fc" id="L44">        this.asunto = asunto;</span>
+<span class="fc" id="L45">    }</span>
+
+    public String getDescripcion() {
+<span class="fc" id="L48">        return this.descripcion;</span>
+    }
+
+    public void setDescripcion(String descripcion) {
+<span class="fc" id="L52">        this.descripcion = descripcion;</span>
+<span class="fc" id="L53">    }</span>
+
+    public String getFecha() {
+<span class="fc" id="L56">        return this.fecha;</span>
+    }
+
+    public void setFecha(String fecha) {
+<span class="fc" id="L60">        this.fecha = fecha;</span>
+<span class="fc" id="L61">    }</span>
+
+    public String getEstado() {
+<span class="fc" id="L64">        return this.estado;</span>
+    }
+
+    public void setEstado(String estado) {
+<span class="fc" id="L68">        this.estado = estado;</span>
+<span class="fc" id="L69">    }</span>
+
+ 
+
+    @Override
+    public boolean equals(Object o) {
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        if (o == this)</span>
+<span class="fc" id="L76">            return true;</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        if (!(o instanceof Incidencias)) {</span>
+<span class="fc" id="L78">            return false;</span>
+        }
+<span class="fc" id="L80">        Incidencias incidencias = (Incidencias) o;</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        return idIncidencia == incidencias.idIncidencia;</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="fc" id="L86">        return Objects.hash(idIncidencia);</span>
+    }
+    
+
+    @Override
+    public String toString() {
+<span class="fc" id="L92">        return &quot;{&quot; +</span>
+<span class="fc" id="L93">            &quot; idIncidencia='&quot; + getIdIncidencia() + &quot;'&quot; +</span>
+<span class="fc" id="L94">            &quot;, idUsuario='&quot; + getId() +&quot;'&quot;+</span>
+<span class="fc" id="L95">            &quot;, asunto='&quot; + getAsunto() + &quot;'&quot; +</span>
+<span class="fc" id="L96">            &quot;, descripcion='&quot; + getDescripcion() + &quot;'&quot; +</span>
+<span class="fc" id="L97">            &quot;, fecha='&quot; + getFecha() + &quot;'&quot; +</span>
+<span class="fc" id="L98">            &quot;, estado='&quot; + getEstado() + &quot;'&quot; +</span>
+            &quot;}&quot;;
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

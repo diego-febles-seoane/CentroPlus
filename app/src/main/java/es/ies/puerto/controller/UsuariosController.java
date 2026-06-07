@@ -1,25 +1,24 @@
 package es.ies.puerto.controller;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+
 import es.ies.puerto.modelo.Usuario;
 import es.ies.puerto.service.sqlite.UsuarioService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import java.io.IOException;
 
 public class UsuariosController implements Initializable {
 
@@ -41,10 +40,19 @@ public class UsuariosController implements Initializable {
     private UsuarioService service;
     private ObservableList<Usuario> data = FXCollections.observableArrayList();
 
+    public void setService(UsuarioService service) {
+        this.service = service;
+    }
+
+    private UsuarioService getService() {
+        if (service == null) {
+            service = new UsuarioService();
+        }
+        return service;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        service = new UsuarioService();
-
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colDni.setCellValueFactory(new PropertyValueFactory<>("dni"));
@@ -58,7 +66,7 @@ public class UsuariosController implements Initializable {
     @FXML
     public void loadData() {
         data.clear();
-        List<Usuario> list = service.findAll();
+        List<Usuario> list = getService().findAll();
         if (list != null) {
             data.addAll(list);
         }
@@ -69,7 +77,7 @@ public class UsuariosController implements Initializable {
     public void deleteUsuario() {
         Usuario selected = usuariosTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            service.delete(selected.getId());
+            getService().delete(selected.getId());
             loadData();
         }
     }

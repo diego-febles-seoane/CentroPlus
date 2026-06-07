@@ -1,46 +1,61 @@
 package es.ies.puerto.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.when;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import es.ies.puerto.connection.SQLiteConnectionManager;
 import es.ies.puerto.modelo.Reservas;
+import es.ies.puerto.repository.IReservasRepository;
 import es.ies.puerto.service.sqlite.ReservasService;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@ExtendWith(MockitoExtension.class)
 public class ReservasServiceTest {
 
-    private static ReservasService reservasService;
+    @Mock
+    private IReservasRepository reservasRepository;
 
-    @BeforeAll
-    public static void setUp() {
-        SQLiteConnectionManager.setDatabasePath("src/main/resources/es/ies/puerto/database/centroplus-test.db");
-        reservasService = new ReservasService();
+    @InjectMocks
+    private ReservasService reservasService;
+
+    private Reservas reserva;
+
+    @BeforeEach
+    public void setUp() {
+        reserva = new Reservas(999, 1, 1, "2026-12-31", "Prueba");
     }
 
     @Test
-    @Order(1)
-    public void testFindAll() {
-        List<Reservas> reservas = reservasService.findAll();
-        assertNotNull(reservas);
-        System.out.println("Número de reservas encontradas: " + reservas.size());
+    public void constructorDefaultTest() {
+        ReservasService service = new ReservasService();
+        assertNotNull(service);
     }
 
     @Test
-    @Order(2)
-    public void testSaveFindById() {
-        Reservas reserva = new Reservas(999, 1, 1, "2026-12-31", "Prueba");
-        boolean guardado = reservasService.save(reserva);
-        assertTrue(guardado);
+    public void findAllTestOk() {
+        List<Reservas> reservas = new ArrayList<>();
+        reservas.add(reserva);
+        when(reservasRepository.findAll()).thenReturn(reservas);
+
+        List<Reservas> resultado = reservasService.findAll();
+        assertNotNull(resultado);
+        assertEquals(1, resultado.size());
+    }
+
+    @Test
+    public void findByIdTestOk() {
+        when(reservasRepository.findById(999)).thenReturn(reserva);
 
         Reservas encontrada = reservasService.findById(999);
         assertNotNull(encontrada);
@@ -48,24 +63,52 @@ public class ReservasServiceTest {
     }
 
     @Test
-    @Order(3)
-    public void testUpdate() {
-        Reservas reserva = reservasService.findById(999);
-        reserva.setEstado("Actualizada");
-        boolean actualizado = reservasService.update(reserva);
-        assertTrue(actualizado);
+    public void findByIdTestNotFound() {
+        when(reservasRepository.findById(-1)).thenReturn(null);
 
-        Reservas actualizada = reservasService.findById(999);
-        assertEquals("Actualizada", actualizada.getEstado());
+        Reservas resultado = reservasService.findById(-1);
+        assertNull(resultado);
     }
 
     @Test
-    @Order(4)
-    public void testDelete() {
+    public void saveTestOk() {
+        when(reservasRepository.save(reserva)).thenReturn(true);
+
+        boolean guardado = reservasService.save(reserva);
+        assertTrue(guardado);
+    }
+
+    @Test
+    public void saveTestNull() {
+        assertFalse(reservasService.save(null));
+    }
+
+    @Test
+    public void updateTestOk() {
+        when(reservasRepository.update(reserva)).thenReturn(true);
+
+        boolean actualizado = reservasService.update(reserva);
+        assertTrue(actualizado);
+    }
+
+    @Test
+    public void updateTestNull() {
+        assertFalse(reservasService.update(null));
+    }
+
+    @Test
+    public void deleteTestOk() {
+        when(reservasRepository.delete(999)).thenReturn(true);
+
         boolean eliminado = reservasService.delete(999);
         assertTrue(eliminado);
+    }
 
-        Reservas eliminada = reservasService.findById(999);
-        assertNull(eliminada);
+    @Test
+    public void deleteTestNotFound() {
+        when(reservasRepository.delete(-1)).thenReturn(false);
+
+        boolean eliminado = reservasService.delete(-1);
+        assertFalse(eliminado);
     }
 }

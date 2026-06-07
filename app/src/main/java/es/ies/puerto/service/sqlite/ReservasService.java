@@ -8,12 +8,16 @@ import es.ies.puerto.repository.IReservasRepository;
 import es.ies.puerto.repository.sqlite.ReservasRepository;
 import es.ies.puerto.service.IReservasService;
 
-public class ReservasService extends SQLiteConnectionManager implements IReservasService{
+public class ReservasService implements IReservasService{
 
-    private final IReservasRepository repository;
+    private IReservasRepository repository;
 
     public ReservasService(){
         this.repository = new ReservasRepository();                    
+    }
+
+    public ReservasService(IReservasRepository repository){
+        this.repository = repository;
     }
 
     @Override

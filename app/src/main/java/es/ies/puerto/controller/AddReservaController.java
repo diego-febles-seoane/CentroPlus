@@ -1,5 +1,9 @@
 package es.ies.puerto.controller;
 
+import java.net.URL;
+import java.time.format.DateTimeFormatter;
+import java.util.ResourceBundle;
+
 import es.ies.puerto.modelo.Reservas;
 import es.ies.puerto.service.sqlite.ReservasService;
 import javafx.fxml.FXML;
@@ -10,20 +14,32 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.net.URL;
-import java.time.format.DateTimeFormatter;
-import java.util.ResourceBundle;
-
 public class AddReservaController implements Initializable {
 
-    @FXML private TextField idReservaField;
-    @FXML private TextField idUsuarioField;
-    @FXML private TextField idActividadField;
-    @FXML private DatePicker fechaPicker;
-    @FXML private ComboBox<String> estadoCombo;
+    @FXML
+    private TextField idReservaField;
+    @FXML
+    private TextField idUsuarioField;
+    @FXML
+    private TextField idActividadField;
+    @FXML
+    private DatePicker fechaPicker;
+    @FXML
+    private ComboBox<String> estadoCombo;
 
-    private ReservasService service = new ReservasService();
+    private ReservasService service;
     private boolean guardado = false;
+
+    public void setService(ReservasService service) {
+        this.service = service;
+    }
+
+    private ReservasService getService() {
+        if (service == null) {
+            service = new ReservasService();
+        }
+        return service;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -45,7 +61,7 @@ public class AddReservaController implements Initializable {
             String estado = estadoCombo.getValue();
 
             Reservas reserva = new Reservas(idReserva, idUsuario, idActividad, fecha, estado);
-            if (service.save(reserva)) {
+            if (getService().save(reserva)) {
                 guardado = true;
                 cerrar();
             } else {

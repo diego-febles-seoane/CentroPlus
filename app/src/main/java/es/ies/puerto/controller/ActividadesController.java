@@ -1,26 +1,25 @@
 package es.ies.puerto.controller;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+
 import es.ies.puerto.modelo.Actividades;
 import es.ies.puerto.service.sqlite.ActividadesService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-
-import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import java.io.IOException;
 
 public class ActividadesController implements Initializable {
 
@@ -46,17 +45,26 @@ public class ActividadesController implements Initializable {
     private ActividadesService service;
     private ObservableList<Actividades> masterData = FXCollections.observableArrayList();
 
+    public void setService(ActividadesService service) {
+        this.service = service;
+    }
+
+    private ActividadesService getService() {
+        if (service == null) {
+            service = new ActividadesService();
+        }
+        return service;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        service = new ActividadesService();
-
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-            colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-            colTipo.setCellValueFactory(new PropertyValueFactory<>("tipoActividad"));
-            colDuracion.setCellValueFactory(new PropertyValueFactory<>("duracion"));
-            colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-            colMax.setCellValueFactory(new PropertyValueFactory<>("plazasMaximas"));
-            colOcupadas.setCellValueFactory(new PropertyValueFactory<>("plazasOcupadas"));
+        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colTipo.setCellValueFactory(new PropertyValueFactory<>("tipoActividad"));
+        colDuracion.setCellValueFactory(new PropertyValueFactory<>("duracion"));
+        colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        colMax.setCellValueFactory(new PropertyValueFactory<>("plazasMaximas"));
+        colOcupadas.setCellValueFactory(new PropertyValueFactory<>("plazasOcupadas"));
 
         loadData();
 
@@ -73,8 +81,8 @@ public class ActividadesController implements Initializable {
         ObservableList<Actividades> filteredList = FXCollections.observableArrayList();
         String lowerSearch = searchText.toLowerCase();
         for (Actividades actividad : masterData) {
-            if (actividad.getNombre().toLowerCase().contains(lowerSearch) ||
-                actividad.getTipoActividad().toLowerCase().contains(lowerSearch)) {
+            if (actividad.getNombre().toLowerCase().contains(lowerSearch)
+                    || actividad.getTipoActividad().toLowerCase().contains(lowerSearch)) {
                 filteredList.add(actividad);
             }
         }
@@ -84,7 +92,7 @@ public class ActividadesController implements Initializable {
     @FXML
     public void loadData() {
         masterData.clear();
-        List<Actividades> list = service.findAll();
+        List<Actividades> list = getService().findAll();
         if (list != null) {
             masterData.addAll(list);
         }
@@ -95,7 +103,7 @@ public class ActividadesController implements Initializable {
     public void deleteActividad() {
         Actividades selected = actividadesTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            service.delete(selected.getId());
+            getService().delete(selected.getId());
             loadData();
         }
     }

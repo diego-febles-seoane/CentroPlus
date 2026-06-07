@@ -1,25 +1,24 @@
 package es.ies.puerto.controller;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+
 import es.ies.puerto.modelo.Reservas;
 import es.ies.puerto.service.sqlite.ReservasService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import java.io.IOException;
 
 public class ReservasController implements Initializable {
 
@@ -39,10 +38,19 @@ public class ReservasController implements Initializable {
     private ReservasService service;
     private ObservableList<Reservas> data = FXCollections.observableArrayList();
 
+    public void setService(ReservasService service) {
+        this.service = service;
+    }
+
+    private ReservasService getService() {
+        if (service == null) {
+            service = new ReservasService();
+        }
+        return service;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        service = new ReservasService();
-
         colIdReserva.setCellValueFactory(new PropertyValueFactory<>("idReserva"));
         colIdUsuario.setCellValueFactory(new PropertyValueFactory<>("id"));
         colIdActividad.setCellValueFactory(new PropertyValueFactory<>("idActividad"));
@@ -55,7 +63,7 @@ public class ReservasController implements Initializable {
     @FXML
     public void loadData() {
         data.clear();
-        List<Reservas> list = service.findAll();
+        List<Reservas> list = getService().findAll();
         if (list != null) {
             data.addAll(list);
         }
@@ -66,7 +74,7 @@ public class ReservasController implements Initializable {
     public void cancelarReserva() {
         Reservas selected = reservasTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            service.delete(selected.getIdReserva());
+            getService().delete(selected.getIdReserva());
             loadData();
         }
     }

@@ -9,15 +9,32 @@ import javafx.stage.Stage;
 
 public class AddActividadController {
 
-    @FXML private TextField idField;
-    @FXML private TextField nombreField;
-    @FXML private TextField tipoField;
-    @FXML private TextField duracionField;
-    @FXML private TextField precioField;
-    @FXML private TextField maxField;
+    @FXML
+    private TextField idField;
+    @FXML
+    private TextField nombreField;
+    @FXML
+    private TextField tipoField;
+    @FXML
+    private TextField duracionField;
+    @FXML
+    private TextField precioField;
+    @FXML
+    private TextField maxField;
 
-    private ActividadesService service = new ActividadesService();
+    private ActividadesService service;
     private boolean guardado = false;
+
+    public void setService(ActividadesService service) {
+        this.service = service;
+    }
+
+    private ActividadesService getService() {
+        if (service == null) {
+            service = new ActividadesService();
+        }
+        return service;
+    }
 
     public boolean isGuardado() {
         return guardado;
@@ -30,11 +47,11 @@ public class AddActividadController {
             String nombre = nombreField.getText();
             String tipo = tipoField.getText();
             int duracion = Integer.parseInt(duracionField.getText());
-            int precio = Integer.parseInt(precioField.getText());
+            double precio = Double.parseDouble(precioField.getText());
             int max = Integer.parseInt(maxField.getText());
 
             Actividades actividad = new Actividades(id, nombre, tipo, duracion, precio, max, 0);
-            if (service.save(actividad)) {
+            if (getService().save(actividad)) {
                 guardado = true;
                 cerrar();
             } else {
