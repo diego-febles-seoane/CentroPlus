@@ -39,6 +39,7 @@ El alumnado desarrollará un ecosistema completo formado por:
 | Despliegue | Docker |
 | Repositorio remoto | GitHub |
 
+
 ---
 
 ## 3. Objetivo funcional

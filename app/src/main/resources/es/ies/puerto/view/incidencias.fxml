@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" xmlns:fx="http://javafx.com/fxml" fx:controller="es.ies.puerto.controller.IncidenciasController" style="-fx-padding: 20;">
+    <Label text="Gestión de Incidencias" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+    
+    <TableView fx:id="incidenciasTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colIdIncidencia" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="colIdUsuario" text="Usuario" prefWidth="70"/>
+            <TableColumn fx:id="colAsunto" text="Asunto" prefWidth="150"/>
+            <TableColumn fx:id="colDescripcion" text="Descripción" prefWidth="250"/>
+            <TableColumn fx:id="colFecha" text="Fecha" prefWidth="100"/>
+            <TableColumn fx:id="colEstado" text="Estado" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Registrar Incidencia" onAction="#nuevaIncidencia" style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+    </HBox>
+</VBox>

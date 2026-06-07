@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" xmlns:fx="http://javafx.com/fxml" fx:controller="es.ies.puerto.controller.ReservasController" style="-fx-padding: 20;">
+    <Label text="Gestión de Reservas" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+    
+    <TableView fx:id="reservasTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colIdReserva" text="ID Reserva" prefWidth="100"/>
+            <TableColumn fx:id="colIdUsuario" text="ID Usuario" prefWidth="100"/>
+            <TableColumn fx:id="colIdActividad" text="ID Actividad" prefWidth="100"/>
+            <TableColumn fx:id="colFecha" text="Fecha" prefWidth="150"/>
+            <TableColumn fx:id="colEstado" text="Estado" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Cancelar Reserva" onAction="#cancelarReserva" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+        <Button text="Nueva Reserva" onAction="#nuevaReserva" style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+    </HBox>
+</VBox>

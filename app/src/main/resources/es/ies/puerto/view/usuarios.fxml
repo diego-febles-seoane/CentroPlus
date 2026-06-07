@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" xmlns:fx="http://javafx.com/fxml" fx:controller="es.ies.puerto.controller.UsuariosController" style="-fx-padding: 20;">
+    <Label text="Gestión de Usuarios" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+    
+    <TableView fx:id="usuariosTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="colNombre" text="Nombre" prefWidth="150"/>
+            <TableColumn fx:id="colDni" text="DNI" prefWidth="100"/>
+            <TableColumn fx:id="colEmail" text="Email" prefWidth="200"/>
+            <TableColumn fx:id="colTelefono" text="Teléfono" prefWidth="100"/>
+            <TableColumn fx:id="colTipo" text="Tipo" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Eliminar Usuario" onAction="#deleteUsuario" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+        <Button text="Nuevo Usuario" onAction="#nuevoUsuario" style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+    </HBox>
+</VBox>

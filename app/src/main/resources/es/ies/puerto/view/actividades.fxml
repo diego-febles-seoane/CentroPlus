@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="10" xmlns:fx="http://javafx.com/fxml" fx:controller="es.ies.puerto.controller.ActividadesController" style="-fx-padding: 20;">
+    <Label text="Gestión de Actividades" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+    
+    <HBox spacing="10">
+        <TextField fx:id="searchField" promptText="Buscar actividad..." HBox.hgrow="ALWAYS"/>
+        <Button text="Refrescar" onAction="#loadData"/>
+    </HBox>
+
+    <TableView fx:id="actividadesTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="colNombre" text="Nombre" prefWidth="150"/>
+            <TableColumn fx:id="colTipo" text="Tipo" prefWidth="100"/>
+            <TableColumn fx:id="colDuracion" text="Duración" prefWidth="80"/>
+            <TableColumn fx:id="colPrecio" text="Precio" prefWidth="70"/>
+            <TableColumn fx:id="colMax" text="Plazas Max" prefWidth="90"/>
+            <TableColumn fx:id="colOcupadas" text="Ocupadas" prefWidth="90"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Eliminar" onAction="#deleteActividad" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+        <Button text="Nueva Actividad" onAction="#newActividad" style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+    </HBox>
+</VBox>
