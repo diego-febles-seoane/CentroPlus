@@ -46,6 +46,13 @@ public class UsuarioRepositoryTest {
     }
 
     @Test
+    public void saveTestDuplicateId() {
+        Usuario usuario = new Usuario(999, "Test Repo", "99999999R", "repo@test.com", "600000000", "Socio");
+        repository.save(usuario);
+        assertFalse(repository.save(usuario));
+    }
+
+    @Test
     public void updateTestOk() {
         Usuario usuario = new Usuario(999, "Test Repo", "99999999R", "repo@test.com", "600000000", "Socio");
         repository.save(usuario);
@@ -55,6 +62,12 @@ public class UsuarioRepositoryTest {
 
         Usuario encontrado = repository.findById(999);
         assertEquals("Nombre Modificado", encontrado.getNombre());
+    }
+
+    @Test
+    public void updateTestIdNotFound() {
+        Usuario usuario = new Usuario(-1, "Test No Existe", "99999999R", "repo@test.com", "600000000", "Socio");
+        assertFalse(repository.update(usuario));
     }
 
     @Test

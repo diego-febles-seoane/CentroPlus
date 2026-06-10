@@ -54,6 +54,13 @@ public class IncidenciasRepositoryTest {
     }
 
     @Test
+    public void saveTestDuplicateId() {
+        Incidencias incidencia = new Incidencias(999, 1, "Asunto Repo", "Desc Repo", "2026-01-01", "Abierta");
+        repository.save(incidencia);
+        assertFalse(repository.save(incidencia));
+    }
+
+    @Test
     public void updateTestOk() {
         Incidencias incidencia = new Incidencias(999, 1, "Asunto Repo", "Desc Repo", "2026-01-01", "Abierta");
         repository.save(incidencia);
@@ -63,6 +70,12 @@ public class IncidenciasRepositoryTest {
 
         Incidencias encontrada = repository.findById(999);
         assertEquals("Asunto Modificado", encontrada.getAsunto());
+    }
+
+    @Test
+    public void updateTestIdNotFound() {
+        Incidencias incidencia = new Incidencias(-1, 1, "Asunto No Existe", "Desc", "2026-01-01", "Abierta");
+        assertFalse(repository.update(incidencia));
     }
 
     @Test

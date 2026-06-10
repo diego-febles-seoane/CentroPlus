@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: es.ies.puerto.repository.sqlite.UsuarioRepositoryTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.359 s -- in es.ies.puerto.repository.sqlite.UsuarioRepositoryTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.329 s -- in es.ies.puerto.repository.sqlite.UsuarioRepositoryTest

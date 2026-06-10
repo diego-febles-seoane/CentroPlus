@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: es.ies.puerto.controller.AddUsuarioControllerTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.764 s -- in es.ies.puerto.controller.AddUsuarioControllerTest
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.741 s -- in es.ies.puerto.controller.AddUsuarioControllerTest

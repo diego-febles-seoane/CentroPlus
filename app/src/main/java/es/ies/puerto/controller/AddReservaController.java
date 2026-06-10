@@ -29,6 +29,8 @@ public class AddReservaController implements Initializable {
 
     private ReservasService service;
     private boolean guardado = false;
+    private MainController mainController;
+    private ReservasController previousController;
 
     public void setService(ReservasService service) {
         this.service = service;
@@ -39,6 +41,14 @@ public class AddReservaController implements Initializable {
             service = new ReservasService();
         }
         return service;
+    }
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
+
+    public void setPreviousController(ReservasController previousController) {
+        this.previousController = previousController;
     }
 
     @Override
@@ -78,8 +88,18 @@ public class AddReservaController implements Initializable {
     }
 
     private void cerrar() {
-        Stage stage = (Stage) idReservaField.getScene().getWindow();
-        stage.close();
+        if (mainController != null && previousController != null) {
+            mainController.showReservas();
+            if (guardado) {
+                previousController.loadData();
+            }
+        } else {
+            // Modo retrocompatibilidad: cerramos la ventana si existe
+            if (idReservaField.getScene() != null && idReservaField.getScene().getWindow() != null) {
+                Stage stage = (Stage) idReservaField.getScene().getWindow();
+                stage.close();
+            }
+        }
     }
 
     private void mostrarError(String mensaje) {

@@ -39,7 +39,7 @@ import es.ies.puerto.repository.IUsuarioRepository;
 <span class="fc" id="L39">            sentencia.setString(4, usuario.getTelefono());</span>
 <span class="fc" id="L40">            sentencia.setString(5, usuario.getTipo_usuario());</span>
 <span class="fc" id="L41">            sentencia.setInt(6, usuario.getId());</span>
-<span class="pc bpc" id="L42" title="1 of 2 branches missed.">            return sentencia.executeUpdate() &gt; 0;</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">            return sentencia.executeUpdate() &gt; 0;</span>
 <span class="fc" id="L43">        } catch (Exception e) {</span>
 <span class="fc" id="L44">            System.err.println(&quot;Error actualizando usuario: &quot; + e.getMessage());</span>
 <span class="fc" id="L45">            return false;</span>
@@ -60,9 +60,9 @@ import es.ies.puerto.repository.IUsuarioRepository;
 <span class="fc" id="L60">                String tipoUsuario = resultado.getString(&quot;tipo_usuario&quot;);</span>
 <span class="fc" id="L61">                return new Usuario(id, nombre, dni, email, telefono, tipoUsuario);</span>
             }
-<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        } catch (Exception e) {</span>
+<span class="pc bpc" id="L63" title="2 of 4 branches missed.">        } catch (Exception e) {</span>
 <span class="fc" id="L64">            System.err.println(&quot;Error buscando usuario por ID: &quot; + e.getMessage());</span>
-        }
+<span class="fc" id="L65">        }</span>
 <span class="fc" id="L66">        return null;</span>
     }
 
@@ -80,10 +80,10 @@ import es.ies.puerto.repository.IUsuarioRepository;
 <span class="fc" id="L80">                String telefono = resultado.getString(&quot;telefono&quot;);</span>
 <span class="fc" id="L81">                String tipoUsuario = resultado.getString(&quot;tipo_usuario&quot;);</span>
 <span class="fc" id="L82">                usuarios.add(new Usuario(id, nombre, dni, email, telefono, tipoUsuario));</span>
-            }
+<span class="fc" id="L83">            }</span>
 <span class="fc" id="L84">        } catch (Exception e) {</span>
 <span class="fc" id="L85">            System.err.println(&quot;Error buscando todos los usuarios: &quot; + e.getMessage());</span>
-        }
+<span class="fc" id="L86">        }</span>
 <span class="fc" id="L87">        return usuarios;</span>
     }
 

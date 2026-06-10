@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: es.ies.puerto.repository.ActividadRepositoryTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.717 s -- in es.ies.puerto.repository.ActividadRepositoryTest

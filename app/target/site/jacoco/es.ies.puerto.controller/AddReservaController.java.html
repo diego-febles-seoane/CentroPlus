@@ -29,63 +29,83 @@ import javafx.stage.Stage;
 
     private ReservasService service;
 <span class="fc" id="L31">    private boolean guardado = false;</span>
+    private MainController mainController;
+    private ReservasController previousController;
 
     public void setService(ReservasService service) {
-<span class="fc" id="L34">        this.service = service;</span>
-<span class="fc" id="L35">    }</span>
+<span class="fc" id="L36">        this.service = service;</span>
+<span class="fc" id="L37">    }</span>
 
     private ReservasService getService() {
-<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        if (service == null) {</span>
-<span class="nc" id="L39">            service = new ReservasService();</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (service == null) {</span>
+<span class="fc" id="L41">            service = new ReservasService();</span>
         }
-<span class="fc" id="L41">        return service;</span>
+<span class="fc" id="L43">        return service;</span>
     }
+
+    public void setMainController(MainController mainController) {
+<span class="fc" id="L47">        this.mainController = mainController;</span>
+<span class="fc" id="L48">    }</span>
+
+    public void setPreviousController(ReservasController previousController) {
+<span class="fc" id="L51">        this.previousController = previousController;</span>
+<span class="fc" id="L52">    }</span>
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-<span class="fc" id="L46">        estadoCombo.getItems().addAll(&quot;PENDIENTE&quot;, &quot;CONFIRMADA&quot;, &quot;CANCELADA&quot;);</span>
-<span class="fc" id="L47">        estadoCombo.getSelectionModel().selectFirst();</span>
-<span class="fc" id="L48">    }</span>
+<span class="fc" id="L56">        estadoCombo.getItems().addAll(&quot;PENDIENTE&quot;, &quot;CONFIRMADA&quot;, &quot;CANCELADA&quot;);</span>
+<span class="fc" id="L57">        estadoCombo.getSelectionModel().selectFirst();</span>
+<span class="fc" id="L58">    }</span>
 
     public boolean isGuardado() {
-<span class="fc" id="L51">        return guardado;</span>
+<span class="fc" id="L61">        return guardado;</span>
     }
 
     @FXML
     public void guardar() {
         try {
-<span class="fc" id="L57">            int idReserva = Integer.parseInt(idReservaField.getText());</span>
-<span class="fc" id="L58">            int idUsuario = Integer.parseInt(idUsuarioField.getText());</span>
-<span class="fc" id="L59">            int idActividad = Integer.parseInt(idActividadField.getText());</span>
-<span class="pc bpc" id="L60" title="1 of 2 branches missed.">            String fecha = fechaPicker.getValue() != null ? fechaPicker.getValue().format(DateTimeFormatter.ISO_DATE) : &quot;&quot;;</span>
-<span class="fc" id="L61">            String estado = estadoCombo.getValue();</span>
+<span class="fc" id="L67">            int idReserva = Integer.parseInt(idReservaField.getText());</span>
+<span class="fc" id="L68">            int idUsuario = Integer.parseInt(idUsuarioField.getText());</span>
+<span class="fc" id="L69">            int idActividad = Integer.parseInt(idActividadField.getText());</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">            String fecha = fechaPicker.getValue() != null ? fechaPicker.getValue().format(DateTimeFormatter.ISO_DATE) : &quot;&quot;;</span>
+<span class="fc" id="L71">            String estado = estadoCombo.getValue();</span>
 
-<span class="fc" id="L63">            Reservas reserva = new Reservas(idReserva, idUsuario, idActividad, fecha, estado);</span>
-<span class="fc bfc" id="L64" title="All 2 branches covered.">            if (getService().save(reserva)) {</span>
-<span class="fc" id="L65">                guardado = true;</span>
-<span class="fc" id="L66">                cerrar();</span>
-<span class="fc" id="L67">            } else {</span>
-<span class="fc" id="L68">                mostrarError(&quot;No se pudo guardar la reserva. Asegúrate de que el usuario y la actividad existan.&quot;);</span>
+<span class="fc" id="L73">            Reservas reserva = new Reservas(idReserva, idUsuario, idActividad, fecha, estado);</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">            if (getService().save(reserva)) {</span>
+<span class="fc" id="L75">                guardado = true;</span>
+<span class="fc" id="L76">                cerrar();</span>
+            } else {
+<span class="fc" id="L78">                mostrarError(&quot;No se pudo guardar la reserva. Asegúrate de que el usuario y la actividad existan.&quot;);</span>
             }
-<span class="fc" id="L70">        } catch (NumberFormatException e) {</span>
-<span class="fc" id="L71">            mostrarError(&quot;Los campos de ID deben ser números.&quot;);</span>
-        }
-<span class="fc" id="L73">    }</span>
+<span class="fc" id="L80">        } catch (NumberFormatException e) {</span>
+<span class="fc" id="L81">            mostrarError(&quot;Los campos de ID deben ser números.&quot;);</span>
+<span class="fc" id="L82">        }</span>
+<span class="fc" id="L83">    }</span>
 
     @FXML
     public void cancelar() {
-<span class="fc" id="L77">        cerrar();</span>
-<span class="fc" id="L78">    }</span>
+<span class="fc" id="L87">        cerrar();</span>
+<span class="fc" id="L88">    }</span>
 
     private void cerrar() {
-<span class="fc" id="L81">        Stage stage = (Stage) idReservaField.getScene().getWindow();</span>
-<span class="fc" id="L82">        stage.close();</span>
-<span class="fc" id="L83">    }</span>
+<span class="pc bpc" id="L91" title="1 of 4 branches missed.">        if (mainController != null &amp;&amp; previousController != null) {</span>
+<span class="fc" id="L92">            mainController.showReservas();</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">            if (guardado) {</span>
+<span class="fc" id="L94">                previousController.loadData();</span>
+            }
+        } else {
+            // Modo retrocompatibilidad: cerramos la ventana si existe
+<span class="pc bpc" id="L98" title="2 of 4 branches missed.">            if (idReservaField.getScene() != null &amp;&amp; idReservaField.getScene().getWindow() != null) {</span>
+<span class="fc" id="L99">                Stage stage = (Stage) idReservaField.getScene().getWindow();</span>
+<span class="fc" id="L100">                stage.close();</span>
+            }
+        }
+<span class="fc" id="L103">    }</span>
 
     private void mostrarError(String mensaje) {
-<span class="fc" id="L86">        Alert alert = new Alert(Alert.AlertType.ERROR);</span>
-<span class="fc" id="L87">        alert.setContentText(mensaje);</span>
-<span class="fc" id="L88">        alert.showAndWait();</span>
-<span class="fc" id="L89">    }</span>
+<span class="fc" id="L106">        Alert alert = new Alert(Alert.AlertType.ERROR);</span>
+<span class="fc" id="L107">        alert.setContentText(mensaje);</span>
+<span class="fc" id="L108">        alert.showAndWait();</span>
+<span class="fc" id="L109">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

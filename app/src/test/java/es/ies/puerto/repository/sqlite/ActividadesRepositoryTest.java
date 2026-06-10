@@ -46,6 +46,13 @@ public class ActividadesRepositoryTest {
     }
 
     @Test
+    public void saveTestDuplicateId() {
+        Actividades actividad = new Actividades(999, "Actividad Repo", "Deporte", 60, 10.0, 20, 0);
+        repository.save(actividad);
+        assertFalse(repository.save(actividad));
+    }
+
+    @Test
     public void updateTestOk() {
         Actividades actividad = new Actividades(999, "Actividad Repo", "Deporte", 60, 10.0, 20, 0);
         repository.save(actividad);
@@ -55,6 +62,12 @@ public class ActividadesRepositoryTest {
 
         Actividades encontrada = repository.findById(999);
         assertEquals("Nombre Modificado", encontrada.getNombre());
+    }
+
+    @Test
+    public void updateTestIdNotFound() {
+        Actividades actividad = new Actividades(-1, "Actividad No Existe", "Deporte", 60, 10.0, 20, 0);
+        assertFalse(repository.update(actividad));
     }
 
     @Test

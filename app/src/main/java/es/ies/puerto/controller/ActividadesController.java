@@ -44,6 +44,7 @@ public class ActividadesController implements Initializable {
 
     private ActividadesService service;
     private ObservableList<Actividades> masterData = FXCollections.observableArrayList();
+    private MainController mainController;
 
     public void setService(ActividadesService service) {
         this.service = service;
@@ -54,6 +55,10 @@ public class ActividadesController implements Initializable {
             service = new ActividadesService();
         }
         return service;
+    }
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
     }
 
     @Override
@@ -110,23 +115,54 @@ public class ActividadesController implements Initializable {
 
     @FXML
     public void newActividad() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/es/ies/puerto/view/add_actividad.fxml"));
-            Parent root = loader.load();
-
-            AddActividadController controller = loader.getController();
-
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Añadir Actividad");
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
-
-            if (controller.isGuardado()) {
-                loadData();
+        if (mainController != null) {
+            // Cuando pasamos al formulario, cargamos el formulario y luego
+            // el controlador del formulario se encargará de volver aquí
+            // Pero primero, pasamos la referencia de este controlador al formulario
+            // Para ello, tenemos que usar loadView con un FXMLLoader personalizado
+            try {
+                URL url = getClass().getResource("/es/ies/puerto/view/add_actividad.fxml");
+                FXMLLoader loader = new FXMLLoader(url);
+                Parent view = loader.load();
+                
+                AddActividadController addController = loader.getController();
+                addController.setMainController(mainController);
+                addController.setPreviousController(this);
+                
+                // Cargamos la vista en el MainController
+                mainController.setContent(view);
+                
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } else {
+            // Modo retrocompatibilidad: abrimos ventana modal SOLO si no es headless
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/es/ies/puerto/view/add_actividad.fxml"));
+                Parent root = loader.load();
+
+                AddActividadController controller = loader.getController();
+
+                boolean isHeadless = Boolean.getBoolean("java.awt.headless") || 
+                                     java.awt.GraphicsEnvironment.isHeadless();
+                if (!isHeadless) {
+                    try {
+                        Stage stage = new Stage();
+                        stage.initModality(Modality.APPLICATION_MODAL);
+                        stage.setTitle("Añadir Actividad");
+                        stage.setScene(new Scene(root));
+                        stage.showAndWait();
+                    } catch (Exception e) {
+                        // No se puede mostrar la ventana, pero seguimos comprobando guardado
+                    }
+                }
+
+                if (controller.isGuardado()) {
+                    loadData();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

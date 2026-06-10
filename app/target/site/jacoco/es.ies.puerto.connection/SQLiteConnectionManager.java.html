@@ -13,37 +13,42 @@ import java.nio.file.StandardCopyOption;
     private static String jdbcUrl;
 
     static {
+<span class="fc" id="L16">        initialize(null, null);</span>
+<span class="fc" id="L17">    }</span>
+
+    static void initialize(String testUserHome, InputStream testResourceStream) {
         try {
-<span class="fc" id="L17">            Path userHome = Paths.get(System.getProperty(&quot;user.home&quot;));</span>
-<span class="fc" id="L18">            Path appDir = userHome.resolve(&quot;.centroplus&quot;);</span>
-<span class="fc" id="L19">            Files.createDirectories(appDir);</span>
-<span class="fc" id="L20">            Path dbFile = appDir.resolve(&quot;centroplus.db&quot;);</span>
+<span class="fc bfc" id="L21" title="All 2 branches covered.">            String userHomeProp = (testUserHome != null) ? testUserHome : System.getProperty(&quot;user.home&quot;);</span>
+<span class="fc" id="L22">            Path userHome = Paths.get(userHomeProp);</span>
+<span class="fc" id="L23">            Path appDir = userHome.resolve(&quot;.centroplus&quot;);</span>
+<span class="fc" id="L24">            Files.createDirectories(appDir);</span>
+<span class="fc" id="L25">            Path dbFile = appDir.resolve(&quot;centroplus.db&quot;);</span>
             
-<span class="fc bfc" id="L22" title="All 2 branches covered.">            if (!Files.exists(dbFile)) {</span>
-<span class="fc" id="L23">                InputStream resourceStream = SQLiteConnectionManager.class.getResourceAsStream(&quot;/es/ies/puerto/database/centroplus.db&quot;);</span>
-<span class="pc bpc" id="L24" title="1 of 2 branches missed.">                if (resourceStream != null) {</span>
-<span class="fc" id="L25">                    Files.copy(resourceStream, dbFile, StandardCopyOption.REPLACE_EXISTING);</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">            if (!Files.exists(dbFile)) {</span>
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">                InputStream resourceStream = (testResourceStream != null) ? testResourceStream : SQLiteConnectionManager.class.getResourceAsStream(&quot;/es/ies/puerto/database/centroplus.db&quot;);</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">                if (resourceStream != null) {</span>
+<span class="fc" id="L30">                    Files.copy(resourceStream, dbFile, StandardCopyOption.REPLACE_EXISTING);</span>
                 }
             }
             
-<span class="fc" id="L29">            jdbcUrl = &quot;jdbc:sqlite:&quot; + dbFile.toAbsolutePath();</span>
-<span class="fc" id="L30">        } catch (Exception e) {</span>
-<span class="fc" id="L31">            System.err.println(&quot;Error inicializando la base de datos: &quot; + e.getMessage());</span>
-<span class="fc" id="L32">            e.printStackTrace();</span>
-<span class="fc" id="L33">            jdbcUrl = &quot;jdbc:sqlite:centroplus.db&quot;;</span>
-        }
-<span class="fc" id="L35">    }</span>
+<span class="fc" id="L34">            jdbcUrl = &quot;jdbc:sqlite:&quot; + dbFile.toAbsolutePath();</span>
+<span class="fc" id="L35">        } catch (Exception e) {</span>
+<span class="fc" id="L36">            System.err.println(&quot;Error inicializando la base de datos: &quot; + e.getMessage());</span>
+<span class="fc" id="L37">            e.printStackTrace();</span>
+<span class="fc" id="L38">            jdbcUrl = &quot;jdbc:sqlite:centroplus.db&quot;;</span>
+<span class="fc" id="L39">        }</span>
+<span class="fc" id="L40">    }</span>
 
     public static Connection getConnection() throws SQLException { 
-<span class="fc" id="L38">        return DriverManager.getConnection(jdbcUrl); </span>
+<span class="fc" id="L43">        return DriverManager.getConnection(jdbcUrl); </span>
     }
 
     public static void setJdbcUrl(String url) { 
-<span class="fc" id="L42">        jdbcUrl = url; </span>
-<span class="fc" id="L43">    }</span>
+<span class="fc" id="L47">        jdbcUrl = url; </span>
+<span class="fc" id="L48">    }</span>
 
     public static void setDatabasePath(String testDb) {
-<span class="fc" id="L46">        jdbcUrl = &quot;jdbc:sqlite:&quot; + testDb;</span>
-<span class="fc" id="L47">    }</span>
+<span class="fc" id="L51">        jdbcUrl = &quot;jdbc:sqlite:&quot; + testDb;</span>
+<span class="fc" id="L52">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

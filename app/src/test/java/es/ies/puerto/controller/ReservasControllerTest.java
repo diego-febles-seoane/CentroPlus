@@ -154,32 +154,70 @@ public class ReservasControllerTest extends ApplicationTest {
     }
 
     @Test
+    public void nuevaReservaWithMainControllerTest() throws Exception {
+        MainController mockMainController = org.mockito.Mockito.mock(MainController.class);
+        AddReservaController mockAddController = org.mockito.Mockito.mock(AddReservaController.class);
+        when(mockAddController.isGuardado()).thenReturn(true);
+
+        // Set the main controller
+        setPrivateField(controller, "mainController", mockMainController);
+
+        interact(() -> {
+            try (MockedConstruction<FXMLLoader> mocked = mockConstruction(FXMLLoader.class,
+                    (mock, context) -> {
+                        when(mock.getController()).thenReturn(mockAddController);
+                        when(mock.load()).thenReturn(new javafx.scene.layout.Pane());
+                    })) {
+                controller.nuevaReserva();
+                verify(mockMainController).setContent(any());
+                verify(mockAddController).setMainController(mockMainController);
+                verify(mockAddController).setPreviousController(controller);
+            }
+        });
+    }
+
+    @Test
     public void nuevaReservaSuccessTest() throws Exception {
         AddReservaController mockAddController = org.mockito.Mockito.mock(AddReservaController.class);
         when(mockAddController.isGuardado()).thenReturn(true);
 
-        try (MockedConstruction<FXMLLoader> mocked = mockConstruction(FXMLLoader.class,
-                (mock, context) -> {
-                    when(mock.getController()).thenReturn(mockAddController);
-                    when(mock.load()).thenReturn(new javafx.scene.layout.Pane());
-                })) {
-            interact(() -> {
+        interact(() -> {
+            try (MockedConstruction<FXMLLoader> mocked = mockConstruction(FXMLLoader.class,
+                    (mock, context) -> {
+                        when(mock.getController()).thenReturn(mockAddController);
+                        when(mock.load()).thenReturn(new javafx.scene.layout.Pane());
+                    })) {
                 controller.nuevaReserva();
                 verify(service, atLeastOnce()).findAll();
-            });
-        }
+            }
+        });
     }
 
     @Test
     public void nuevaReservaIOExceptionTest() throws Exception {
-        try (MockedConstruction<FXMLLoader> mocked = mockConstruction(FXMLLoader.class,
-                (mock, context) -> {
-                    when(mock.load()).thenThrow(new IOException("Test Error"));
-                })) {
-            interact(() -> {
+        interact(() -> {
+            try (MockedConstruction<FXMLLoader> mocked = mockConstruction(FXMLLoader.class,
+                    (mock, context) -> {
+                        when(mock.load()).thenThrow(new IOException("Test Error"));
+                    })) {
                 controller.nuevaReserva();
-            });
-        }
+            }
+        });
+    }
+
+    @Test
+    public void nuevaReservaWithMainControllerIOExceptionTest() throws Exception {
+        MainController mockMainController = org.mockito.Mockito.mock(MainController.class);
+        setPrivateField(controller, "mainController", mockMainController);
+        
+        interact(() -> {
+            try (MockedConstruction<FXMLLoader> mocked = mockConstruction(FXMLLoader.class,
+                    (mock, context) -> {
+                        when(mock.load()).thenThrow(new IOException("Test Error"));
+                    })) {
+                controller.nuevaReserva();
+            }
+        });
     }
 
     @Test
@@ -197,5 +235,34 @@ public class ReservasControllerTest extends ApplicationTest {
             controller.loadData();
             assertTrue(data.isEmpty());
         });
+    }
+
+    @Test
+    public void nuevaReservaHeadlessFalseTest() throws Exception {
+        AddReservaController mockAddController = org.mockito.Mockito.mock(AddReservaController.class);
+        when(mockAddController.isGuardado()).thenReturn(false);
+        
+        // Set java.awt.headless temporarily to false
+        String originalHeadless = System.getProperty("java.awt.headless");
+        System.setProperty("java.awt.headless", "false");
+        
+        try {
+            interact(() -> {
+                try (MockedConstruction<FXMLLoader> mocked = mockConstruction(FXMLLoader.class,
+                        (mock, context) -> {
+                            when(mock.getController()).thenReturn(mockAddController);
+                            when(mock.load()).thenReturn(new javafx.scene.layout.Pane());
+                        })) {
+                    controller.nuevaReserva();
+                }
+            });
+        } finally {
+            // Restore original headless setting
+            if (originalHeadless != null) {
+                System.setProperty("java.awt.headless", originalHeadless);
+            } else {
+                System.clearProperty("java.awt.headless");
+            }
+        }
     }
 }

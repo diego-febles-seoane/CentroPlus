@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: es.ies.puerto.repository.sqlite.ReservasRepositoryTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.481 s -- in es.ies.puerto.repository.sqlite.ReservasRepositoryTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.310 s -- in es.ies.puerto.repository.sqlite.ReservasRepositoryTest

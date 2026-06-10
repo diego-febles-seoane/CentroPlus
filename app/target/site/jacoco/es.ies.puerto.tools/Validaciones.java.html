@@ -2,7 +2,7 @@
 
 import java.util.regex.Pattern;
 
-<span class="nc" id="L5">public class Validaciones {</span>
+<span class="fc" id="L5">public class Validaciones {</span>
 
     public static boolean esNombreValido(String nombre) {
 <span class="fc bfc" id="L8" title="All 4 branches covered.">        if (nombre == null || nombre.isBlank()) {</span>
@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
     }
 
     public static boolean esTelefonoValido(String telefono) {
-<span class="pc bpc" id="L24" title="1 of 4 branches missed.">        if (telefono == null || telefono.isBlank()) {</span>
+<span class="fc bfc" id="L24" title="All 4 branches covered.">        if (telefono == null || telefono.isBlank()) {</span>
 <span class="fc" id="L25">            return false;</span>
         }
 <span class="fc" id="L27">        String regex = &quot;^[0-9]{9}$&quot;;</span>
@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
     }
 
     public static boolean esDniValido(String dni) {
-<span class="pc bpc" id="L32" title="1 of 4 branches missed.">        if (dni == null || dni.isBlank()) {</span>
+<span class="fc bfc" id="L32" title="All 4 branches covered.">        if (dni == null || dni.isBlank()) {</span>
 <span class="fc" id="L33">            return false;</span>
         }
 <span class="fc" id="L35">        String regex = &quot;^[0-9]{8}[A-Z]$&quot;;</span>

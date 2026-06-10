@@ -24,6 +24,8 @@ public class AddActividadController {
 
     private ActividadesService service;
     private boolean guardado = false;
+    private MainController mainController;
+    private ActividadesController previousController;
 
     public void setService(ActividadesService service) {
         this.service = service;
@@ -38,6 +40,14 @@ public class AddActividadController {
 
     public boolean isGuardado() {
         return guardado;
+    }
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
+
+    public void setPreviousController(ActividadesController previousController) {
+        this.previousController = previousController;
     }
 
     @FXML
@@ -68,8 +78,20 @@ public class AddActividadController {
     }
 
     private void cerrar() {
-        Stage stage = (Stage) idField.getScene().getWindow();
-        stage.close();
+        if (mainController != null && previousController != null) {
+            // Volvemos a la vista anterior
+            mainController.showActividades();
+            // Recargamos los datos si se guardó
+            if (guardado) {
+                previousController.loadData();
+            }
+        } else {
+            // Modo retrocompatibilidad: cerramos la ventana si existe
+            if (idField.getScene() != null && idField.getScene().getWindow() != null) {
+                Stage stage = (Stage) idField.getScene().getWindow();
+                stage.close();
+            }
+        }
     }
 
     private void mostrarError(String mensaje) {

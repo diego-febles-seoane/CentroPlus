@@ -1,4 +1,17 @@
 -------------------------------------------------------------------------------
 Test set: es.ies.puerto.connection.SQLiteConnectionManagerTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.245 s -- in es.ies.puerto.connection.SQLiteConnectionManagerTest
+Tests run: 9, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.601 s <<< FAILURE! -- in es.ies.puerto.connection.SQLiteConnectionManagerTest
+es.ies.puerto.connection.SQLiteConnectionManagerTest.initializeWithExistingDatabaseTest -- Time elapsed: 0.012 s <<< ERROR!
+java.nio.file.AccessDeniedException: C:\Users\diego\.centroplus\centroplus.db
+	at java.base/sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:89)
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103)
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:108)
+	at java.base/sun.nio.fs.WindowsFileSystemProvider.newByteChannel(WindowsFileSystemProvider.java:236)
+	at java.base/java.nio.file.Files.newByteChannel(Files.java:380)
+	at java.base/java.nio.file.Files.createFile(Files.java:658)
+	at es.ies.puerto.connection.SQLiteConnectionManagerTest.initializeWithExistingDatabaseTest(SQLiteConnectionManagerTest.java:80)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+

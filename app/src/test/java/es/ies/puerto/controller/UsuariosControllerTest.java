@@ -169,32 +169,70 @@ public class UsuariosControllerTest extends ApplicationTest {
     }
 
     @Test
+    public void nuevoUsuarioWithMainControllerTest() throws Exception {
+        MainController mockMainController = org.mockito.Mockito.mock(MainController.class);
+        AddUsuarioController mockAddController = org.mockito.Mockito.mock(AddUsuarioController.class);
+        when(mockAddController.isGuardado()).thenReturn(true);
+
+        // Set the main controller
+        setPrivateField(controller, "mainController", mockMainController);
+
+        interact(() -> {
+            try (MockedConstruction<FXMLLoader> mocked = mockConstruction(FXMLLoader.class,
+                    (mock, context) -> {
+                        when(mock.getController()).thenReturn(mockAddController);
+                        when(mock.load()).thenReturn(new javafx.scene.layout.Pane());
+                    })) {
+                controller.nuevoUsuario();
+                verify(mockMainController).setContent(any());
+                verify(mockAddController).setMainController(mockMainController);
+                verify(mockAddController).setPreviousController(controller);
+            }
+        });
+    }
+
+    @Test
     public void nuevoUsuarioSuccessTest() throws Exception {
         AddUsuarioController mockAddController = org.mockito.Mockito.mock(AddUsuarioController.class);
         when(mockAddController.isGuardado()).thenReturn(true);
 
-        try (MockedConstruction<FXMLLoader> mocked = mockConstruction(FXMLLoader.class,
-                (mock, context) -> {
-                    when(mock.getController()).thenReturn(mockAddController);
-                    when(mock.load()).thenReturn(new javafx.scene.layout.Pane());
-                })) {
-            interact(() -> {
+        interact(() -> {
+            try (MockedConstruction<FXMLLoader> mocked = mockConstruction(FXMLLoader.class,
+                    (mock, context) -> {
+                        when(mock.getController()).thenReturn(mockAddController);
+                        when(mock.load()).thenReturn(new javafx.scene.layout.Pane());
+                    })) {
                 controller.nuevoUsuario();
                 verify(service, atLeastOnce()).findAll();
-            });
-        }
+            }
+        });
     }
 
     @Test
     public void nuevoUsuarioIOExceptionTest() throws Exception {
-        try (MockedConstruction<FXMLLoader> mocked = mockConstruction(FXMLLoader.class,
-                (mock, context) -> {
-                    when(mock.load()).thenThrow(new IOException("Test Error"));
-                })) {
-            interact(() -> {
+        interact(() -> {
+            try (MockedConstruction<FXMLLoader> mocked = mockConstruction(FXMLLoader.class,
+                    (mock, context) -> {
+                        when(mock.load()).thenThrow(new IOException("Test Error"));
+                    })) {
                 controller.nuevoUsuario();
-            });
-        }
+            }
+        });
+    }
+
+    @Test
+    public void nuevoUsuarioWithMainControllerIOExceptionTest() throws Exception {
+        MainController mockMainController = org.mockito.Mockito.mock(MainController.class);
+        setPrivateField(controller, "mainController", mockMainController);
+        
+        interact(() -> {
+            try (MockedConstruction<FXMLLoader> mocked = mockConstruction(FXMLLoader.class,
+                    (mock, context) -> {
+                        when(mock.load()).thenThrow(new IOException("Test Error"));
+                    })) {
+                controller.nuevoUsuario();
+            }
+        });
     }
 
     @Test
@@ -204,5 +242,34 @@ public class UsuariosControllerTest extends ApplicationTest {
             controller.loadData();
             assertTrue(data.isEmpty());
         });
+    }
+
+    @Test
+    public void nuevoUsuarioHeadlessFalseTest() throws Exception {
+        AddUsuarioController mockAddController = org.mockito.Mockito.mock(AddUsuarioController.class);
+        when(mockAddController.isGuardado()).thenReturn(false);
+        
+        // Set java.awt.headless temporarily to false
+        String originalHeadless = System.getProperty("java.awt.headless");
+        System.setProperty("java.awt.headless", "false");
+        
+        try {
+            interact(() -> {
+                try (MockedConstruction<FXMLLoader> mocked = mockConstruction(FXMLLoader.class,
+                        (mock, context) -> {
+                            when(mock.getController()).thenReturn(mockAddController);
+                            when(mock.load()).thenReturn(new javafx.scene.layout.Pane());
+                        })) {
+                    controller.nuevoUsuario();
+                }
+            });
+        } finally {
+            // Restore original headless setting
+            if (originalHeadless != null) {
+                System.setProperty("java.awt.headless", originalHeadless);
+            } else {
+                System.clearProperty("java.awt.headless");
+            }
+        }
     }
 }

@@ -3,22 +3,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" xmlns:fx="http://javafx.com/fxml" fx:controller="es.ies.puerto.controller.UsuariosController" style="-fx-padding: 20;">
-    <Label text="Gestión de Usuarios" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+<VBox spacing="20" xmlns:fx="http://javafx.com/fxml" fx:controller="es.ies.puerto.controller.UsuariosController" style="-fx-padding: 25; -fx-background-color: #f8fafc;">
+    <VBox spacing="5">
+        <Label text="Usuarios" style="-fx-font-size: 26; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+        <Label text="Gestión de todos los usuarios del sistema" style="-fx-font-size: 14; -fx-text-fill: #64748b;"/>
+    </VBox>
     
-    <TableView fx:id="usuariosTable" VBox.vgrow="ALWAYS">
+    <TableView fx:id="usuariosTable" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 3, 3);">
         <columns>
-            <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
-            <TableColumn fx:id="colNombre" text="Nombre" prefWidth="150"/>
-            <TableColumn fx:id="colDni" text="DNI" prefWidth="100"/>
-            <TableColumn fx:id="colEmail" text="Email" prefWidth="200"/>
-            <TableColumn fx:id="colTelefono" text="Teléfono" prefWidth="100"/>
-            <TableColumn fx:id="colTipo" text="Tipo" prefWidth="100"/>
+            <TableColumn fx:id="colId" text="ID" prefWidth="70"/>
+            <TableColumn fx:id="colNombre" text="Nombre" prefWidth="180"/>
+            <TableColumn fx:id="colDni" text="DNI" prefWidth="120"/>
+            <TableColumn fx:id="colEmail" text="Email" prefWidth="240"/>
+            <TableColumn fx:id="colTelefono" text="Teléfono" prefWidth="130"/>
+            <TableColumn fx:id="colTipo" text="Tipo" prefWidth="120"/>
         </columns>
     </TableView>
 
-    <HBox spacing="10" alignment="CENTER_RIGHT">
-        <Button text="Eliminar Usuario" onAction="#deleteUsuario" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
-        <Button text="Nuevo Usuario" onAction="#nuevoUsuario" style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+    <HBox spacing="12" alignment="CENTER_RIGHT">
+        <Button text="🗑️ Eliminar" onAction="#deleteUsuario" style="-fx-background-color: #ef4444; -fx-text-fill: white; -fx-font-size: 13; -fx-font-weight: bold; -fx-padding: 10 22; -fx-background-radius: 8; -fx-cursor: hand;"/>
+        <Button text="➕ Nuevo Usuario" onAction="#nuevoUsuario" style="-fx-background-color: #10b981; -fx-text-fill: white; -fx-font-size: 13; -fx-font-weight: bold; -fx-padding: 10 22; -fx-background-radius: 8; -fx-cursor: hand;"/>
     </HBox>
 </VBox>

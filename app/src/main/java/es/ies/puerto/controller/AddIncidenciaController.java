@@ -30,6 +30,8 @@ public class AddIncidenciaController implements Initializable {
 
     private IncidenciasService service;
     private boolean guardado = false;
+    private MainController mainController;
+    private IncidenciasController previousController;
 
     public void setService(IncidenciasService service) {
         this.service = service;
@@ -40,6 +42,14 @@ public class AddIncidenciaController implements Initializable {
             service = new IncidenciasService();
         }
         return service;
+    }
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
+
+    public void setPreviousController(IncidenciasController previousController) {
+        this.previousController = previousController;
     }
 
     @Override
@@ -80,8 +90,18 @@ public class AddIncidenciaController implements Initializable {
     }
 
     private void cerrar() {
-        Stage stage = (Stage) idIncidenciaField.getScene().getWindow();
-        stage.close();
+        if (mainController != null && previousController != null) {
+            mainController.showIncidencias();
+            if (guardado) {
+                previousController.loadData();
+            }
+        } else {
+            // Modo retrocompatibilidad: cerramos la ventana si existe
+            if (idIncidenciaField.getScene() != null && idIncidenciaField.getScene().getWindow() != null) {
+                Stage stage = (Stage) idIncidenciaField.getScene().getWindow();
+                stage.close();
+            }
+        }
     }
 
     private void mostrarError(String mensaje) {

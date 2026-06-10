@@ -3,63 +3,118 @@
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.net.URL;
 
-<span class="fc" id="L12">public class MainController {</span>
+<span class="fc" id="L11">public class MainController {</span>
 
     @FXML
     private StackPane contentArea;
-    @FXML
-    private Label statusLabel;
+    
+    private Parent welcomeView;
+
+    // Método para establecer el contenido directamente
+    public void setContent(Parent view) {
+<span class="fc bfc" id="L20" title="All 2 branches covered.">        if (contentArea != null) {</span>
+<span class="fc" id="L21">            contentArea.getChildren().setAll(view);</span>
+        }
+<span class="fc" id="L23">    }</span>
 
     @FXML
+    public void initialize() {
+<span class="fc" id="L27">        loadWelcomeView();</span>
+<span class="fc" id="L28">    }</span>
+
+    // Para testear, hacemos este método package-private
+    void loadWelcomeView() {
+        try {
+<span class="fc" id="L33">            URL url = getClass().getResource(&quot;/es/ies/puerto/view/welcome.fxml&quot;);</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">            if (url != null) {</span>
+<span class="fc" id="L35">                FXMLLoader loader = new FXMLLoader(url);</span>
+<span class="fc" id="L36">                loader.setController(this);</span>
+<span class="fc" id="L37">                welcomeView = loader.load();</span>
+                
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">                if (contentArea != null) {</span>
+<span class="fc" id="L40">                    contentArea.getChildren().setAll(welcomeView);</span>
+                }
+            }
+<span class="fc" id="L43">        } catch (IOException e) {</span>
+<span class="fc" id="L44">            e.printStackTrace();</span>
+<span class="fc" id="L45">        }</span>
+<span class="fc" id="L46">    }</span>
+
+    // Métodos para navegar a las listas principales
+    @FXML
     public void showActividades() {
-<span class="fc" id="L21">        loadView(&quot;/es/ies/puerto/view/actividades.fxml&quot;);</span>
-<span class="fc" id="L22">    }</span>
+<span class="fc" id="L51">        loadView(&quot;/es/ies/puerto/view/actividades.fxml&quot;);</span>
+<span class="fc" id="L52">    }</span>
 
     @FXML
     public void showReservas() {
-<span class="fc" id="L26">        loadView(&quot;/es/ies/puerto/view/reservas.fxml&quot;);</span>
-<span class="fc" id="L27">    }</span>
+<span class="fc" id="L56">        loadView(&quot;/es/ies/puerto/view/reservas.fxml&quot;);</span>
+<span class="fc" id="L57">    }</span>
 
     @FXML
     public void showIncidencias() {
-<span class="fc" id="L31">        loadView(&quot;/es/ies/puerto/view/incidencias.fxml&quot;);</span>
-<span class="fc" id="L32">    }</span>
+<span class="fc" id="L61">        loadView(&quot;/es/ies/puerto/view/incidencias.fxml&quot;);</span>
+<span class="fc" id="L62">    }</span>
 
     @FXML
     public void showUsuarios() {
-<span class="fc" id="L36">        loadView(&quot;/es/ies/puerto/view/usuarios.fxml&quot;);</span>
-<span class="fc" id="L37">    }</span>
+<span class="fc" id="L66">        loadView(&quot;/es/ies/puerto/view/usuarios.fxml&quot;);</span>
+<span class="fc" id="L67">    }</span>
 
-    private void loadView(String fxmlPath) {
-        try {
-<span class="fc" id="L41">            URL url = getClass().getResource(fxmlPath);</span>
-<span class="fc bfc" id="L42" title="All 2 branches covered.">            if (url == null) {</span>
-<span class="pc bpc" id="L43" title="1 of 2 branches missed.">                if (statusLabel != null) {</span>
-<span class="fc" id="L44">                    statusLabel.setText(&quot;Error: No se encuentra &quot; + fxmlPath);</span>
-                }
-<span class="fc" id="L46">                System.err.println(&quot;No se encuentra el archivo FXML en: &quot; + fxmlPath);</span>
-<span class="fc" id="L47">                return;</span>
-            }
-<span class="fc" id="L49">            FXMLLoader loader = new FXMLLoader(url);</span>
-<span class="fc" id="L50">            Parent view = loader.load();</span>
-<span class="pc bpc" id="L51" title="1 of 2 branches missed.">            if (contentArea != null) {</span>
-<span class="fc" id="L52">                contentArea.getChildren().setAll(view);</span>
-            }
-<span class="pc bpc" id="L54" title="1 of 2 branches missed.">            if (statusLabel != null) {</span>
-<span class="fc" id="L55">                statusLabel.setText(&quot;Cargado: &quot; + fxmlPath.substring(fxmlPath.lastIndexOf(&quot;/&quot;) + 1));</span>
-            }
-<span class="pc" id="L57">        } catch (IOException e) {</span>
-<span class="nc" id="L58">            e.printStackTrace();</span>
-<span class="nc bnc" id="L59" title="All 2 branches missed.">            if (statusLabel != null) {</span>
-<span class="nc" id="L60">                statusLabel.setText(&quot;Error al cargar vista: &quot; + fxmlPath);</span>
-            }
+    @FXML
+    public void showMain() {
+<span class="fc bfc" id="L71" title="All 4 branches covered.">        if (contentArea != null &amp;&amp; welcomeView != null) {</span>
+<span class="fc" id="L72">            contentArea.getChildren().setAll(welcomeView);</span>
         }
-<span class="fc" id="L63">    }</span>
+<span class="fc" id="L74">    }</span>
+
+    // Métodos para navegar a los formularios de añadir
+    public void showAddActividad() {
+<span class="fc" id="L78">        loadView(&quot;/es/ies/puerto/view/add_actividad.fxml&quot;);</span>
+<span class="fc" id="L79">    }</span>
+
+    public void showAddReserva() {
+<span class="fc" id="L82">        loadView(&quot;/es/ies/puerto/view/add_reserva.fxml&quot;);</span>
+<span class="fc" id="L83">    }</span>
+
+    public void showAddIncidencia() {
+<span class="fc" id="L86">        loadView(&quot;/es/ies/puerto/view/add_incidencia.fxml&quot;);</span>
+<span class="fc" id="L87">    }</span>
+
+    public void showAddUsuario() {
+<span class="fc" id="L90">        loadView(&quot;/es/ies/puerto/view/add_usuario.fxml&quot;);</span>
+<span class="fc" id="L91">    }</span>
+
+    // Para testear, hacemos este método package-private
+    void loadView(String fxmlPath) {
+        try {
+<span class="fc" id="L96">            URL url = getClass().getResource(fxmlPath);</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">            if (url == null) {</span>
+<span class="fc" id="L98">                System.err.println(&quot;No se encuentra el archivo FXML en: &quot; + fxmlPath);</span>
+<span class="fc" id="L99">                return;</span>
+            }
+<span class="fc" id="L101">            FXMLLoader loader = new FXMLLoader(url);</span>
+<span class="fc" id="L102">            Parent view = loader.load();</span>
+            
+            // Intentamos establecer la referencia a MainController en el controlador cargado
+<span class="fc" id="L105">            Object controller = loader.getController();</span>
+            try {
+<span class="fc" id="L107">                controller.getClass().getMethod(&quot;setMainController&quot;, MainController.class).invoke(controller, this);</span>
+<span class="nc" id="L108">            } catch (Exception e) {</span>
+                // Si el controlador no tiene setMainController, no pasa nada
+<span class="fc" id="L110">            }</span>
+
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">            if (contentArea != null) {</span>
+<span class="fc" id="L113">                contentArea.getChildren().setAll(view);</span>
+            }
+<span class="fc" id="L115">        } catch (IOException e) {</span>
+<span class="fc" id="L116">            e.printStackTrace();</span>
+<span class="fc" id="L117">        }</span>
+<span class="fc" id="L118">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

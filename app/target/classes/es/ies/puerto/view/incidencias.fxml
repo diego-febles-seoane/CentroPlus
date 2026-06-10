@@ -3,21 +3,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" xmlns:fx="http://javafx.com/fxml" fx:controller="es.ies.puerto.controller.IncidenciasController" style="-fx-padding: 20;">
-    <Label text="Gestión de Incidencias" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+<VBox spacing="20" xmlns:fx="http://javafx.com/fxml" fx:controller="es.ies.puerto.controller.IncidenciasController" style="-fx-padding: 25; -fx-background-color: #f8fafc;">
+    <VBox spacing="5">
+        <Label text="Incidencias" style="-fx-font-size: 26; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+        <Label text="Gestión de todas las incidencias reportadas" style="-fx-font-size: 14; -fx-text-fill: #64748b;"/>
+    </VBox>
     
-    <TableView fx:id="incidenciasTable" VBox.vgrow="ALWAYS">
+    <TableView fx:id="incidenciasTable" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 3, 3);">
         <columns>
-            <TableColumn fx:id="colIdIncidencia" text="ID" prefWidth="50"/>
-            <TableColumn fx:id="colIdUsuario" text="Usuario" prefWidth="70"/>
-            <TableColumn fx:id="colAsunto" text="Asunto" prefWidth="150"/>
-            <TableColumn fx:id="colDescripcion" text="Descripción" prefWidth="250"/>
-            <TableColumn fx:id="colFecha" text="Fecha" prefWidth="100"/>
-            <TableColumn fx:id="colEstado" text="Estado" prefWidth="100"/>
+            <TableColumn fx:id="colIdIncidencia" text="ID" prefWidth="70"/>
+            <TableColumn fx:id="colIdUsuario" text="Usuario" prefWidth="90"/>
+            <TableColumn fx:id="colAsunto" text="Asunto" prefWidth="180"/>
+            <TableColumn fx:id="colDescripcion" text="Descripción" prefWidth="300"/>
+            <TableColumn fx:id="colFecha" text="Fecha" prefWidth="130"/>
+            <TableColumn fx:id="colEstado" text="Estado" prefWidth="120"/>
         </columns>
     </TableView>
 
-    <HBox spacing="10" alignment="CENTER_RIGHT">
-        <Button text="Registrar Incidencia" onAction="#nuevaIncidencia" style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+    <HBox spacing="12" alignment="CENTER_RIGHT">
+        <Button text="🗑️ Eliminar" onAction="#deleteIncidencia" style="-fx-background-color: #ef4444; -fx-text-fill: white; -fx-font-size: 13; -fx-font-weight: bold; -fx-padding: 10 22; -fx-background-radius: 8; -fx-cursor: hand;"/>
+        <Button text="➕ Registrar Incidencia" onAction="#nuevaIncidencia" style="-fx-background-color: #10b981; -fx-text-fill: white; -fx-font-size: 13; -fx-font-weight: bold; -fx-padding: 10 22; -fx-background-radius: 8; -fx-cursor: hand;"/>
     </HBox>
 </VBox>

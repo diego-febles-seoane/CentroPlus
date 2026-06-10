@@ -3,28 +3,31 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="15" xmlns:fx="http://javafx.com/fxml" fx:controller="es.ies.puerto.controller.AddReservaController" style="-fx-padding: 20;">
-    <Label text="Nueva Reserva" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+<VBox spacing="20" xmlns:fx="http://javafx.com/fxml" fx:controller="es.ies.puerto.controller.AddReservaController" style="-fx-padding: 25; -fx-background-color: #f8fafc;">
+    <VBox spacing="5">
+        <Label text="Nueva Reserva" style="-fx-font-size: 26; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+        <Label text="Formulario para crear una nueva reserva" style="-fx-font-size: 14; -fx-text-fill: #64748b;"/>
+    </VBox>
     
-    <GridPane hgap="10" vgap="10">
-        <Label text="ID Reserva:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-        <TextField fx:id="idReservaField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+    <GridPane hgap="15" vgap="15" style="-fx-background-color: white; -fx-padding: 25; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 3, 3);">
+        <Label text="ID Reserva:" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-text-fill: #475569; -fx-font-size: 14;"/>
+        <TextField fx:id="idReservaField" GridPane.columnIndex="1" GridPane.rowIndex="0" style="-fx-background-color: #f1f5f9; -fx-background-radius: 8; -fx-padding: 10 15; -fx-font-size: 13;"/>
         
-        <Label text="ID Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-        <TextField fx:id="idUsuarioField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label text="ID Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-text-fill: #475569; -fx-font-size: 14;"/>
+        <TextField fx:id="idUsuarioField" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-background-color: #f1f5f9; -fx-background-radius: 8; -fx-padding: 10 15; -fx-font-size: 13;"/>
         
-        <Label text="ID Actividad:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-        <TextField fx:id="idActividadField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <Label text="ID Actividad:" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-text-fill: #475569; -fx-font-size: 14;"/>
+        <TextField fx:id="idActividadField" GridPane.columnIndex="1" GridPane.rowIndex="2" style="-fx-background-color: #f1f5f9; -fx-background-radius: 8; -fx-padding: 10 15; -fx-font-size: 13;"/>
         
-        <Label text="Fecha:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-        <DatePicker fx:id="fechaPicker" GridPane.columnIndex="1" GridPane.rowIndex="3" maxWidth="Infinity"/>
+        <Label text="Fecha:" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-text-fill: #475569; -fx-font-size: 14;"/>
+        <DatePicker fx:id="fechaPicker" GridPane.columnIndex="1" GridPane.rowIndex="3" maxWidth="Infinity" style="-fx-background-color: #f1f5f9; -fx-background-radius: 8; -fx-padding: 10 15; -fx-font-size: 13;"/>
         
-        <Label text="Estado:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-        <ComboBox fx:id="estadoCombo" GridPane.columnIndex="1" GridPane.rowIndex="4" maxWidth="Infinity"/>
+        <Label text="Estado:" GridPane.columnIndex="0" GridPane.rowIndex="4" style="-fx-text-fill: #475569; -fx-font-size: 14;"/>
+        <ComboBox fx:id="estadoCombo" GridPane.columnIndex="1" GridPane.rowIndex="4" maxWidth="Infinity" style="-fx-background-color: #f1f5f9; -fx-background-radius: 8; -fx-padding: 10 15; -fx-font-size: 13;"/>
     </GridPane>
 
-    <HBox spacing="10" alignment="CENTER_RIGHT">
-        <Button text="Cancelar" onAction="#cancelar"/>
-        <Button text="Guardar" onAction="#guardar" style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+    <HBox spacing="12" alignment="CENTER_RIGHT">
+        <Button text="❌ Cancelar" onAction="#cancelar" style="-fx-background-color: #e2e8f0; -fx-text-fill: #1e293b; -fx-font-size: 13; -fx-font-weight: bold; -fx-padding: 10 22; -fx-background-radius: 8; -fx-cursor: hand;"/>
+        <Button text="✅ Guardar" onAction="#guardar" style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 13; -fx-font-weight: bold; -fx-padding: 10 22; -fx-background-radius: 8; -fx-cursor: hand;"/>
     </HBox>
 </VBox>

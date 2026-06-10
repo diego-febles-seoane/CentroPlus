@@ -13,14 +13,19 @@ public abstract class SQLiteConnectionManager {
     private static String jdbcUrl;
 
     static {
+        initialize(null, null);
+    }
+
+    static void initialize(String testUserHome, InputStream testResourceStream) {
         try {
-            Path userHome = Paths.get(System.getProperty("user.home"));
+            String userHomeProp = (testUserHome != null) ? testUserHome : System.getProperty("user.home");
+            Path userHome = Paths.get(userHomeProp);
             Path appDir = userHome.resolve(".centroplus");
             Files.createDirectories(appDir);
             Path dbFile = appDir.resolve("centroplus.db");
             
             if (!Files.exists(dbFile)) {
-                InputStream resourceStream = SQLiteConnectionManager.class.getResourceAsStream("/es/ies/puerto/database/centroplus.db");
+                InputStream resourceStream = (testResourceStream != null) ? testResourceStream : SQLiteConnectionManager.class.getResourceAsStream("/es/ies/puerto/database/centroplus.db");
                 if (resourceStream != null) {
                     Files.copy(resourceStream, dbFile, StandardCopyOption.REPLACE_EXISTING);
                 }

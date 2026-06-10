@@ -37,68 +37,99 @@ import javafx.stage.Stage;
 
     private ReservasService service;
 <span class="fc" id="L39">    private ObservableList&lt;Reservas&gt; data = FXCollections.observableArrayList();</span>
+    private MainController mainController;
 
     public void setService(ReservasService service) {
-<span class="fc" id="L42">        this.service = service;</span>
-<span class="fc" id="L43">    }</span>
+<span class="fc" id="L43">        this.service = service;</span>
+<span class="fc" id="L44">    }</span>
 
     private ReservasService getService() {
-<span class="fc bfc" id="L46" title="All 2 branches covered.">        if (service == null) {</span>
-<span class="fc" id="L47">            service = new ReservasService();</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (service == null) {</span>
+<span class="fc" id="L48">            service = new ReservasService();</span>
         }
-<span class="fc" id="L49">        return service;</span>
+<span class="fc" id="L50">        return service;</span>
     }
+
+    public void setMainController(MainController mainController) {
+<span class="fc" id="L54">        this.mainController = mainController;</span>
+<span class="fc" id="L55">    }</span>
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-<span class="fc" id="L54">        colIdReserva.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;idReserva&quot;));</span>
-<span class="fc" id="L55">        colIdUsuario.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;id&quot;));</span>
-<span class="fc" id="L56">        colIdActividad.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;idActividad&quot;));</span>
-<span class="fc" id="L57">        colFecha.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;fecha&quot;));</span>
-<span class="fc" id="L58">        colEstado.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;estado&quot;));</span>
+<span class="fc" id="L59">        colIdReserva.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;idReserva&quot;));</span>
+<span class="fc" id="L60">        colIdUsuario.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;id&quot;));</span>
+<span class="fc" id="L61">        colIdActividad.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;idActividad&quot;));</span>
+<span class="fc" id="L62">        colFecha.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;fecha&quot;));</span>
+<span class="fc" id="L63">        colEstado.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;estado&quot;));</span>
 
-<span class="fc" id="L60">        loadData();</span>
-<span class="fc" id="L61">    }</span>
+<span class="fc" id="L65">        loadData();</span>
+<span class="fc" id="L66">    }</span>
 
     @FXML
     public void loadData() {
-<span class="fc" id="L65">        data.clear();</span>
-<span class="fc" id="L66">        List&lt;Reservas&gt; list = getService().findAll();</span>
-<span class="fc bfc" id="L67" title="All 2 branches covered.">        if (list != null) {</span>
-<span class="fc" id="L68">            data.addAll(list);</span>
+<span class="fc" id="L70">        data.clear();</span>
+<span class="fc" id="L71">        List&lt;Reservas&gt; list = getService().findAll();</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (list != null) {</span>
+<span class="fc" id="L73">            data.addAll(list);</span>
         }
-<span class="fc" id="L70">        reservasTable.setItems(data);</span>
-<span class="fc" id="L71">    }</span>
+<span class="fc" id="L75">        reservasTable.setItems(data);</span>
+<span class="fc" id="L76">    }</span>
 
     @FXML
     public void cancelarReserva() {
-<span class="fc" id="L75">        Reservas selected = reservasTable.getSelectionModel().getSelectedItem();</span>
-<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        if (selected != null) {</span>
-<span class="fc" id="L77">            getService().delete(selected.getIdReserva());</span>
-<span class="fc" id="L78">            loadData();</span>
+<span class="fc" id="L80">        Reservas selected = reservasTable.getSelectionModel().getSelectedItem();</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        if (selected != null) {</span>
+<span class="fc" id="L82">            getService().delete(selected.getIdReserva());</span>
+<span class="fc" id="L83">            loadData();</span>
         }
-<span class="fc" id="L80">    }</span>
+<span class="fc" id="L85">    }</span>
 
     @FXML
     public void nuevaReserva() {
-        try {
-<span class="fc" id="L85">            FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/es/ies/puerto/view/add_reserva.fxml&quot;));</span>
-<span class="fc" id="L86">            Parent root = loader.load();</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">        if (mainController != null) {</span>
+            try {
+<span class="fc" id="L91">                URL url = getClass().getResource(&quot;/es/ies/puerto/view/add_reserva.fxml&quot;);</span>
+<span class="fc" id="L92">                FXMLLoader loader = new FXMLLoader(url);</span>
+<span class="fc" id="L93">                Parent view = loader.load();</span>
+                
+<span class="fc" id="L95">                AddReservaController addController = loader.getController();</span>
+<span class="fc" id="L96">                addController.setMainController(mainController);</span>
+<span class="fc" id="L97">                addController.setPreviousController(this);</span>
+                
+<span class="fc" id="L99">                mainController.setContent(view);</span>
+                
+<span class="fc" id="L101">            } catch (IOException e) {</span>
+<span class="fc" id="L102">                e.printStackTrace();</span>
+<span class="fc" id="L103">            }</span>
+        } else {
+            // Modo retrocompatibilidad: abrimos ventana modal SOLO si no es headless
+            try {
+<span class="fc" id="L107">                FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/es/ies/puerto/view/add_reserva.fxml&quot;));</span>
+<span class="fc" id="L108">                Parent root = loader.load();</span>
 
-<span class="fc" id="L88">            AddReservaController controller = loader.getController();</span>
+<span class="fc" id="L110">                AddReservaController controller = loader.getController();</span>
 
-<span class="fc" id="L90">            Stage stage = new Stage();</span>
-<span class="fc" id="L91">            stage.initModality(Modality.APPLICATION_MODAL);</span>
-<span class="fc" id="L92">            stage.setTitle(&quot;Nueva Reserva&quot;);</span>
-<span class="fc" id="L93">            stage.setScene(new Scene(root));</span>
-<span class="fc" id="L94">            stage.showAndWait();</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">                boolean isHeadless = Boolean.getBoolean(&quot;java.awt.headless&quot;) || </span>
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">                                     java.awt.GraphicsEnvironment.isHeadless();</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">                if (!isHeadless) {</span>
+                    try {
+<span class="fc" id="L116">                        Stage stage = new Stage();</span>
+<span class="fc" id="L117">                        stage.initModality(Modality.APPLICATION_MODAL);</span>
+<span class="fc" id="L118">                        stage.setTitle(&quot;Nueva Reserva&quot;);</span>
+<span class="fc" id="L119">                        stage.setScene(new Scene(root));</span>
+<span class="fc" id="L120">                        stage.showAndWait();</span>
+<span class="nc" id="L121">                    } catch (Exception e) {</span>
+                        // No se puede mostrar la ventana, pero seguimos comprobando guardado
+<span class="fc" id="L123">                    }</span>
+                }
 
-<span class="pc bpc" id="L96" title="1 of 2 branches missed.">            if (controller.isGuardado()) {</span>
-<span class="nc" id="L97">                loadData();</span>
-            }
-<span class="nc" id="L99">        } catch (IOException e) {</span>
-<span class="nc" id="L100">            e.printStackTrace();</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">                if (controller.isGuardado()) {</span>
+<span class="fc" id="L127">                    loadData();</span>
+                }
+<span class="fc" id="L129">            } catch (IOException e) {</span>
+<span class="fc" id="L130">                e.printStackTrace();</span>
+<span class="fc" id="L131">            }</span>
         }
-<span class="fc" id="L102">    }</span>
+<span class="fc" id="L133">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

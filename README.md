@@ -1,711 +1,166 @@
-<div align="justify">
-
 # CentroPlus Connect — Proyecto Intermodular
 
 ## 1. Introducción
-
 ### Objetivo general
+El objetivo de este proyecto es desarrollar una solución tecnológica completa e intermodular llamada **CentroPlus Connect**, orientada a la gestión de un centro académico y deportivo.
 
-El objetivo de este proyecto es desarrollar una solución tecnológica completa e intermodular llamada:
+---
 
+## 2. Estructura del Proyecto
 ```text
-CentroPlus Connect
-```
-
-La aplicación estará orientada a la gestión de un centro académico y deportivo.
-
-El proyecto integrará múltiples módulos profesionales del ciclo:
-
-- Programación
-- Bases de Datos
-- Sistemas Informáticos
-- Lenguajes de Marcas
-- Inglés Técnico
-- Entornos de Desarrollo
-- FOL
-
----
-
-## 2. Qué vamos a construir
-
-El alumnado desarrollará un ecosistema completo formado por:
-
-| Componente | Tecnología |
-|---|---|
-| Aplicación móvil | JavaFX |
-| API REST | Java |
-| Base de datos | SQLite / MariaDB |
-| Web HTML | HTML + CSS + JavaScript |
-| Despliegue | Docker |
-| Repositorio remoto | GitHub |
-
----
-
-## 3. Objetivo funcional
-
-La plataforma permitirá:
-
-- gestionar usuarios;
-- consultar actividades;
-- reservar plazas;
-- cancelar reservas;
-- registrar incidencias;
-- visualizar datos desde móvil y web;
-- desplegar servicios mediante Docker.
-
----
-
-## 4. Arquitectura general
-
-La arquitectura propuesta será:
-
-```text
-APP JavaFX
-      ↓
- API REST
-      ↓
- Servicios
-      ↓
-Repositorios
-      ↓
- Base de datos
-
-WEB HTML
-      ↓
- API REST
-```
-
----
-
-## 5. Tecnologías principales
-
-| Tecnología | Uso |
-|---|---|
-| Java 17 | Backend y app móvil |
-| JavaFX | Aplicación móvil |
-| Maven | Gestión del proyecto |
-| SQLite/MariaDB | Persistencia |
-| Docker | Despliegue |
-| GitHub | Control de versiones |
-| HTML/CSS/JS | Web |
-| REST API | Comunicación |
-| JSON | Intercambio de datos |
-
----
-
-## 6. Estructura general del proyecto
-
-```text
-centroplus-connect/
+CentroPlus/
+├── app/                          # Aplicación JavaFX (existente)
 │
-├── backend-api/
+├── backend.api/                   # Backend API REST con Spring Boot
 │
-├── mobile-app/
-│
-├── web-html/
-│
-├── database/
-│
-├── docs/
-│
-├── docker-compose.yml
+├── database/                      # Base de datos
+│   ├── drawio/
+│   ├── .sql/
+│   │   ├── schema.sql
+│   │   └── seed.sql
+│   └── README.md
 │
 └── README.md
 ```
 
 ---
 
-## 7. Entidades principales
-
-## Usuario
-
-Representa a una persona registrada en el sistema.
-
-Campos recomendados:
-
-```text
-id
-nombre
-dni
-email
-telefono
-tipo_usuario
-```
-
----
-
-### Actividad
-
-Representa una actividad académica o deportiva.
-
-Campos recomendados:
-
-```text
-id
-nombre
-tipo_actividad
-duracion
-precio
-plazas_maximas
-plazas_ocupadas
-```
-
----
-
-### Reserva
-
-Representa una reserva realizada por un usuario.
-
-Campos recomendados:
-
-```text
-id
-id_usuario
-id_actividad
-fecha
-estado
-```
-
----
-
-### Incidencia
-
-Representa una incidencia o comunicación.
-
-Campos recomendados:
-
-```text
-id
-id_usuario
-asunto
-descripcion
-fecha
-estado
-```
-
----
-
-## 8. Base de datos
-
-### Esquema general
-
-La base de datos contendrá las tablas:
-
-```text
-usuarios
-actividades
-reservas
-incidencias
-```
-
----
-
-### Relaciones
-
-```text
-usuarios 1:N reservas
-actividades 1:N reservas
-usuarios 1:N incidencias
-```
-
----
-
----
-
-## 9. Aplicación móvil JavaFX
-
-## Objetivo
-
-La aplicación móvil será la interfaz principal del usuario.
-
----
-
-## Funcionalidades mínimas
-
-- visualizar actividades;
-- reservar plazas;
-- cancelar reservas;
-- consultar reservas;
-- registrar incidencias.
-
----
-
-### Componentes JavaFX recomendados
-
-```text
-BorderPane
-VBox
-HBox
-ScrollPane
-ListView
-Button
-Label
-TextField
-TextArea
-Alert
-```
-
----
-
-## 10. API REST
-
-## Objetivo
-
-La API REST actuará como intermediario entre:
-
-- la app móvil;
-- la web HTML;
-- la base de datos.
-
----
-
-### Endpoints mínimos
-
-| Método | Endpoint |
+## 3. Tecnologías Principales
+| Componente | Tecnología |
 |---|---|
-| GET | /usuarios |
-| GET | /actividades |
-| GET | /reservas |
-| POST | /reservas |
-| DELETE | /reservas/{id} |
-| GET | /incidencias |
-| POST | /incidencias |
+| Aplicación de escritorio | JavaFX |
+| Backend API | Spring Boot 3.2.5 |
+| Base de datos | H2 Database |
+| Gestión de dependencias | Maven |
+| Documentación API | Swagger/OpenAPI |
+| Java | 17+ |
 
 ---
 
-
-## 11. Página web HTML
-
-### Objetivo
-
-La web permitirá consultar información desde navegador.
+## 4. Análisis Simple
+El proyecto está compuesto por:
+- **Aplicación JavaFX**: Aplicación de escritorio para la gestión del centro.
+- **Backend API**: API REST con Spring Boot para la gestión de datos.
+- **Base de datos**: H2 para la persistencia de datos.
 
 ---
 
-### Tecnologías
+## 5. Cómo Ejecutar el Proyecto
 
-```text
-HTML
-CSS
-JavaScript
-Fetch API
+### 5.1 Backend API REST
+Para ejecutar el backend:
+```bash
+# Entra a la carpeta del backend
+cd backend.api
+
+# Ejecutar con Maven
+mvn spring-boot:run
 ```
 
----
+**Accesos:
+- Swagger UI: http://localhost:8080/swagger-ui.html
+- H2 Console: http://localhost:8080/h2-console
+  - JDBC URL: `jdbc:h2:file:./data/centroplus`
+  - Usuario: `sa`
+  - Contraseña: (dejar vacío)
 
-### Funciones mínimas
+### 5.2 Aplicación JavaFX
+Para ejecutar la aplicación de escritorio, tienes dos opciones:
 
-- listar actividades;
-- visualizar plazas;
-- enviar incidencias;
-- comprobar el funcionamiento de la API.
+#### Usar el plugin de JavaFX (recomendado)
+```bash
+# Entra a la carpeta de la app
+cd app
 
----
-
-## 12. Docker
-
-## Objetivo
-
-Docker permitirá desplegar el sistema completo de forma reproducible.
-
----
-
-### Servicios Docker
-
-```text
-api
-db
-web
+# Ejecutar con Maven
+mvn javafx:run
 ```
 
+## 6. Endpoints de la API REST
+
+### Usuarios
+| Método | Endpoint | Descripción |
+|---|---|---|
+| GET | /api/usuarios | Obtener todos los usuarios |
+| GET | /api/usuarios/{id} | Obtener usuario por ID |
+| POST | /api/usuarios | Crear nuevo usuario |
+| PUT | /api/usuarios/{id} | Actualizar usuario |
+| DELETE | /api/usuarios/{id} | Eliminar usuario |
+
+### Actividades
+| Método | Endpoint | Descripción |
+|---|---|---|
+| GET | /api/actividades | Obtener todas las actividades |
+| GET | /api/actividades/{id} | Obtener actividad por ID |
+| POST | /api/actividades | Crear nueva actividad |
+| PUT | /api/actividades/{id} | Actualizar actividad |
+| DELETE | /api/actividades/{id} | Eliminar actividad |
+
+### Reservas
+| Método | Endpoint | Descripción |
+|---|---|---|
+| GET | /api/reservas | Obtener todas las reservas |
+| GET | /api/reservas/{id} | Obtener reserva por ID |
+| POST | /api/reservas | Crear nueva reserva |
+| PUT | /api/reservas/{id} | Actualizar reserva |
+| DELETE | /api/reservas/{id} | Eliminar reserva |
+
+### Incidencias
+| Método | Endpoint | Descripción |
+|---|---|---|
+| GET | /api/incidencias | Obtener todas las incidencias |
+| GET | /api/incidencias/{id} | Obtener incidencia por ID |
+| POST | /api/incidencias | Crear nueva incidencia |
+| PUT | /api/incidencias/{id} | Actualizar incidencia |
+| DELETE | /api/incidencias/{id} | Eliminar incidencia |
+
 ---
 
-### Contenedores
-
-| Servicio | Tecnología |
-|---|---|
-| api | Java |
-| db | MariaDB |
-| web | Nginx |
+## 7. Funcionalidades Principales
+- Gestión de usuarios
+- Gestión de actividades
+- Gestión de reservas
+- Gestión de incidencias
 
 ---
 
-## 13. GitHub
+## 8. Tests del Proyecto
+El backend incluye tests para cumplir con los requisitos:
 
-## Objetivo
+### Tipos de tests
+1. **Tests de servicios**: 20 tests (5 por cada servicio)
+2. **Tests de repositorios**: 10 tests (5 por cada repositorio)
+3. **Tests de API REST**: 5 tests
 
-Gestionar el proyecto profesionalmente. Para eso debes de crear un repositorio con la siguiente estructura.
+### Ejecutar los tests
+```bash
+cd backend.api
 
----
+# Ejecutar todos los tests
+mvn test
 
-### Ramas recomendadas
-
-```text
-main
-develop
-feature/backend
-feature-mobile
-feature-web
-feature-database
-feature-docker
-feature-docs
+# Generar reporte de tests
+mvn surefire-report:report
 ```
 
----
-
-### Organización
-
-El alumnado trabajará con:
-
-- issues;
-- commits;
-- tablero Kanban.
+### Framework de testing
+- **JUnit 5**: Framework de testing
+- **Mockito**: Para mocking
+- **@DataJpaTest**: Para tests de repositorios
+- **@WebMvcTest**: Para tests de controladores
+- **MockMvc**: Para probar endpoints REST
 
 ---
 
-## 14. Testing
-
-### Objetivo
-
-Garantizar el correcto funcionamiento del sistema.
-
----
-
-### Testing mínimo
-
-| Tipo | Cantidad mínima |
-|---|---:|
-| Tests servicios | 10 |
-| Tests repositorios | 5 |
-| Tests API | 5 |
-| Pruebas manuales | 5 |
-
----
-
-### Herramientas
-
-```text
-JUnit 5
-Maven Surefire
-Postman/Swagger
-curl
+## 9. Arquitectura
 ```
-
----
-
-## 15. Relación con cada módulo
-
-### PROGRAMACIÓN
-
-#### Qué aporta
-
-El módulo de Programación será el núcleo principal del proyecto.
-
----
-
-#### Responsabilidades
-
-##### Backend
-
-- modelos;
-- servicios;
-- lógica de negocio;
-- validaciones;
-- API REST.
-
----
-
-##### Aplicación móvil
-
-- pantallas JavaFX;
-- consumo REST;
-- navegación;
-- formularios;
-- interacción con usuario.
-
----
-
-#### Conceptos trabajados
-
-```text
-POO
-MVC
-REST
-JSON
+APP JavaFX
+      ↓
+ API REST (Spring Boot)
+      ↓
 Servicios
-Repositorios
-Testing
-Colecciones
-Excepciones
+      ↓
+Repositorios (JPA)
+      ↓
+ Base de datos (H2)
 ```
-
----
-
-### BASES DE DATOS
-
-#### Qué aporta
-
-Diseño y persistencia de datos.
-
----
-
-#### Responsabilidades
-
-- modelo relacional;
-- claves primarias;
-- claves foráneas;
-- scripts SQL;
-- relaciones;
-- consultas;
-- backups.
-
----
-
-#### Conceptos trabajados
-
-```text
-SQL
-DDL
-DML
-JOIN
-GROUP BY
-Normalización
-Integridad referencial
-```
-
----
-
-### SISTEMAS INFORMÁTICOS
-
-#### Qué aporta
-
-Despliegue y administración técnica.
-
----
-
-#### Responsabilidades
-
-- Docker;
-- Docker Compose;
-- Nginx;
-- puertos;
-- logs;
-- variables de entorno;
-- despliegue de servicios.
-
----
-
-#### Conceptos trabajados
-
-```text
-Contenedores
-Redes
-Linux
-Servicios
-Puertos
-Despliegue
-```
-
----
-
-### LENGUAJES DE MARCAS
-
-#### Qué aporta
-
-Desarrollo de la parte web.
-
----
-
-#### Responsabilidades
-
-- HTML;
-- CSS;
-- JavaScript;
-- Fetch API;
-- estructura web;
-- diseño responsive básico.
-
----
-
-#### Conceptos trabajados
-
-```text
-HTML5
-CSS3
-JavaScript
-DOM
-Fetch
-Responsive
-```
-
----
-
-### INGLÉS
-
-#### Qué aporta
-
-Documentación y comunicación técnica.
-
----
-
-#### Responsabilidades
-
-- README en inglés;
-- documentación de API;
-- mensajes técnicos;
-- presentación final.
-
----
-
-#### Conceptos trabajados
-
-```text
-Technical English
-IT Vocabulary
-Documentation
-Communication
-```
-
----
-
-### ENTORNOS DE DESARROLLO
-
-#### Qué aporta
-
-Organización y calidad del desarrollo.
-
----
-
-#### Responsabilidades
-
-- Maven;
-- GitHub;
-- estructura modular;
-- testing;
-- control de versiones;
-- integración continua conceptual.
-
----
-
-#### Conceptos trabajados
-
-```text
-Maven
-Git
-GitHub
-JUnit
-Versionado
-Estructura modular
-```
-
----
-
-### FOL
-
-#### Qué aporta
-
-Organización profesional y trabajo colaborativo.
-
----
-
-#### Responsabilidades
-
-- planificación;
-- roles;
-- Kanban;
-- gestión del tiempo;
-- memoria del proyecto;
-- análisis de riesgos.
-
----
-
-#### Conceptos trabajados
-
-```text
-Trabajo en equipo
-Planificación
-Roles
-Kanban
-Riesgos laborales
-Documentación profesional
-```
-
----
-
-### 16. Distribución temporal
-
-| Bloque | Horas |
-|---|---:|
-| Diseño inicial | 2 |
-| GitHub y planificación | 2 |
-| Base de datos | 3 |
-| Backend Java | 5 |
-| API REST | 4 |
-| App móvil JavaFX | 4 |
-| Web HTML | 2 |
-| Testing | 3 |
-| Docker y despliegue | 3 |
-| Documentación y presentación | 2 |
-
----
-
-## 17. Entregables
-
-El alumnado deberá entregar:
-
-```text
-backend-api/
-mobile-app/
-web-html/
-database/
-docs/
-docker-compose.yml
-README.md
-```
-
----
-
-## 18. Documentación obligatoria
-
-## README.md
-
-Descripción general del proyecto.
-
----
-
-### API.md
-
-Documentación de endpoints REST.
-
----
-
-### INSTALLATION.md
-
-Pasos de instalación y despliegue.
-
----
-
-### PROJECT_REPORT.md
-
-Memoria final del proyecto.
-
----
-
-## 19. Resultado final esperado
-
-Al finalizar el proyecto el alumnado deberá ser capaz de:
-
-- desarrollar una app móvil JavaFX;
-- crear una API REST;
-- trabajar con bases de datos reales;
-- consumir servicios REST;
-- desplegar con Docker;
-- trabajar con GitHub;
-- realizar testing;
-- documentar profesionalmente;
-- trabajar de forma colaborativa.
-
----
-
-
-</div>

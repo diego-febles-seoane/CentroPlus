@@ -4,28 +4,31 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox spacing="10" xmlns:fx="http://javafx.com/fxml" fx:controller="es.ies.puerto.controller.ActividadesController" style="-fx-padding: 20;">
-    <Label text="Gestión de Actividades" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+<VBox spacing="20" xmlns:fx="http://javafx.com/fxml" fx:controller="es.ies.puerto.controller.ActividadesController" style="-fx-padding: 25; -fx-background-color: #f8fafc;">
+    <VBox spacing="5">
+        <Label text="Actividades" style="-fx-font-size: 26; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+        <Label text="Gestión de todas las actividades del centro" style="-fx-font-size: 14; -fx-text-fill: #64748b;"/>
+    </VBox>
     
-    <HBox spacing="10">
-        <TextField fx:id="searchField" promptText="Buscar actividad..." HBox.hgrow="ALWAYS"/>
-        <Button text="Refrescar" onAction="#loadData"/>
+    <HBox spacing="12" style="-fx-background-color: #ffffff; -fx-padding: 15; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 4, 0, 2, 2);">
+        <TextField fx:id="searchField" promptText="Buscar actividad por nombre..." HBox.hgrow="ALWAYS" style="-fx-background-color: #f1f5f9; -fx-background-radius: 8; -fx-padding: 10 15; -fx-font-size: 13;"/>
+        <Button text="🔄 Refrescar" onAction="#loadData" style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 13; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 8; -fx-cursor: hand;"/>
     </HBox>
 
-    <TableView fx:id="actividadesTable" VBox.vgrow="ALWAYS">
+    <TableView fx:id="actividadesTable" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 3, 3);">
         <columns>
-            <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
-            <TableColumn fx:id="colNombre" text="Nombre" prefWidth="150"/>
-            <TableColumn fx:id="colTipo" text="Tipo" prefWidth="100"/>
-            <TableColumn fx:id="colDuracion" text="Duración" prefWidth="80"/>
-            <TableColumn fx:id="colPrecio" text="Precio" prefWidth="70"/>
-            <TableColumn fx:id="colMax" text="Plazas Max" prefWidth="90"/>
-            <TableColumn fx:id="colOcupadas" text="Ocupadas" prefWidth="90"/>
+            <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+            <TableColumn fx:id="colNombre" text="Nombre" prefWidth="180"/>
+            <TableColumn fx:id="colTipo" text="Tipo" prefWidth="120"/>
+            <TableColumn fx:id="colDuracion" text="Duración" prefWidth="100"/>
+            <TableColumn fx:id="colPrecio" text="Precio" prefWidth="90"/>
+            <TableColumn fx:id="colMax" text="Plazas Max" prefWidth="110"/>
+            <TableColumn fx:id="colOcupadas" text="Ocupadas" prefWidth="110"/>
         </columns>
     </TableView>
 
-    <HBox spacing="10" alignment="CENTER_RIGHT">
-        <Button text="Eliminar" onAction="#deleteActividad" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
-        <Button text="Nueva Actividad" onAction="#newActividad" style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+    <HBox spacing="12" alignment="CENTER_RIGHT">
+        <Button text="🗑️ Eliminar" onAction="#deleteActividad" style="-fx-background-color: #ef4444; -fx-text-fill: white; -fx-font-size: 13; -fx-font-weight: bold; -fx-padding: 10 22; -fx-background-radius: 8; -fx-cursor: hand;"/>
+        <Button text="➕ Nueva Actividad" onAction="#newActividad" style="-fx-background-color: #10b981; -fx-text-fill: white; -fx-font-size: 13; -fx-font-weight: bold; -fx-padding: 10 22; -fx-background-radius: 8; -fx-cursor: hand;"/>
     </HBox>
 </VBox>

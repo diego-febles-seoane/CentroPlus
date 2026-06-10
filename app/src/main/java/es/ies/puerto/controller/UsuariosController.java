@@ -39,6 +39,7 @@ public class UsuariosController implements Initializable {
 
     private UsuarioService service;
     private ObservableList<Usuario> data = FXCollections.observableArrayList();
+    private MainController mainController;
 
     public void setService(UsuarioService service) {
         this.service = service;
@@ -49,6 +50,10 @@ public class UsuariosController implements Initializable {
             service = new UsuarioService();
         }
         return service;
+    }
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
     }
 
     @Override
@@ -84,23 +89,49 @@ public class UsuariosController implements Initializable {
 
     @FXML
     public void nuevoUsuario() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/es/ies/puerto/view/add_usuario.fxml"));
-            Parent root = loader.load();
-
-            AddUsuarioController controller = loader.getController();
-
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Añadir Usuario");
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
-
-            if (controller.isGuardado()) {
-                loadData();
+        if (mainController != null) {
+            try {
+                URL url = getClass().getResource("/es/ies/puerto/view/add_usuario.fxml");
+                FXMLLoader loader = new FXMLLoader(url);
+                Parent view = loader.load();
+                
+                AddUsuarioController addController = loader.getController();
+                addController.setMainController(mainController);
+                addController.setPreviousController(this);
+                
+                mainController.setContent(view);
+                
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } else {
+            // Modo retrocompatibilidad: abrimos ventana modal
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/es/ies/puerto/view/add_usuario.fxml"));
+                Parent root = loader.load();
+
+                AddUsuarioController controller = loader.getController();
+
+                boolean isHeadless = Boolean.getBoolean("java.awt.headless") || 
+                                     java.awt.GraphicsEnvironment.isHeadless();
+                if (!isHeadless) {
+                    try {
+                        Stage stage = new Stage();
+                        stage.initModality(Modality.APPLICATION_MODAL);
+                        stage.setTitle("Añadir Usuario");
+                        stage.setScene(new Scene(root));
+                        stage.showAndWait();
+                    } catch (Exception e) {
+                        // No se puede mostrar la ventana, pero seguimos comprobando guardado
+                    }
+                }
+
+                if (controller.isGuardado()) {
+                    loadData();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

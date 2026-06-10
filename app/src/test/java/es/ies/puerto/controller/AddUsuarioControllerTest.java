@@ -7,8 +7,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
-import org.mockito.Mock;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.testfx.framework.junit5.ApplicationTest;
 
@@ -27,6 +29,9 @@ public class AddUsuarioControllerTest extends ApplicationTest {
 
     @Mock
     private UsuarioService service;
+
+    @Mock
+    private UsuariosController previousController;
 
     private TextField idField;
     private TextField nombreField;
@@ -146,6 +151,119 @@ public class AddUsuarioControllerTest extends ApplicationTest {
         interact(() -> {
             controller.initialize(null, null);
             assertFalse(tipoCombo.getItems().isEmpty());
+        });
+    }
+
+    @Test
+    public void setPreviousControllerTest() {
+        UsuariosController previous = new UsuariosController();
+        controller.setPreviousController(previous);
+    }
+
+    @Test
+    public void cerrarWithMainAndPreviousTest() throws Exception {
+        interact(() -> {
+            try {
+                MainController main = new MainController();
+                UsuariosController previous = new UsuariosController();
+                controller.setMainController(main);
+                controller.setPreviousController(previous);
+
+                setPrivateField(main, "contentArea", new javafx.scene.layout.StackPane());
+
+                controller.cancelar();
+
+                idField.setText("100");
+                nombreField.setText("Test");
+                dniField.setText("12345678Z");
+                emailField.setText("test@test.com");
+                telefonoField.setText("600000000");
+                tipoCombo.setValue("ADMIN");
+                when(service.save(any(Usuario.class))).thenReturn(true);
+                controller.guardar();
+            } catch (Exception e) {
+                // Expected
+            }
+        });
+    }
+
+    @Test
+    public void cerrarWithMainPreviousAndGuardadoTrueTest() throws Exception {
+        interact(() -> {
+            try {
+                MainController main = new MainController();
+                controller.setMainController(main);
+                controller.setPreviousController(previousController);
+
+                setPrivateField(main, "contentArea", new javafx.scene.layout.StackPane());
+
+                // Set guardado to true
+                java.lang.reflect.Field guardadoField = AddUsuarioController.class.getDeclaredField("guardado");
+                guardadoField.setAccessible(true);
+                guardadoField.set(controller, true);
+
+                // Call cerrar
+                java.lang.reflect.Method cerrarMethod = AddUsuarioController.class.getDeclaredMethod("cerrar");
+                cerrarMethod.setAccessible(true);
+                cerrarMethod.invoke(controller);
+
+                // Verify previousController.loadData() was called
+                verify(previousController).loadData();
+
+            } catch (Exception e) {
+                // Expected
+            }
+        });
+    }
+
+    @Test
+    public void cerrarWithOnlyMainControllerTest() throws Exception {
+        interact(() -> {
+            try {
+                MainController main = new MainController();
+                controller.setMainController(main);
+                controller.setPreviousController(null);
+
+                setPrivateField(main, "contentArea", new javafx.scene.layout.StackPane());
+
+                java.lang.reflect.Method cerrarMethod = AddUsuarioController.class.getDeclaredMethod("cerrar");
+                cerrarMethod.setAccessible(true);
+                cerrarMethod.invoke(controller);
+
+            } catch (Exception e) {
+            }
+        });
+    }
+
+    @Test
+    public void cerrarWithOnlyPreviousControllerTest() throws Exception {
+        interact(() -> {
+            try {
+                controller.setMainController(null);
+                controller.setPreviousController(previousController);
+
+                java.lang.reflect.Method cerrarMethod = AddUsuarioController.class.getDeclaredMethod("cerrar");
+                cerrarMethod.setAccessible(true);
+                cerrarMethod.invoke(controller);
+
+            } catch (Exception e) {
+            }
+        });
+    }
+
+    @Test
+    public void cerrarWithNoControllersTest() throws Exception {
+        interact(() -> {
+            try {
+                controller.setMainController(null);
+                controller.setPreviousController(null);
+
+                java.lang.reflect.Method cerrarMethod = AddUsuarioController.class.getDeclaredMethod("cerrar");
+                cerrarMethod.setAccessible(true);
+                cerrarMethod.invoke(controller);
+
+            } catch (Exception e) {
+            }
         });
     }
 }

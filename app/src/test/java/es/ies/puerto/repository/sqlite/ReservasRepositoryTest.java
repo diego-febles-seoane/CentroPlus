@@ -60,6 +60,13 @@ public class ReservasRepositoryTest {
     }
 
     @Test
+    public void saveTestDuplicateId() {
+        Reservas reserva = new Reservas(999, 1, 1, "2026-01-01", "Confirmada");
+        repository.save(reserva);
+        assertFalse(repository.save(reserva));
+    }
+
+    @Test
     public void updateTestOk() {
         Reservas reserva = new Reservas(999, 1, 1, "2026-01-01", "Confirmada");
         repository.save(reserva);
@@ -69,6 +76,12 @@ public class ReservasRepositoryTest {
 
         Reservas encontrada = repository.findById(999);
         assertEquals("Cancelada", encontrada.getEstado());
+    }
+
+    @Test
+    public void updateTestIdNotFound() {
+        Reservas reserva = new Reservas(-1, 1, 1, "2026-01-01", "Confirmada");
+        assertFalse(repository.update(reserva));
     }
 
     @Test

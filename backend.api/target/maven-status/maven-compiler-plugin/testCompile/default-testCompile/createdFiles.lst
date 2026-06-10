@@ -1,0 +1,7 @@
+es\ies\puerto\service\ReservaServiceTest.class
+es\ies\puerto\service\ActividadServiceTest.class
+es\ies\puerto\controller\UsuarioControllerTest.class
+es\ies\puerto\service\IncidenciaServiceTest.class
+es\ies\puerto\service\UsuarioServiceTest.class
+es\ies\puerto\repository\UsuarioRepositoryTest.class
+es\ies\puerto\repository\ActividadRepositoryTest.class

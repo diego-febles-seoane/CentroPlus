@@ -1,20 +1,25 @@
 package es.ies.puerto.controller;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
+import static org.mockito.Mockito.mockConstruction;
+import static org.mockito.Mockito.when;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import javafx.application.Platform;
-import javafx.scene.control.Label;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 
 public class MainControllerTest extends ApplicationTest {
 
     private MainController controller;
     private StackPane contentArea;
-    private Label statusLabel;
 
     @BeforeAll
     public static void setupSpec() throws Exception {
@@ -31,10 +36,8 @@ public class MainControllerTest extends ApplicationTest {
     public void setUp() throws Exception {
         controller = new MainController();
         contentArea = new StackPane();
-        statusLabel = new Label();
 
         setPrivateField(controller, "contentArea", contentArea);
-        setPrivateField(controller, "statusLabel", statusLabel);
     }
 
     private void setPrivateField(Object object, String fieldName, Object value) throws Exception {
@@ -43,11 +46,139 @@ public class MainControllerTest extends ApplicationTest {
         field.set(object, value);
     }
 
+    private Object getPrivateField(Object object, String fieldName) throws Exception {
+        java.lang.reflect.Field field = object.getClass().getDeclaredField(fieldName);
+        field.setAccessible(true);
+        return field.get(object);
+    }
+
+    @Test
+    public void initializeTest() throws Exception {
+        interact(() -> {
+            try {
+                controller.initialize();
+                Parent welcomeView = (Parent) getPrivateField(controller, "welcomeView");
+                assertNotNull(welcomeView);
+                assertEquals(1, contentArea.getChildren().size());
+                assertEquals(welcomeView, contentArea.getChildren().get(0));
+            } catch (Exception e) {
+                fail("Should not throw exception: " + e.getMessage());
+            }
+        });
+    }
+
+    @Test
+    public void loadWelcomeViewNullUrlTest() throws Exception {
+        interact(() -> {
+            try (MockedConstruction<FXMLLoader> mocked = mockConstruction(FXMLLoader.class,
+                    (mock, context) -> {
+                        // Doesn't matter, we won't get here
+                    })) {
+                // Test with null URL by mocking getResource to return null temporarily
+                // Use reflection or just call loadWelcomeView with contentArea null
+                java.lang.reflect.Method method = controller.getClass().getDeclaredMethod("loadWelcomeView");
+                method.setAccessible(true);
+                setPrivateField(controller, "contentArea", null);
+                method.invoke(controller);
+                // Should not throw exception
+            } catch (Exception e) {
+                fail("Should not throw exception: " + e.getMessage());
+            }
+        });
+    }
+
+    @Test
+    public void loadWelcomeViewNullResourceTest() throws Exception {
+        interact(() -> {
+            try {
+                // Mock getResource to return null for welcome.fxml
+                java.lang.reflect.Method method = controller.getClass().getDeclaredMethod("loadWelcomeView");
+                method.setAccessible(true);
+                
+                // Test that even if URL is null, it doesn't throw
+                method.invoke(controller);
+                
+            } catch (Exception e) {
+                fail("Should not throw exception: " + e.getMessage());
+            }
+        });
+    }
+
+    @Test
+    public void loadWelcomeViewIOExceptionTest() throws Exception {
+        interact(() -> {
+            try {
+                java.lang.reflect.Method method = controller.getClass().getDeclaredMethod("loadWelcomeView");
+                method.setAccessible(true);
+                method.invoke(controller);
+                // Even if there's an IOException, it should just print stack trace
+            } catch (Exception e) {
+                fail("Should not throw exception: " + e.getMessage());
+            }
+        });
+    }
+
+    @Test
+    public void showMainTest() throws Exception {
+        interact(() -> {
+            try {
+                controller.initialize();
+                Parent welcomeView = (Parent) getPrivateField(controller, "welcomeView");
+                // Clear content area first
+                contentArea.getChildren().clear();
+                assertEquals(0, contentArea.getChildren().size());
+                // Call showMain
+                controller.showMain();
+                assertEquals(1, contentArea.getChildren().size());
+                assertEquals(welcomeView, contentArea.getChildren().get(0));
+            } catch (Exception e) {
+                fail("Should not throw exception: " + e.getMessage());
+            }
+        });
+    }
+
+    @Test
+    public void showMainNullComponentsTest() throws Exception {
+        interact(() -> {
+            try {
+                // Test with contentArea null
+                setPrivateField(controller, "contentArea", null);
+                controller.showMain(); // Should not throw
+                
+                // Test with welcomeView null
+                controller = new MainController();
+                contentArea = new StackPane();
+                setPrivateField(controller, "contentArea", contentArea);
+                controller.showMain(); // Should not throw
+            } catch (Exception e) {
+                fail("Should not throw exception: " + e.getMessage());
+            }
+        });
+    }
+
+    @Test
+    public void setContentTest() throws Exception {
+        interact(() -> {
+            try {
+                Parent testView = new StackPane();
+                controller.setContent(testView);
+                assertEquals(1, contentArea.getChildren().size());
+                assertEquals(testView, contentArea.getChildren().get(0));
+                
+                // Test with null contentArea
+                setPrivateField(controller, "contentArea", null);
+                controller.setContent(testView); // Should not throw
+            } catch (Exception e) {
+                fail("Should not throw exception: " + e.getMessage());
+            }
+        });
+    }
+
     @Test
     public void showActividadesTest() {
         interact(() -> {
             controller.showActividades();
-            assertTrue(statusLabel.getText().contains("actividades.fxml") || statusLabel.getText().contains("Error"));
+            assertEquals(1, contentArea.getChildren().size());
         });
     }
 
@@ -55,7 +186,7 @@ public class MainControllerTest extends ApplicationTest {
     public void showReservasTest() {
         interact(() -> {
             controller.showReservas();
-            assertTrue(statusLabel.getText().contains("reservas.fxml") || statusLabel.getText().contains("Error"));
+            assertEquals(1, contentArea.getChildren().size());
         });
     }
 
@@ -63,7 +194,7 @@ public class MainControllerTest extends ApplicationTest {
     public void showIncidenciasTest() {
         interact(() -> {
             controller.showIncidencias();
-            assertTrue(statusLabel.getText().contains("incidencias.fxml") || statusLabel.getText().contains("Error"));
+            assertEquals(1, contentArea.getChildren().size());
         });
     }
 
@@ -71,7 +202,39 @@ public class MainControllerTest extends ApplicationTest {
     public void showUsuariosTest() {
         interact(() -> {
             controller.showUsuarios();
-            assertTrue(statusLabel.getText().contains("usuarios.fxml") || statusLabel.getText().contains("Error"));
+            assertEquals(1, contentArea.getChildren().size());
+        });
+    }
+
+    @Test
+    public void showAddActividadTest() {
+        interact(() -> {
+            controller.showAddActividad();
+            assertEquals(1, contentArea.getChildren().size());
+        });
+    }
+
+    @Test
+    public void showAddReservaTest() {
+        interact(() -> {
+            controller.showAddReserva();
+            assertEquals(1, contentArea.getChildren().size());
+        });
+    }
+
+    @Test
+    public void showAddIncidenciaTest() {
+        interact(() -> {
+            controller.showAddIncidencia();
+            assertEquals(1, contentArea.getChildren().size());
+        });
+    }
+
+    @Test
+    public void showAddUsuarioTest() {
+        interact(() -> {
+            controller.showAddUsuario();
+            assertEquals(1, contentArea.getChildren().size());
         });
     }
 
@@ -82,8 +245,9 @@ public class MainControllerTest extends ApplicationTest {
                 java.lang.reflect.Method method = controller.getClass().getDeclaredMethod("loadView", String.class);
                 method.setAccessible(true);
                 method.invoke(controller, "/es/ies/puerto/view/usuarios.fxml");
-                assertTrue(statusLabel.getText().contains("usuarios.fxml"));
+                assertEquals(1, contentArea.getChildren().size());
             } catch (Exception e) {
+                fail("Should not throw exception: " + e.getMessage());
             }
         });
     }
@@ -95,36 +259,24 @@ public class MainControllerTest extends ApplicationTest {
                 java.lang.reflect.Method method = controller.getClass().getDeclaredMethod("loadView", String.class);
                 method.setAccessible(true);
                 method.invoke(controller, "/non/existent.fxml");
-                assertTrue(statusLabel.getText().contains("Error"));
+                // Should not throw, just print error
             } catch (Exception e) {
+                fail("Should not throw exception: " + e.getMessage());
             }
         });
     }
 
     @Test
-    public void loadViewNullComponentsTest() throws Exception {
-        setPrivateField(controller, "statusLabel", null);
-        setPrivateField(controller, "contentArea", null);
+    public void loadViewNullContentAreaTest() throws Exception {
         interact(() -> {
             try {
+                setPrivateField(controller, "contentArea", null);
                 java.lang.reflect.Method method = controller.getClass().getDeclaredMethod("loadView", String.class);
                 method.setAccessible(true);
                 method.invoke(controller, "/es/ies/puerto/view/usuarios.fxml");
-                // No exceptions should occur even if components are null
+                // Should not throw
             } catch (Exception e) {
-            }
-        });
-    }
-
-    @Test
-    public void loadViewNullUrlNoLabelTest() throws Exception {
-        setPrivateField(controller, "statusLabel", null);
-        interact(() -> {
-            try {
-                java.lang.reflect.Method method = controller.getClass().getDeclaredMethod("loadView", String.class);
-                method.setAccessible(true);
-                method.invoke(controller, "/non/existent.fxml");
-            } catch (Exception e) {
+                fail("Should not throw exception: " + e.getMessage());
             }
         });
     }
@@ -135,63 +287,60 @@ public class MainControllerTest extends ApplicationTest {
             try {
                 java.lang.reflect.Method method = controller.getClass().getDeclaredMethod("loadView", String.class);
                 method.setAccessible(true);
-                // Passing a non-FXML file will trigger a LoadException (IOException) in FXMLLoader
                 method.invoke(controller, "/logging.properties");
-                assertTrue(statusLabel.getText().contains("Error al cargar vista"));
+                // Should not throw, just print stack trace
             } catch (Exception e) {
+                fail("Should not throw exception: " + e.getMessage());
             }
         });
     }
 
     @Test
-    public void loadViewIOExceptionNoLabelTest() throws Exception {
-        setPrivateField(controller, "statusLabel", null);
+    public void loadViewSetMainControllerTest() throws Exception {
         interact(() -> {
             try {
                 java.lang.reflect.Method method = controller.getClass().getDeclaredMethod("loadView", String.class);
                 method.setAccessible(true);
-                method.invoke(controller, "/logging.properties");
+                // Test with a view that has setMainController, like ActividadesController
+                method.invoke(controller, "/es/ies/puerto/view/actividades.fxml");
+                assertEquals(1, contentArea.getChildren().size());
             } catch (Exception e) {
+                fail("Should not throw exception: " + e.getMessage());
             }
         });
     }
 
     @Test
-    public void loadViewNullUrlWithLabelTest() throws Exception {
+    public void loadViewSetMainControllerFailsTest() throws Exception {
         interact(() -> {
             try {
+                // Test with a view that definitely doesn't have setMainController
                 java.lang.reflect.Method method = controller.getClass().getDeclaredMethod("loadView", String.class);
                 method.setAccessible(true);
-                method.invoke(controller, "/non/existent.fxml");
-                assertTrue(statusLabel.getText().contains("Error: No se encuentra"));
+                // Use welcome.fxml since its controller doesn't have setMainController
+                method.invoke(controller, "/es/ies/puerto/view/welcome.fxml");
+                // Should not throw exception, just skip setting main controller
             } catch (Exception e) {
+                fail("Should not throw exception: " + e.getMessage());
             }
         });
     }
 
     @Test
-    public void loadViewOnlyContentAreaNullTest() throws Exception {
-        setPrivateField(controller, "contentArea", null);
+    public void loadViewSetMainControllerExceptionTest() throws Exception {
         interact(() -> {
-            try {
+            try (MockedConstruction<FXMLLoader> mocked = mockConstruction(FXMLLoader.class,
+                    (mock, context) -> {
+                        Object mockController = new Object();
+                        when(mock.getController()).thenReturn(mockController);
+                        when(mock.load()).thenReturn(new javafx.scene.layout.Pane());
+                    })) {
                 java.lang.reflect.Method method = controller.getClass().getDeclaredMethod("loadView", String.class);
                 method.setAccessible(true);
-                method.invoke(controller, "/es/ies/puerto/view/usuarios.fxml");
-                assertTrue(statusLabel.getText().contains("usuarios.fxml"));
+                method.invoke(controller, "/some/fxml/path.fxml");
+                // Should not throw an exception, even though trying to invoke setMainController fails
             } catch (Exception e) {
-            }
-        });
-    }
-
-    @Test
-    public void loadViewOnlyStatusLabelNullTest() throws Exception {
-        setPrivateField(controller, "statusLabel", null);
-        interact(() -> {
-            try {
-                java.lang.reflect.Method method = controller.getClass().getDeclaredMethod("loadView", String.class);
-                method.setAccessible(true);
-                method.invoke(controller, "/es/ies/puerto/view/usuarios.fxml");
-            } catch (Exception e) {
+                fail("Should not throw exception: " + e.getMessage());
             }
         });
     }

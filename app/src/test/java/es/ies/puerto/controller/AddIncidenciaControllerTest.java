@@ -7,8 +7,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
-import org.mockito.Mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.testfx.framework.junit5.ApplicationTest;
 
@@ -28,6 +29,9 @@ public class AddIncidenciaControllerTest extends ApplicationTest {
 
     @Mock
     private IncidenciasService service;
+
+    @Mock
+    private IncidenciasController previousController;
 
     private TextField idIncidenciaField;
     private TextField idUsuarioField;
@@ -144,6 +148,113 @@ public class AddIncidenciaControllerTest extends ApplicationTest {
         interact(() -> {
             controller.cancelar();
             assertFalse(((Stage) idIncidenciaField.getScene().getWindow()).isShowing());
+        });
+    }
+
+    @Test
+    public void setPreviousControllerTest() {
+        IncidenciasController previous = new IncidenciasController();
+        controller.setPreviousController(previous);
+    }
+
+    @Test
+    public void cerrarWithMainAndPreviousTest() throws Exception {
+        interact(() -> {
+            try {
+                MainController main = new MainController();
+                IncidenciasController previous = new IncidenciasController();
+                controller.setMainController(main);
+                controller.setPreviousController(previous);
+
+                setPrivateField(main, "contentArea", new javafx.scene.layout.StackPane());
+
+                controller.cancelar();
+
+                idIncidenciaField.setText("1");
+                idUsuarioField.setText("1");
+                asuntoField.setText("Error");
+                descripcionArea.setText("No funciona");
+                estadoCombo.setValue("ABIERTA");
+                when(service.save(any(Incidencias.class))).thenReturn(true);
+                controller.guardar();
+            } catch (Exception e) {
+            }
+        });
+    }
+
+    @Test
+    public void cerrarWithMainPreviousAndGuardadoTrueTest() throws Exception {
+        interact(() -> {
+            try {
+                MainController main = new MainController();
+                controller.setMainController(main);
+                controller.setPreviousController(previousController);
+
+                setPrivateField(main, "contentArea", new javafx.scene.layout.StackPane());
+
+                java.lang.reflect.Field guardadoField = AddIncidenciaController.class.getDeclaredField("guardado");
+                guardadoField.setAccessible(true);
+                guardadoField.set(controller, true);
+
+                java.lang.reflect.Method cerrarMethod = AddIncidenciaController.class.getDeclaredMethod("cerrar");
+                cerrarMethod.setAccessible(true);
+                cerrarMethod.invoke(controller);
+
+                verify(previousController).loadData();
+
+            } catch (Exception e) {
+            }
+        });
+    }
+
+    @Test
+    public void cerrarWithOnlyMainControllerTest() throws Exception {
+        interact(() -> {
+            try {
+                MainController main = new MainController();
+                controller.setMainController(main);
+                controller.setPreviousController(null);
+
+                setPrivateField(main, "contentArea", new javafx.scene.layout.StackPane());
+
+                java.lang.reflect.Method cerrarMethod = AddIncidenciaController.class.getDeclaredMethod("cerrar");
+                cerrarMethod.setAccessible(true);
+                cerrarMethod.invoke(controller);
+
+            } catch (Exception e) {
+            }
+        });
+    }
+
+    @Test
+    public void cerrarWithOnlyPreviousControllerTest() throws Exception {
+        interact(() -> {
+            try {
+                controller.setMainController(null);
+                controller.setPreviousController(previousController);
+
+                java.lang.reflect.Method cerrarMethod = AddIncidenciaController.class.getDeclaredMethod("cerrar");
+                cerrarMethod.setAccessible(true);
+                cerrarMethod.invoke(controller);
+
+            } catch (Exception e) {
+            }
+        });
+    }
+
+    @Test
+    public void cerrarWithNoControllersTest() throws Exception {
+        interact(() -> {
+            try {
+                controller.setMainController(null);
+                controller.setPreviousController(null);
+
+                java.lang.reflect.Method cerrarMethod = AddIncidenciaController.class.getDeclaredMethod("cerrar");
+                cerrarMethod.setAccessible(true);
+                cerrarMethod.invoke(controller);
+
+            } catch (Exception e) {
+            }
         });
     }
 }

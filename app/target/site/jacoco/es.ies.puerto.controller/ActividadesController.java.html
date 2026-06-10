@@ -44,90 +44,126 @@ import javafx.stage.Stage;
 
     private ActividadesService service;
 <span class="fc" id="L46">    private ObservableList&lt;Actividades&gt; masterData = FXCollections.observableArrayList();</span>
+    private MainController mainController;
 
     public void setService(ActividadesService service) {
-<span class="fc" id="L49">        this.service = service;</span>
-<span class="fc" id="L50">    }</span>
+<span class="fc" id="L50">        this.service = service;</span>
+<span class="fc" id="L51">    }</span>
 
     private ActividadesService getService() {
-<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (service == null) {</span>
-<span class="fc" id="L54">            service = new ActividadesService();</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        if (service == null) {</span>
+<span class="fc" id="L55">            service = new ActividadesService();</span>
         }
-<span class="fc" id="L56">        return service;</span>
+<span class="fc" id="L57">        return service;</span>
     }
+
+    public void setMainController(MainController mainController) {
+<span class="fc" id="L61">        this.mainController = mainController;</span>
+<span class="fc" id="L62">    }</span>
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-<span class="fc" id="L61">        colId.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;id&quot;));</span>
-<span class="fc" id="L62">        colNombre.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;nombre&quot;));</span>
-<span class="fc" id="L63">        colTipo.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;tipoActividad&quot;));</span>
-<span class="fc" id="L64">        colDuracion.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;duracion&quot;));</span>
-<span class="fc" id="L65">        colPrecio.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;precio&quot;));</span>
-<span class="fc" id="L66">        colMax.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;plazasMaximas&quot;));</span>
-<span class="fc" id="L67">        colOcupadas.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;plazasOcupadas&quot;));</span>
+<span class="fc" id="L66">        colId.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;id&quot;));</span>
+<span class="fc" id="L67">        colNombre.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;nombre&quot;));</span>
+<span class="fc" id="L68">        colTipo.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;tipoActividad&quot;));</span>
+<span class="fc" id="L69">        colDuracion.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;duracion&quot;));</span>
+<span class="fc" id="L70">        colPrecio.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;precio&quot;));</span>
+<span class="fc" id="L71">        colMax.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;plazasMaximas&quot;));</span>
+<span class="fc" id="L72">        colOcupadas.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;plazasOcupadas&quot;));</span>
 
-<span class="fc" id="L69">        loadData();</span>
+<span class="fc" id="L74">        loadData();</span>
 
-<span class="fc" id="L71">        searchField.textProperty().addListener((observable, oldValue, newValue) -&gt; {</span>
-<span class="nc" id="L72">            filterActividades(newValue);</span>
-<span class="nc" id="L73">        });</span>
-<span class="fc" id="L74">    }</span>
+<span class="fc" id="L76">        searchField.textProperty().addListener((observable, oldValue, newValue) -&gt; {</span>
+<span class="nc" id="L77">            filterActividades(newValue);</span>
+<span class="nc" id="L78">        });</span>
+<span class="fc" id="L79">    }</span>
 
     private void filterActividades(String searchText) {
-<span class="fc bfc" id="L77" title="All 4 branches covered.">        if (searchText == null || searchText.trim().isEmpty()) {</span>
-<span class="fc" id="L78">            actividadesTable.setItems(masterData);</span>
-<span class="fc" id="L79">            return;</span>
+<span class="fc bfc" id="L82" title="All 4 branches covered.">        if (searchText == null || searchText.trim().isEmpty()) {</span>
+<span class="fc" id="L83">            actividadesTable.setItems(masterData);</span>
+<span class="fc" id="L84">            return;</span>
         }
-<span class="fc" id="L81">        ObservableList&lt;Actividades&gt; filteredList = FXCollections.observableArrayList();</span>
-<span class="fc" id="L82">        String lowerSearch = searchText.toLowerCase();</span>
-<span class="fc bfc" id="L83" title="All 2 branches covered.">        for (Actividades actividad : masterData) {</span>
-<span class="fc bfc" id="L84" title="All 2 branches covered.">            if (actividad.getNombre().toLowerCase().contains(lowerSearch)</span>
-<span class="pc bpc" id="L85" title="1 of 2 branches missed.">                    || actividad.getTipoActividad().toLowerCase().contains(lowerSearch)) {</span>
-<span class="fc" id="L86">                filteredList.add(actividad);</span>
+<span class="fc" id="L86">        ObservableList&lt;Actividades&gt; filteredList = FXCollections.observableArrayList();</span>
+<span class="fc" id="L87">        String lowerSearch = searchText.toLowerCase();</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">        for (Actividades actividad : masterData) {</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">            if (actividad.getNombre().toLowerCase().contains(lowerSearch)</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">                    || actividad.getTipoActividad().toLowerCase().contains(lowerSearch)) {</span>
+<span class="fc" id="L91">                filteredList.add(actividad);</span>
             }
-        }
-<span class="fc" id="L89">        actividadesTable.setItems(filteredList);</span>
-<span class="fc" id="L90">    }</span>
+<span class="fc" id="L93">        }</span>
+<span class="fc" id="L94">        actividadesTable.setItems(filteredList);</span>
+<span class="fc" id="L95">    }</span>
 
     @FXML
     public void loadData() {
-<span class="fc" id="L94">        masterData.clear();</span>
-<span class="fc" id="L95">        List&lt;Actividades&gt; list = getService().findAll();</span>
-<span class="fc bfc" id="L96" title="All 2 branches covered.">        if (list != null) {</span>
-<span class="fc" id="L97">            masterData.addAll(list);</span>
+<span class="fc" id="L99">        masterData.clear();</span>
+<span class="fc" id="L100">        List&lt;Actividades&gt; list = getService().findAll();</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        if (list != null) {</span>
+<span class="fc" id="L102">            masterData.addAll(list);</span>
         }
-<span class="fc" id="L99">        actividadesTable.setItems(masterData);</span>
-<span class="fc" id="L100">    }</span>
+<span class="fc" id="L104">        actividadesTable.setItems(masterData);</span>
+<span class="fc" id="L105">    }</span>
 
     @FXML
     public void deleteActividad() {
-<span class="fc" id="L104">        Actividades selected = actividadesTable.getSelectionModel().getSelectedItem();</span>
-<span class="pc bpc" id="L105" title="1 of 2 branches missed.">        if (selected != null) {</span>
-<span class="fc" id="L106">            getService().delete(selected.getId());</span>
-<span class="fc" id="L107">            loadData();</span>
+<span class="fc" id="L109">        Actividades selected = actividadesTable.getSelectionModel().getSelectedItem();</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">        if (selected != null) {</span>
+<span class="fc" id="L111">            getService().delete(selected.getId());</span>
+<span class="fc" id="L112">            loadData();</span>
         }
-<span class="fc" id="L109">    }</span>
+<span class="fc" id="L114">    }</span>
 
     @FXML
     public void newActividad() {
-        try {
-<span class="fc" id="L114">            FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/es/ies/puerto/view/add_actividad.fxml&quot;));</span>
-<span class="fc" id="L115">            Parent root = loader.load();</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">        if (mainController != null) {</span>
+            // Cuando pasamos al formulario, cargamos el formulario y luego
+            // el controlador del formulario se encargará de volver aquí
+            // Pero primero, pasamos la referencia de este controlador al formulario
+            // Para ello, tenemos que usar loadView con un FXMLLoader personalizado
+            try {
+<span class="fc" id="L124">                URL url = getClass().getResource(&quot;/es/ies/puerto/view/add_actividad.fxml&quot;);</span>
+<span class="fc" id="L125">                FXMLLoader loader = new FXMLLoader(url);</span>
+<span class="fc" id="L126">                Parent view = loader.load();</span>
+                
+<span class="fc" id="L128">                AddActividadController addController = loader.getController();</span>
+<span class="fc" id="L129">                addController.setMainController(mainController);</span>
+<span class="fc" id="L130">                addController.setPreviousController(this);</span>
+                
+                // Cargamos la vista en el MainController
+<span class="fc" id="L133">                mainController.setContent(view);</span>
+                
+<span class="fc" id="L135">            } catch (IOException e) {</span>
+<span class="fc" id="L136">                e.printStackTrace();</span>
+<span class="fc" id="L137">            }</span>
+        } else {
+            // Modo retrocompatibilidad: abrimos ventana modal SOLO si no es headless
+            try {
+<span class="fc" id="L141">                FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/es/ies/puerto/view/add_actividad.fxml&quot;));</span>
+<span class="fc" id="L142">                Parent root = loader.load();</span>
 
-<span class="fc" id="L117">            AddActividadController controller = loader.getController();</span>
+<span class="fc" id="L144">                AddActividadController controller = loader.getController();</span>
 
-<span class="fc" id="L119">            Stage stage = new Stage();</span>
-<span class="fc" id="L120">            stage.initModality(Modality.APPLICATION_MODAL);</span>
-<span class="fc" id="L121">            stage.setTitle(&quot;Añadir Actividad&quot;);</span>
-<span class="fc" id="L122">            stage.setScene(new Scene(root));</span>
-<span class="fc" id="L123">            stage.showAndWait();</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">                boolean isHeadless = Boolean.getBoolean(&quot;java.awt.headless&quot;) || </span>
+<span class="pc bpc" id="L147" title="1 of 2 branches missed.">                                     java.awt.GraphicsEnvironment.isHeadless();</span>
+<span class="fc bfc" id="L148" title="All 2 branches covered.">                if (!isHeadless) {</span>
+                    try {
+<span class="fc" id="L150">                        Stage stage = new Stage();</span>
+<span class="fc" id="L151">                        stage.initModality(Modality.APPLICATION_MODAL);</span>
+<span class="fc" id="L152">                        stage.setTitle(&quot;Añadir Actividad&quot;);</span>
+<span class="fc" id="L153">                        stage.setScene(new Scene(root));</span>
+<span class="fc" id="L154">                        stage.showAndWait();</span>
+<span class="nc" id="L155">                    } catch (Exception e) {</span>
+                        // No se puede mostrar la ventana, pero seguimos comprobando guardado
+<span class="fc" id="L157">                    }</span>
+                }
 
-<span class="pc bpc" id="L125" title="1 of 2 branches missed.">            if (controller.isGuardado()) {</span>
-<span class="nc" id="L126">                loadData();</span>
-            }
-<span class="nc" id="L128">        } catch (IOException e) {</span>
-<span class="nc" id="L129">            e.printStackTrace();</span>
+<span class="fc bfc" id="L160" title="All 2 branches covered.">                if (controller.isGuardado()) {</span>
+<span class="fc" id="L161">                    loadData();</span>
+                }
+<span class="fc" id="L163">            } catch (IOException e) {</span>
+<span class="fc" id="L164">                e.printStackTrace();</span>
+<span class="fc" id="L165">            }</span>
         }
-<span class="fc" id="L131">    }</span>
+<span class="fc" id="L167">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

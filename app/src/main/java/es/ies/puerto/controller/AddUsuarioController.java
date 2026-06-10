@@ -29,6 +29,8 @@ public class AddUsuarioController implements Initializable {
 
     private UsuarioService service;
     private boolean guardado = false;
+    private MainController mainController;
+    private UsuariosController previousController;
 
     public void setService(UsuarioService service) {
         this.service = service;
@@ -39,6 +41,14 @@ public class AddUsuarioController implements Initializable {
             service = new UsuarioService();
         }
         return service;
+    }
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
+
+    public void setPreviousController(UsuariosController previousController) {
+        this.previousController = previousController;
     }
 
     @Override
@@ -79,8 +89,18 @@ public class AddUsuarioController implements Initializable {
     }
 
     private void cerrar() {
-        Stage stage = (Stage) idField.getScene().getWindow();
-        stage.close();
+        if (mainController != null && previousController != null) {
+            mainController.showUsuarios();
+            if (guardado) {
+                previousController.loadData();
+            }
+        } else {
+            // Modo retrocompatibilidad: cerramos la ventana si existe
+            if (idField.getScene() != null && idField.getScene().getWindow() != null) {
+                Stage stage = (Stage) idField.getScene().getWindow();
+                stage.close();
+            }
+        }
     }
 
     private void mostrarError(String mensaje) {

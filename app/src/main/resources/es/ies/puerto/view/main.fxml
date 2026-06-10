@@ -3,29 +3,51 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="es.ies.puerto.controller.MainController" minHeight="600" minWidth="360" prefHeight="800" prefWidth="400" spacing="10">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="es.ies.puerto.controller.MainController" minHeight="700" minWidth="900" prefHeight="800" prefWidth="1200">
     
-    <!-- Barra superior -->
-    <HBox style="-fx-background-color: #2c3e50; -fx-padding: 15;">
-        <Label text="CentroPlus Connect" style="-fx-text-fill: white; -fx-font-size: 18; -fx-font-weight: bold;"/>
-    </HBox>
-
-    <!-- Botones de navegación (superior) -->
-    <VBox style="-fx-padding: 10;" spacing="10">
-        <Button text="Actividades" onAction="#showActividades" maxWidth="Infinity" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 12;"/>
-        <Button text="Reservas" onAction="#showReservas" maxWidth="Infinity" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 12;"/>
-        <Button text="Incidencias" onAction="#showIncidencias" maxWidth="Infinity" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 12;"/>
-        <Button text="Usuarios" onAction="#showUsuarios" maxWidth="Infinity" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 12;"/>
-    </VBox>
-
-    <!-- Contenido -->
-    <StackPane fx:id="contentArea" VBox.vgrow="ALWAYS">
-        <VBox alignment="CENTER" spacing="20" style="-fx-padding: 20;">
-            <Label text="Bienvenido" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
-            <Label text="Pulsa un botón para empezar" style="-fx-font-size: 14;"/>
+    <!-- Barra lateral izquierda -->
+    <left>
+        <VBox style="-fx-background-color: #0f172a; -fx-min-width: 240; -fx-max-width: 240;" spacing="0">
+            <!-- Logo y título -->
+            <VBox style="-fx-background-color: #1e293b; -fx-padding: 25 20;" spacing="8">
+                <Label text="CentroPlus" style="-fx-text-fill: #ffffff; -fx-font-size: 26; -fx-font-weight: bold;"/>
+                <Label text="Gestión Integral" style="-fx-text-fill: #94a3b8; -fx-font-size: 12;"/>
+            </VBox>
+            
+            <!-- Menú de navegación -->
+            <VBox style="-fx-padding: 20 0;" spacing="5">
+                <Button text="🏠  Inicio" onAction="#showMain" maxWidth="Infinity" style="-fx-background-color: #1e293b; -fx-text-fill: #e2e8f0; -fx-font-size: 15; -fx-alignment: CENTER_LEFT; -fx-padding: 15 20; -fx-background-radius: 0;"/>
+                <Button text="📋  Actividades" onAction="#showActividades" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #cbd5e1; -fx-font-size: 15; -fx-alignment: CENTER_LEFT; -fx-padding: 15 20; -fx-background-radius: 0;"/>
+                <Button text="📅  Reservas" onAction="#showReservas" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #cbd5e1; -fx-font-size: 15; -fx-alignment: CENTER_LEFT; -fx-padding: 15 20; -fx-background-radius: 0;"/>
+                <Button text="⚠️  Incidencias" onAction="#showIncidencias" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #cbd5e1; -fx-font-size: 15; -fx-alignment: CENTER_LEFT; -fx-padding: 15 20; -fx-background-radius: 0;"/>
+                <Button text="👥  Usuarios" onAction="#showUsuarios" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #cbd5e1; -fx-font-size: 15; -fx-alignment: CENTER_LEFT; -fx-padding: 15 20; -fx-background-radius: 0;"/>
+            </VBox>
+            
+            <!-- Espaciador -->
+            <Region VBox.vgrow="ALWAYS"/>
+            
+            <!-- Pie de la barra lateral -->
+            <VBox style="-fx-padding: 20; -fx-background-color: #1e293b;" spacing="10">
+                <Separator style="-fx-background-color: #334155;"/>
+                <Label text="Versión 1.0.0" style="-fx-text-fill: #64748b; -fx-font-size: 12;"/>
+                <Label text="© 2024 CentroPlus" style="-fx-text-fill: #64748b; -fx-font-size: 11;"/>
+            </VBox>
         </VBox>
-    </StackPane>
-
-    <!-- Barra de estado -->
-    <Label fx:id="statusLabel" text="Listo" style="-fx-padding: 10; -fx-background-color: #ecf0f1;"/>
-</VBox>
+    </left>
+    
+    <!-- Área de contenido principal -->
+    <center>
+        <VBox style="-fx-background-color: #f8fafc;" spacing="0">
+            <!-- Barra superior del contenido -->
+            <HBox style="-fx-background-color: #ffffff; -fx-padding: 15 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1);" alignment="CENTER_LEFT" spacing="20">
+                <Label text="Panel de Control" style="-fx-text-fill: #1e293b; -fx-font-size: 22; -fx-font-weight: bold;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="Bienvenido/a" style="-fx-text-fill: #64748b; -fx-font-size: 14;"/>
+            </HBox>
+            
+            <!-- Contenedor principal del contenido -->
+            <StackPane fx:id="contentArea" VBox.vgrow="ALWAYS" style="-fx-background-color: #f8fafc; -fx-padding: 30;"/>
+        </VBox>
+    </center>
+    
+</BorderPane>
