@@ -42,7 +42,7 @@ import javafx.scene.layout.StackPane;
             }
 <span class="fc" id="L43">        } catch (IOException e) {</span>
 <span class="fc" id="L44">            e.printStackTrace();</span>
-        }
+<span class="fc" id="L45">        }</span>
 <span class="fc" id="L46">    }</span>
 
     // Métodos para navegar a las listas principales
@@ -105,16 +105,16 @@ import javafx.scene.layout.StackPane;
 <span class="fc" id="L105">            Object controller = loader.getController();</span>
             try {
 <span class="fc" id="L107">                controller.getClass().getMethod(&quot;setMainController&quot;, MainController.class).invoke(controller, this);</span>
-<span class="pc" id="L108">            } catch (Exception e) {</span>
+<span class="nc" id="L108">            } catch (Exception e) {</span>
                 // Si el controlador no tiene setMainController, no pasa nada
-            }
+<span class="fc" id="L110">            }</span>
 
 <span class="fc bfc" id="L112" title="All 2 branches covered.">            if (contentArea != null) {</span>
 <span class="fc" id="L113">                contentArea.getChildren().setAll(view);</span>
             }
 <span class="fc" id="L115">        } catch (IOException e) {</span>
 <span class="fc" id="L116">            e.printStackTrace();</span>
-        }
+<span class="fc" id="L117">        }</span>
 <span class="fc" id="L118">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

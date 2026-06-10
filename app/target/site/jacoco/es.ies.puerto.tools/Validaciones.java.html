@@ -2,45 +2,45 @@
 
 import java.util.regex.Pattern;
 
-<span class="nc" id="L5">public class Validaciones {</span>
+<span class="fc" id="L5">public class Validaciones {</span>
 
     public static boolean esNombreValido(String nombre) {
-<span class="nc bnc" id="L8" title="All 4 branches missed.">        if (nombre == null || nombre.isBlank()) {</span>
-<span class="nc" id="L9">            return false;</span>
+<span class="fc bfc" id="L8" title="All 4 branches covered.">        if (nombre == null || nombre.isBlank()) {</span>
+<span class="fc" id="L9">            return false;</span>
         }
-<span class="nc" id="L11">        String regex = &quot;[a-zA-Z\\s]{1,50}&quot;;</span>
-<span class="nc" id="L12">        return Pattern.matches(regex, nombre);</span>
+<span class="fc" id="L11">        String regex = &quot;[a-zA-Z\\s]{1,50}&quot;;</span>
+<span class="fc" id="L12">        return Pattern.matches(regex, nombre);</span>
     }
 
     public static boolean esEmailValido(String email) {
-<span class="nc bnc" id="L16" title="All 4 branches missed.">        if (email == null || email.isBlank()) {</span>
-<span class="nc" id="L17">            return false;</span>
+<span class="fc bfc" id="L16" title="All 4 branches covered.">        if (email == null || email.isBlank()) {</span>
+<span class="fc" id="L17">            return false;</span>
         }
-<span class="nc" id="L19">        String regex = &quot;[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}&quot;;</span>
-<span class="nc" id="L20">        return Pattern.matches(regex, email);</span>
+<span class="fc" id="L19">        String regex = &quot;[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}&quot;;</span>
+<span class="fc" id="L20">        return Pattern.matches(regex, email);</span>
     }
 
     public static boolean esTelefonoValido(String telefono) {
-<span class="nc bnc" id="L24" title="All 4 branches missed.">        if (telefono == null || telefono.isBlank()) {</span>
-<span class="nc" id="L25">            return false;</span>
+<span class="fc bfc" id="L24" title="All 4 branches covered.">        if (telefono == null || telefono.isBlank()) {</span>
+<span class="fc" id="L25">            return false;</span>
         }
-<span class="nc" id="L27">        String regex = &quot;^[0-9]{9}$&quot;;</span>
-<span class="nc" id="L28">        return Pattern.matches(regex, telefono);</span>
+<span class="fc" id="L27">        String regex = &quot;^[0-9]{9}$&quot;;</span>
+<span class="fc" id="L28">        return Pattern.matches(regex, telefono);</span>
     }
 
     public static boolean esDniValido(String dni) {
-<span class="nc bnc" id="L32" title="All 4 branches missed.">        if (dni == null || dni.isBlank()) {</span>
-<span class="nc" id="L33">            return false;</span>
+<span class="fc bfc" id="L32" title="All 4 branches covered.">        if (dni == null || dni.isBlank()) {</span>
+<span class="fc" id="L33">            return false;</span>
         }
-<span class="nc" id="L35">        String regex = &quot;^[0-9]{8}[A-Z]$&quot;;</span>
-<span class="nc" id="L36">        return Pattern.matches(regex, dni);</span>
+<span class="fc" id="L35">        String regex = &quot;^[0-9]{8}[A-Z]$&quot;;</span>
+<span class="fc" id="L36">        return Pattern.matches(regex, dni);</span>
     }
 
     public static boolean esDescripcionValida(String descripcion) {
-<span class="nc bnc" id="L40" title="All 4 branches missed.">        if (descripcion == null || descripcion.isBlank()) {</span>
-<span class="nc" id="L41">            return false;</span>
+<span class="fc bfc" id="L40" title="All 4 branches covered.">        if (descripcion == null || descripcion.isBlank()) {</span>
+<span class="fc" id="L41">            return false;</span>
         }
-<span class="nc" id="L43">        return true;</span>
+<span class="fc" id="L43">        return true;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

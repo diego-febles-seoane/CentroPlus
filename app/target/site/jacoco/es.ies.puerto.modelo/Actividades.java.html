@@ -15,18 +15,18 @@ public class Actividades {
     /**
      * Constructor por defecto
      */
-<span class="nc" id="L18">    public Actividades() {</span>
+<span class="fc" id="L18">    public Actividades() {</span>
 
-<span class="nc" id="L20">    }</span>
+<span class="fc" id="L20">    }</span>
 
     /**
      * Constructor para busqueda
      *
      * @param id Identificador de la actividad
      */
-<span class="nc" id="L27">    public Actividades(int id) {</span>
-<span class="nc" id="L28">        this.id = id;</span>
-<span class="nc" id="L29">    }</span>
+<span class="fc" id="L27">    public Actividades(int id) {</span>
+<span class="fc" id="L28">        this.id = id;</span>
+<span class="fc" id="L29">    }</span>
 
     /**
      * Constructor de la clase
@@ -50,96 +50,96 @@ public class Actividades {
 <span class="fc" id="L50">    }</span>
 
     public int getId() {
-<span class="nc" id="L53">        return this.id;</span>
+<span class="fc" id="L53">        return this.id;</span>
     }
 
     public void setId(int id) {
-<span class="nc" id="L57">        this.id = id;</span>
-<span class="nc" id="L58">    }</span>
+<span class="fc" id="L57">        this.id = id;</span>
+<span class="fc" id="L58">    }</span>
 
     public String getNombre() {
-<span class="nc" id="L61">        return this.nombre;</span>
+<span class="fc" id="L61">        return this.nombre;</span>
     }
 
     public void setNombre(String nombre) {
-<span class="nc" id="L65">        this.nombre = nombre;</span>
-<span class="nc" id="L66">    }</span>
+<span class="fc" id="L65">        this.nombre = nombre;</span>
+<span class="fc" id="L66">    }</span>
 
     public String getTipoActividad() {
-<span class="nc" id="L69">        return this.tipoActividad;</span>
+<span class="fc" id="L69">        return this.tipoActividad;</span>
     }
 
     public void setTipoActividad(String tipoActividad) {
-<span class="nc" id="L73">        this.tipoActividad = tipoActividad;</span>
-<span class="nc" id="L74">    }</span>
+<span class="fc" id="L73">        this.tipoActividad = tipoActividad;</span>
+<span class="fc" id="L74">    }</span>
 
     public int getDuracion() {
-<span class="nc" id="L77">        return this.duracion;</span>
+<span class="fc" id="L77">        return this.duracion;</span>
     }
 
     public void setDuracion(int duracion) {
-<span class="nc" id="L81">        this.duracion = duracion;</span>
-<span class="nc" id="L82">    }</span>
+<span class="fc" id="L81">        this.duracion = duracion;</span>
+<span class="fc" id="L82">    }</span>
 
     public double getPrecio() {
-<span class="nc" id="L85">        return this.precio;</span>
+<span class="fc" id="L85">        return this.precio;</span>
     }
 
     public void setPrecio(double precio) {
-<span class="nc" id="L89">        this.precio = precio;</span>
-<span class="nc" id="L90">    }</span>
+<span class="fc" id="L89">        this.precio = precio;</span>
+<span class="fc" id="L90">    }</span>
 
     public int getPlazasMaximas() {
-<span class="nc" id="L93">        return this.plazasMaximas;</span>
+<span class="fc" id="L93">        return this.plazasMaximas;</span>
     }
 
     public void setPlazasMaximas(int plazasMaximas) {
-<span class="nc" id="L97">        this.plazasMaximas = plazasMaximas;</span>
-<span class="nc" id="L98">    }</span>
+<span class="fc" id="L97">        this.plazasMaximas = plazasMaximas;</span>
+<span class="fc" id="L98">    }</span>
 
     public int getPlazasOcupadas() {
-<span class="nc" id="L101">        return this.plazasOcupadas;</span>
+<span class="fc" id="L101">        return this.plazasOcupadas;</span>
     }
 
     public void setPlazasOcupadas(int plazasOcupadas) {
-<span class="nc" id="L105">        this.plazasOcupadas = plazasOcupadas;</span>
-<span class="nc" id="L106">    }</span>
+<span class="fc" id="L105">        this.plazasOcupadas = plazasOcupadas;</span>
+<span class="fc" id="L106">    }</span>
 
     @Override
     public boolean equals(Object o) {
-<span class="nc bnc" id="L110" title="All 2 branches missed.">        if (o == this) {</span>
-<span class="nc" id="L111">            return true;</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">        if (o == this) {</span>
+<span class="fc" id="L111">            return true;</span>
         }
-<span class="nc bnc" id="L113" title="All 2 branches missed.">        if (!(o instanceof Actividades)) {</span>
-<span class="nc" id="L114">            return false;</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">        if (!(o instanceof Actividades)) {</span>
+<span class="fc" id="L114">            return false;</span>
         }
-<span class="nc" id="L116">        Actividades actividades = (Actividades) o;</span>
-<span class="nc bnc" id="L117" title="All 2 branches missed.">        return id == actividades.id;</span>
+<span class="fc" id="L116">        Actividades actividades = (Actividades) o;</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        return id == actividades.id;</span>
     }
 
     @Override
     public int hashCode() {
-<span class="nc" id="L122">        return Objects.hash(id);</span>
+<span class="fc" id="L122">        return Objects.hash(id);</span>
     }
 
     public boolean cancelarPlaza() {
-<span class="nc bnc" id="L126" title="All 2 branches missed.">        if (plazasOcupadas &lt;= 0) {</span>
-<span class="nc" id="L127">            return false;</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">        if (plazasOcupadas &lt;= 0) {</span>
+<span class="fc" id="L127">            return false;</span>
         }
-<span class="nc" id="L129">        plazasOcupadas--;</span>
-<span class="nc" id="L130">        return true;</span>
+<span class="fc" id="L129">        plazasOcupadas--;</span>
+<span class="fc" id="L130">        return true;</span>
     }
 
     @Override
     public String toString() {
-<span class="nc" id="L135">        return &quot;{&quot;</span>
-<span class="nc" id="L136">                + &quot; id='&quot; + getId() + &quot;'&quot;</span>
-<span class="nc" id="L137">                + &quot;, nombre='&quot; + getNombre() + &quot;'&quot;</span>
-<span class="nc" id="L138">                + &quot;, tipoActividad='&quot; + getTipoActividad() + &quot;'&quot;</span>
-<span class="nc" id="L139">                + &quot;, duracion='&quot; + getDuracion() + &quot;'&quot;</span>
-<span class="nc" id="L140">                + &quot;, precio='&quot; + getPrecio() + &quot;'&quot;</span>
-<span class="nc" id="L141">                + &quot;, plazasMaximas='&quot; + getPlazasMaximas() + &quot;'&quot;</span>
-<span class="nc" id="L142">                + &quot;, plazasOcupadas='&quot; + getPlazasOcupadas() + &quot;'&quot;</span>
+<span class="fc" id="L135">        return &quot;{&quot;</span>
+<span class="fc" id="L136">                + &quot; id='&quot; + getId() + &quot;'&quot;</span>
+<span class="fc" id="L137">                + &quot;, nombre='&quot; + getNombre() + &quot;'&quot;</span>
+<span class="fc" id="L138">                + &quot;, tipoActividad='&quot; + getTipoActividad() + &quot;'&quot;</span>
+<span class="fc" id="L139">                + &quot;, duracion='&quot; + getDuracion() + &quot;'&quot;</span>
+<span class="fc" id="L140">                + &quot;, precio='&quot; + getPrecio() + &quot;'&quot;</span>
+<span class="fc" id="L141">                + &quot;, plazasMaximas='&quot; + getPlazasMaximas() + &quot;'&quot;</span>
+<span class="fc" id="L142">                + &quot;, plazasOcupadas='&quot; + getPlazasOcupadas() + &quot;'&quot;</span>
                 + &quot;}&quot;;
     }
 }

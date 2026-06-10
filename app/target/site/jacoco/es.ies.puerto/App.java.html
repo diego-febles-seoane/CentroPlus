@@ -7,20 +7,20 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-<span class="nc" id="L10">public class App extends Application {</span>
+<span class="fc" id="L10">public class App extends Application {</span>
     @Override
     public void start(Stage stage) throws IOException {
-<span class="nc" id="L13">        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(&quot;/es/ies/puerto/view/main.fxml&quot;));</span>
-<span class="nc" id="L14">        Scene scene = new Scene(fxmlLoader.load(), 600, 1000);</span>
-<span class="nc" id="L15">        stage.setTitle(&quot;CentroPlus Connect&quot;);</span>
-<span class="nc" id="L16">        stage.setScene(scene);</span>
-<span class="nc" id="L17">        stage.setResizable(false);</span>
-<span class="nc" id="L18">        stage.show();</span>
+<span class="fc" id="L13">        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(&quot;/es/ies/puerto/view/main.fxml&quot;));</span>
+<span class="fc" id="L14">        Scene scene = new Scene(fxmlLoader.load(), 600, 1000);</span>
+<span class="fc" id="L15">        stage.setTitle(&quot;CentroPlus Connect&quot;);</span>
+<span class="fc" id="L16">        stage.setScene(scene);</span>
+<span class="fc" id="L17">        stage.setResizable(false);</span>
+<span class="fc" id="L18">        stage.show();</span>
         
         // Cargamos la vista de bienvenida manualmente para evitar ciclo infinito
-<span class="nc" id="L21">        es.ies.puerto.controller.MainController mainController = fxmlLoader.getController();</span>
-<span class="nc" id="L22">        mainController.loadWelcomeView();</span>
-<span class="nc" id="L23">    }</span>
+<span class="fc" id="L21">        es.ies.puerto.controller.MainController mainController = fxmlLoader.getController();</span>
+<span class="fc" id="L22">        mainController.loadWelcomeView();</span>
+<span class="fc" id="L23">    }</span>
 
     public static void main(String[] args) {
 <span class="nc" id="L26">        launch();</span>

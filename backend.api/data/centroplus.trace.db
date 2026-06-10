@@ -1,0 +1,4 @@
+2026-06-10 19:06:08.463731+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM USUARIOS WHERE ID [*]?"
+Syntax error in SQL statement "SELECT * FROM USUARIOS WHERE ID [*]?"; SQL statement:
+SELECT * FROM USUARIOS WHERE ID ? [42000-224]

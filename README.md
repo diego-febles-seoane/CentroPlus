@@ -32,7 +32,6 @@ CentroPlus/
 | Backend API | Spring Boot 3.2.5 |
 | Base de datos | H2 Database |
 | Gestión de dependencias | Maven |
-| Documentación API | Swagger/OpenAPI |
 | Java | 17+ |
 
 ---
@@ -58,7 +57,8 @@ mvn spring-boot:run
 ```
 
 **Accesos:
-- Swagger UI: http://localhost:8080/swagger-ui.html
+- **Swagger UI**: http://localhost:8080/swagger-ui.html
+- **Consola H2**: http://localhost:8080/h2-console
   - JDBC URL: `jdbc:h2:file:./data/centroplus`
   - Usuario: `sa`
   - Contraseña: (dejar vacío)
@@ -138,17 +138,7 @@ cd backend.api
 # Ejecutar todos los tests
 mvn test
 
-# Generar reporte de tests
-mvn surefire-report:report
 ```
-
-### Framework de testing
-- **JUnit 5**: Framework de testing
-- **Mockito**: Para mocking
-- **@DataJpaTest**: Para tests de repositorios
-- **@WebMvcTest**: Para tests de controladores
-- **MockMvc**: Para probar endpoints REST
-
 ---
 
 ## 9. Arquitectura
@@ -163,3 +153,131 @@ Repositorios (JPA)
       ↓
  Base de datos (H2)
 ```
+
+---
+
+## 10. Requisitos Previos
+
+Antes de ejecutar el proyecto, asegúrate de tener instalado:
+
+- **Java 17+**: [Descargar JDK](https://www.oracle.com/java/technologies/downloads/)
+- **Maven 3.8+**: [Descargar Maven](https://maven.apache.org/download.cgi)
+- **Git**: [Descargar Git](https://git-scm.com/)
+
+### Verificar instalación
+```bash
+java -version
+mvn -version
+git --version
+```
+
+---
+
+## 11. Instalación y Configuración
+
+### 11.1 Clonar el repositorio
+```bash
+git clone https://github.com/diegofeblesseoane/CentroPlus-Connect.git
+cd CentroPlus-Connect
+```
+
+### 11.2 Compilar el proyecto
+```bash
+# Compilar todo el proyecto
+mvn clean install
+
+# O compilar módulos específicos
+cd app && mvn clean install
+cd ../backend.api && mvn clean install
+```
+
+### 11.3 Configuración de la base de datos H2
+La base de datos H2 se inicializa automáticamente con los scripts SQL ubicados en `database/.sql/`:
+- `schema.sql`: Estructura de la base de datos
+- `seed.sql`: Datos iniciales (opcional)
+
+---
+
+## 12. Estructura de Carpetas Detallada
+
+```
+CentroPlus-Connect/
+├── app/                          # Módulo de aplicación JavaFX
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/es/...      # Código fuente de la app
+│   │   │   └── resources/       # Recursos (propiedades, estilos, etc.)
+│   │   └── test/
+│   │       ├── java/            # Tests unitarios
+│   │       └── resources/
+│   ├── pom.xml
+│   └── target/                  # Compilados y reportes
+│
+├── backend.api/                  # Módulo de Backend Spring Boot
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/es/ies/puerto/
+│   │   │   │   ├── controller/  # Controladores REST
+│   │   │   │   ├── service/     # Lógica de negocio
+│   │   │   │   ├── repository/  # Acceso a datos (JPA)
+│   │   │   │   └── entity/      # Entidades JPA
+│   │   │   └── resources/
+│   │   │       └── application.properties
+│   │   └── test/
+│   │       ├── java/            # Tests (servicios, repositorios, controladores)
+│   │       └── resources/
+│   ├── data/                    # Base de datos H2
+│   ├── pom.xml
+│   └── target/
+│       ├── classes/             # Clases compiladas
+│       ├── jacoco.exec          # Cobertura de tests
+│       └── surefire-reports/    # Reportes de tests
+│
+├── database/                     # Configuración de base de datos
+│   ├── drawio/                  # Diagramas de la arquitectura
+│   ├── .sql/
+│   │   ├── schema.sql           # Esquema de la BD
+│   │   └── seed.sql             # Datos iniciales
+│   └── README.md
+│
+└── README.md                     # Este archivo
+```
+
+---
+
+## 13. Desarrollo y Debugging
+
+### 13.1 Ejecutar con modo debug
+```bash
+# Backend
+cd backend.api
+mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"
+
+# App JavaFX
+cd app
+mvn javafx:run
+```
+
+### 13.2 Generar reporte de cobertura (JaCoCo)
+```bash
+cd backend.api
+mvn test jacoco:report
+# Reporte disponible en: target/site/jacoco/index.html
+```
+
+---
+
+## 14. Documentación Adicional
+
+- **API REST**: Consulta la documentación interactiva en [Swagger UI](http://localhost:8080/swagger-ui.html) cuando ejecutes el backend
+- **Base de datos**: Ver [database/README.md](database/README.md)
+- **Diagramas**: Los diagramas de arquitectura están en `database/drawio/`
+
+---
+
+## 15. Notas Importantes
+
+- La base de datos H2 se ejecuta en memoria o archivo local (no requiere servidor externo)
+- Los datos se persisten en `backend.api/data/centroplus.mv.db`
+- Para desarrollo, se pueden usar datos de prueba desde `database/.sql/seed.sql`
+- La aplicación JavaFX es compatible con sistemas Windows, macOS y Linux con JavaFX SDK instalado

@@ -14,53 +14,53 @@ import es.ies.puerto.repository.IReservasRepository;
 
     @Override
     public boolean save(Reservas reserva) {
-<span class="nc" id="L17">        try (Connection connection = getConnection();</span>
-<span class="nc" id="L18">            PreparedStatement sentencia = connection.prepareStatement(&quot;INSERT INTO reservas (id, id_usuario, id_actividad, fecha, estado) VALUES (?,?,?,?,?)&quot;)){</span>
-<span class="nc" id="L19">            sentencia.setInt(1, reserva.getIdReserva());</span>
-<span class="nc" id="L20">            sentencia.setInt(2, reserva.getId());</span>
-<span class="nc" id="L21">            sentencia.setInt(3, reserva.getIdActividad());</span>
-<span class="nc" id="L22">            sentencia.setString(4, reserva.getFecha());</span>
-<span class="nc" id="L23">            sentencia.setString(5, reserva.getEstado());</span>
-<span class="nc bnc" id="L24" title="All 2 branches missed.">            return sentencia.executeUpdate() &gt; 0;</span>
-<span class="nc" id="L25">        } catch (Exception e) {</span>
-<span class="nc" id="L26">            System.err.println(&quot;Error guardando reserva: &quot; + e.getMessage());</span>
-<span class="nc" id="L27">            return false;</span>
+<span class="fc" id="L17">        try (Connection connection = getConnection();</span>
+<span class="fc" id="L18">            PreparedStatement sentencia = connection.prepareStatement(&quot;INSERT INTO reservas (id, id_usuario, id_actividad, fecha, estado) VALUES (?,?,?,?,?)&quot;)){</span>
+<span class="fc" id="L19">            sentencia.setInt(1, reserva.getIdReserva());</span>
+<span class="fc" id="L20">            sentencia.setInt(2, reserva.getId());</span>
+<span class="fc" id="L21">            sentencia.setInt(3, reserva.getIdActividad());</span>
+<span class="fc" id="L22">            sentencia.setString(4, reserva.getFecha());</span>
+<span class="fc" id="L23">            sentencia.setString(5, reserva.getEstado());</span>
+<span class="pc bpc" id="L24" title="1 of 2 branches missed.">            return sentencia.executeUpdate() &gt; 0;</span>
+<span class="fc" id="L25">        } catch (Exception e) {</span>
+<span class="fc" id="L26">            System.err.println(&quot;Error guardando reserva: &quot; + e.getMessage());</span>
+<span class="fc" id="L27">            return false;</span>
         }
     }
 
     @Override
     public boolean update(Reservas reserva) {
-<span class="nc" id="L33">        try (Connection connection = getConnection();</span>
-<span class="nc" id="L34">            PreparedStatement sentencia = connection.prepareStatement(&quot;UPDATE reservas SET id_usuario = ?, id_actividad = ?, fecha = ?, estado = ? WHERE id = ?&quot;)){</span>
-<span class="nc" id="L35">            sentencia.setInt(1, reserva.getId());</span>
-<span class="nc" id="L36">            sentencia.setInt(2, reserva.getIdActividad());</span>
-<span class="nc" id="L37">            sentencia.setString(3, reserva.getFecha());</span>
-<span class="nc" id="L38">            sentencia.setString(4, reserva.getEstado());</span>
-<span class="nc" id="L39">            sentencia.setInt(5, reserva.getIdReserva());</span>
-<span class="nc bnc" id="L40" title="All 2 branches missed.">            return sentencia.executeUpdate() &gt; 0;</span>
-<span class="nc" id="L41">        } catch (Exception e) {</span>
-<span class="nc" id="L42">            System.err.println(&quot;Error actualizando reserva: &quot; + e.getMessage());</span>
-<span class="nc" id="L43">            return false;</span>
+<span class="fc" id="L33">        try (Connection connection = getConnection();</span>
+<span class="fc" id="L34">            PreparedStatement sentencia = connection.prepareStatement(&quot;UPDATE reservas SET id_usuario = ?, id_actividad = ?, fecha = ?, estado = ? WHERE id = ?&quot;)){</span>
+<span class="fc" id="L35">            sentencia.setInt(1, reserva.getId());</span>
+<span class="fc" id="L36">            sentencia.setInt(2, reserva.getIdActividad());</span>
+<span class="fc" id="L37">            sentencia.setString(3, reserva.getFecha());</span>
+<span class="fc" id="L38">            sentencia.setString(4, reserva.getEstado());</span>
+<span class="fc" id="L39">            sentencia.setInt(5, reserva.getIdReserva());</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">            return sentencia.executeUpdate() &gt; 0;</span>
+<span class="fc" id="L41">        } catch (Exception e) {</span>
+<span class="fc" id="L42">            System.err.println(&quot;Error actualizando reserva: &quot; + e.getMessage());</span>
+<span class="fc" id="L43">            return false;</span>
         }
     }
 
     @Override
     public Reservas findById(int idReserva) {
-<span class="nc" id="L49">        try (Connection connection = getConnection();</span>
-<span class="nc" id="L50">        PreparedStatement setencia = connection.prepareStatement(&quot;SELECT * FROM reservas WHERE id =?&quot;)){</span>
-<span class="nc" id="L51">            setencia.setInt(1, idReserva);</span>
-<span class="nc" id="L52">            ResultSet resultado = setencia.executeQuery();</span>
-<span class="nc bnc" id="L53" title="All 2 branches missed.">            if (resultado.next()) {</span>
-<span class="nc" id="L54">                int idUsuario = resultado.getInt(&quot;id_usuario&quot;);</span>
-<span class="nc" id="L55">                int idActividad = resultado.getInt(&quot;id_actividad&quot;);</span>
-<span class="nc" id="L56">                String fecha = resultado.getString(&quot;fecha&quot;);</span>
-<span class="nc" id="L57">                String estado = resultado.getString(&quot;estado&quot;);</span>
-<span class="nc" id="L58">                return new Reservas(idReserva, idUsuario, idActividad, fecha, estado);</span>
+<span class="fc" id="L49">        try (Connection connection = getConnection();</span>
+<span class="fc" id="L50">        PreparedStatement setencia = connection.prepareStatement(&quot;SELECT * FROM reservas WHERE id =?&quot;)){</span>
+<span class="fc" id="L51">            setencia.setInt(1, idReserva);</span>
+<span class="fc" id="L52">            ResultSet resultado = setencia.executeQuery();</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">            if (resultado.next()) {</span>
+<span class="fc" id="L54">                int idUsuario = resultado.getInt(&quot;id_usuario&quot;);</span>
+<span class="fc" id="L55">                int idActividad = resultado.getInt(&quot;id_actividad&quot;);</span>
+<span class="fc" id="L56">                String fecha = resultado.getString(&quot;fecha&quot;);</span>
+<span class="fc" id="L57">                String estado = resultado.getString(&quot;estado&quot;);</span>
+<span class="fc" id="L58">                return new Reservas(idReserva, idUsuario, idActividad, fecha, estado);</span>
             }
-<span class="nc bnc" id="L60" title="All 4 branches missed.">        } catch (Exception e) {</span>
-<span class="nc" id="L61">            System.err.println(&quot;Error buscando reserva por ID: &quot; + e.getMessage());</span>
-<span class="nc" id="L62">        }</span>
-<span class="nc" id="L63">        return null;</span>
+<span class="pc bpc" id="L60" title="2 of 4 branches missed.">        } catch (Exception e) {</span>
+<span class="fc" id="L61">            System.err.println(&quot;Error buscando reserva por ID: &quot; + e.getMessage());</span>
+<span class="fc" id="L62">        }</span>
+<span class="fc" id="L63">        return null;</span>
     }
 
     @Override
@@ -77,21 +77,21 @@ import es.ies.puerto.repository.IReservasRepository;
 <span class="fc" id="L77">                String estado = resultado.getString(&quot;estado&quot;);</span>
 <span class="fc" id="L78">                reservas.add(new Reservas(idReserva, idUsuario, idActividad, fecha, estado));</span>
 <span class="fc" id="L79">            }</span>
-<span class="nc" id="L80">        } catch (Exception e) {</span>
-<span class="nc" id="L81">            System.err.println(&quot;Error buscando todas las reservas: &quot; + e.getMessage());</span>
+<span class="fc" id="L80">        } catch (Exception e) {</span>
+<span class="fc" id="L81">            System.err.println(&quot;Error buscando todas las reservas: &quot; + e.getMessage());</span>
 <span class="fc" id="L82">        }</span>
 <span class="fc" id="L83">        return reservas;</span>
     }
 
     @Override
     public boolean delete(int idReserva) {
-<span class="nc" id="L88">        try (Connection connection = getConnection();</span>
-<span class="nc" id="L89">        PreparedStatement setencia = connection.prepareStatement(&quot;DELETE FROM reservas WHERE id = ?&quot;)){</span>
-<span class="nc" id="L90">            setencia.setInt(1, idReserva);</span>
-<span class="nc bnc" id="L91" title="All 2 branches missed.">            return setencia.executeUpdate() &gt; 0;</span>
-<span class="nc" id="L92">        } catch (Exception e) {</span>
-<span class="nc" id="L93">            System.err.println(&quot;Error eliminando reserva: &quot; + e.getMessage());</span>
-<span class="nc" id="L94">            return false;</span>
+<span class="fc" id="L88">        try (Connection connection = getConnection();</span>
+<span class="fc" id="L89">        PreparedStatement setencia = connection.prepareStatement(&quot;DELETE FROM reservas WHERE id = ?&quot;)){</span>
+<span class="fc" id="L90">            setencia.setInt(1, idReserva);</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">            return setencia.executeUpdate() &gt; 0;</span>
+<span class="fc" id="L92">        } catch (Exception e) {</span>
+<span class="fc" id="L93">            System.err.println(&quot;Error eliminando reserva: &quot; + e.getMessage());</span>
+<span class="fc" id="L94">            return false;</span>
         }
     }
 }
