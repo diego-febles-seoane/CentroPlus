@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: es.ies.puerto.AppTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.78 s -- in es.ies.puerto.AppTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.44 s -- in es.ies.puerto.AppTest

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: es.ies.puerto.controller.ReservasControllerTest
 -------------------------------------------------------------------------------
-Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.577 s -- in es.ies.puerto.controller.ReservasControllerTest
+Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.142 s -- in es.ies.puerto.controller.ReservasControllerTest

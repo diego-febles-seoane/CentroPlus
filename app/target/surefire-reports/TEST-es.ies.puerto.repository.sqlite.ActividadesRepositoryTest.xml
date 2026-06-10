@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="es.ies.puerto.repository.sqlite.ActividadesRepositoryTest" time="0.084" tests="8" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="es.ies.puerto.repository.sqlite.ActividadesRepositoryTest" time="0.086" tests="8" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="javafx.runtime.version" value="17.0.2-ea+3"/>
@@ -17,7 +17,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="ES"/>
     <property name="sun.boot.library.path" value="C:\Program Files\BellSoft\LibericaJDK-17\bin"/>
-    <property name="sun.java.command" value="C:\Users\Usuario\AppData\Local\Temp\surefire2446621045492999764\surefirebooter-20260610185926452_3.jar C:\Users\Usuario\AppData\Local\Temp\surefire2446621045492999764 2026-06-10T18-59-26_261-jvmRun1 surefire-20260610185926452_1tmp surefire_0-20260610185926452_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\Usuario\AppData\Local\Temp\surefire82709846794139217\surefirebooter-20260610195232048_3.jar C:\Users\Usuario\AppData\Local\Temp\surefire82709846794139217 2026-06-10T19-52-31_878-jvmRun1 surefire-20260610195232048_1tmp surefire_0-20260610195232048_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\Usuario\Desktop\repositorios\CentroPlus-Connect\app\target\test-classes;C:\Users\Usuario\Desktop\repositorios\CentroPlus-Connect\app\target\classes;C:\Users\Usuario\.m2\repository\org\openjfx\javafx-controls\17.0.2\javafx-controls-17.0.2.jar;C:\Users\Usuario\.m2\repository\org\openjfx\javafx-controls\17.0.2\javafx-controls-17.0.2-win.jar;C:\Users\Usuario\.m2\repository\org\openjfx\javafx-graphics\17.0.2\javafx-graphics-17.0.2.jar;C:\Users\Usuario\.m2\repository\org\openjfx\javafx-graphics\17.0.2\javafx-graphics-17.0.2-win.jar;C:\Users\Usuario\.m2\repository\org\openjfx\javafx-base\17.0.2\javafx-base-17.0.2.jar;C:\Users\Usuario\.m2\repository\org\openjfx\javafx-base\17.0.2\javafx-base-17.0.2-win.jar;C:\Users\Usuario\.m2\repository\org\openjfx\javafx-fxml\17.0.2\javafx-fxml-17.0.2.jar;C:\Users\Usuario\.m2\repository\org\openjfx\javafx-fxml\17.0.2\javafx-fxml-17.0.2-win.jar;C:\Users\Usuario\.m2\repository\org\xerial\sqlite-jdbc\3.45.3.0\sqlite-jdbc-3.45.3.0.jar;C:\Users\Usuario\.m2\repository\org\slf4j\slf4j-api\1.7.36\slf4j-api-1.7.36.jar;C:\Users\Usuario\.m2\repository\org\slf4j\slf4j-simple\1.7.36\slf4j-simple-1.7.36.jar;C:\Users\Usuario\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\Usuario\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\Usuario\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\Usuario\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\Usuario\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.2\junit-jupiter-5.10.2.jar;C:\Users\Usuario\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\Usuario\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\Usuario\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;C:\Users\Usuario\.m2\repository\org\mockito\mockito-core\5.12.0\mockito-core-5.12.0.jar;C:\Users\Usuario\.m2\repository\net\bytebuddy\byte-buddy\1.14.15\byte-buddy-1.14.15.jar;C:\Users\Usuario\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.15\byte-buddy-agent-1.14.15.jar;C:\Users\Usuario\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\Usuario\.m2\repository\org\mockito\mockito-junit-jupiter\5.12.0\mockito-junit-jupiter-5.12.0.jar;C:\Users\Usuario\.m2\repository\org\testfx\testfx-junit5\4.0.18\testfx-junit5-4.0.18.jar;C:\Users\Usuario\.m2\repository\org\hamcrest\hamcrest\2.1\hamcrest-2.1.jar;C:\Users\Usuario\.m2\repository\org\assertj\assertj-core\3.13.2\assertj-core-3.13.2.jar;C:\Users\Usuario\.m2\repository\org\testfx\testfx-core\4.0.18\testfx-core-4.0.18.jar;C:\Users\Usuario\.m2\repository\org\osgi\org.osgi.core\6.0.0\org.osgi.core-6.0.0.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -33,7 +33,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.headless" value="true"/>
-    <property name="surefire.real.class.path" value="C:\Users\Usuario\AppData\Local\Temp\surefire2446621045492999764\surefirebooter-20260610185926452_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Usuario\AppData\Local\Temp\surefire82709846794139217\surefirebooter-20260610195232048_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.18+10-LTS"/>
@@ -60,15 +60,15 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="saveTestDuplicateId" classname="es.ies.puerto.repository.sqlite.ActividadesRepositoryTest" time="0.016">
+  <testcase name="saveTestDuplicateId" classname="es.ies.puerto.repository.sqlite.ActividadesRepositoryTest" time="0.014">
     <system-err><![CDATA[Error guardando actividad: [SQLITE_CONSTRAINT_PRIMARYKEY] A PRIMARY KEY constraint failed (UNIQUE constraint failed: actividades.id)
 ]]></system-err>
   </testcase>
-  <testcase name="updateTestOk" classname="es.ies.puerto.repository.sqlite.ActividadesRepositoryTest" time="0.019"/>
-  <testcase name="deleteTestOk" classname="es.ies.puerto.repository.sqlite.ActividadesRepositoryTest" time="0.019"/>
-  <testcase name="updateTestIdNotFound" classname="es.ies.puerto.repository.sqlite.ActividadesRepositoryTest" time="0.003"/>
-  <testcase name="findAllTestOk" classname="es.ies.puerto.repository.sqlite.ActividadesRepositoryTest" time="0.004"/>
-  <testcase name="deleteTestNotFound" classname="es.ies.puerto.repository.sqlite.ActividadesRepositoryTest" time="0.003"/>
-  <testcase name="saveAndFindByIdTestOk" classname="es.ies.puerto.repository.sqlite.ActividadesRepositoryTest" time="0.009"/>
-  <testcase name="findByIdTestNotFound" classname="es.ies.puerto.repository.sqlite.ActividadesRepositoryTest" time="0.008"/>
+  <testcase name="updateTestOk" classname="es.ies.puerto.repository.sqlite.ActividadesRepositoryTest" time="0.018"/>
+  <testcase name="deleteTestOk" classname="es.ies.puerto.repository.sqlite.ActividadesRepositoryTest" time="0.017"/>
+  <testcase name="updateTestIdNotFound" classname="es.ies.puerto.repository.sqlite.ActividadesRepositoryTest" time="0.002"/>
+  <testcase name="findAllTestOk" classname="es.ies.puerto.repository.sqlite.ActividadesRepositoryTest" time="0.002"/>
+  <testcase name="deleteTestNotFound" classname="es.ies.puerto.repository.sqlite.ActividadesRepositoryTest" time="0.002"/>
+  <testcase name="saveAndFindByIdTestOk" classname="es.ies.puerto.repository.sqlite.ActividadesRepositoryTest" time="0.008"/>
+  <testcase name="findByIdTestNotFound" classname="es.ies.puerto.repository.sqlite.ActividadesRepositoryTest" time="0.017"/>
 </testsuite>
