@@ -178,7 +178,7 @@ git --version
 ### 11.1 Clonar el repositorio
 ```bash
 git clone https://github.com/diego-febles-seoane/CentroPlus.git
-cd CentroPlus-Connect
+cd CentroPlus
 ```
 
 ### 11.2 Configuración de la base de datos H2
