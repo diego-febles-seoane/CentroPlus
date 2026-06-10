@@ -33,14 +33,14 @@ import javafx.stage.Stage;
     private UsuariosController previousController;
 
     public void setService(UsuarioService service) {
-<span class="fc" id="L36">        this.service = service;</span>
-<span class="fc" id="L37">    }</span>
+<span class="nc" id="L36">        this.service = service;</span>
+<span class="nc" id="L37">    }</span>
 
     private UsuarioService getService() {
-<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (service == null) {</span>
-<span class="fc" id="L41">            service = new UsuarioService();</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        if (service == null) {</span>
+<span class="nc" id="L41">            service = new UsuarioService();</span>
         }
-<span class="fc" id="L43">        return service;</span>
+<span class="nc" id="L43">        return service;</span>
     }
 
     public void setMainController(MainController mainController) {
@@ -48,8 +48,8 @@ import javafx.stage.Stage;
 <span class="fc" id="L48">    }</span>
 
     public void setPreviousController(UsuariosController previousController) {
-<span class="fc" id="L51">        this.previousController = previousController;</span>
-<span class="fc" id="L52">    }</span>
+<span class="nc" id="L51">        this.previousController = previousController;</span>
+<span class="nc" id="L52">    }</span>
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -58,55 +58,55 @@ import javafx.stage.Stage;
 <span class="fc" id="L58">    }</span>
 
     public boolean isGuardado() {
-<span class="fc" id="L61">        return guardado;</span>
+<span class="nc" id="L61">        return guardado;</span>
     }
 
     @FXML
     public void guardar() {
         try {
-<span class="fc" id="L67">            int id = Integer.parseInt(idField.getText());</span>
-<span class="fc" id="L68">            String nombre = nombreField.getText();</span>
-<span class="fc" id="L69">            String dni = dniField.getText();</span>
-<span class="fc" id="L70">            String email = emailField.getText();</span>
-<span class="fc" id="L71">            String telefono = telefonoField.getText();</span>
-<span class="fc" id="L72">            String tipo = tipoCombo.getValue();</span>
+<span class="nc" id="L67">            int id = Integer.parseInt(idField.getText());</span>
+<span class="nc" id="L68">            String nombre = nombreField.getText();</span>
+<span class="nc" id="L69">            String dni = dniField.getText();</span>
+<span class="nc" id="L70">            String email = emailField.getText();</span>
+<span class="nc" id="L71">            String telefono = telefonoField.getText();</span>
+<span class="nc" id="L72">            String tipo = tipoCombo.getValue();</span>
 
-<span class="fc" id="L74">            Usuario usuario = new Usuario(id, nombre, dni, email, telefono, tipo);</span>
-<span class="fc bfc" id="L75" title="All 2 branches covered.">            if (getService().save(usuario)) {</span>
-<span class="fc" id="L76">                guardado = true;</span>
-<span class="fc" id="L77">                cerrar();</span>
-            } else {
-<span class="fc" id="L79">                mostrarError(&quot;No se pudo guardar el usuario.&quot;);</span>
+<span class="nc" id="L74">            Usuario usuario = new Usuario(id, nombre, dni, email, telefono, tipo);</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">            if (getService().save(usuario)) {</span>
+<span class="nc" id="L76">                guardado = true;</span>
+<span class="nc" id="L77">                cerrar();</span>
+<span class="nc" id="L78">            } else {</span>
+<span class="nc" id="L79">                mostrarError(&quot;No se pudo guardar el usuario.&quot;);</span>
             }
-<span class="fc" id="L81">        } catch (NumberFormatException e) {</span>
-<span class="fc" id="L82">            mostrarError(&quot;El ID debe ser un número.&quot;);</span>
-<span class="fc" id="L83">        }</span>
-<span class="fc" id="L84">    }</span>
+<span class="nc" id="L81">        } catch (NumberFormatException e) {</span>
+<span class="nc" id="L82">            mostrarError(&quot;El ID debe ser un número.&quot;);</span>
+        }
+<span class="nc" id="L84">    }</span>
 
     @FXML
     public void cancelar() {
-<span class="fc" id="L88">        cerrar();</span>
-<span class="fc" id="L89">    }</span>
+<span class="nc" id="L88">        cerrar();</span>
+<span class="nc" id="L89">    }</span>
 
     private void cerrar() {
-<span class="pc bpc" id="L92" title="1 of 4 branches missed.">        if (mainController != null &amp;&amp; previousController != null) {</span>
-<span class="fc" id="L93">            mainController.showUsuarios();</span>
-<span class="fc bfc" id="L94" title="All 2 branches covered.">            if (guardado) {</span>
-<span class="fc" id="L95">                previousController.loadData();</span>
+<span class="nc bnc" id="L92" title="All 4 branches missed.">        if (mainController != null &amp;&amp; previousController != null) {</span>
+<span class="nc" id="L93">            mainController.showUsuarios();</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">            if (guardado) {</span>
+<span class="nc" id="L95">                previousController.loadData();</span>
             }
-        } else {
+<span class="nc" id="L97">        } else {</span>
             // Modo retrocompatibilidad: cerramos la ventana si existe
-<span class="pc bpc" id="L99" title="2 of 4 branches missed.">            if (idField.getScene() != null &amp;&amp; idField.getScene().getWindow() != null) {</span>
-<span class="fc" id="L100">                Stage stage = (Stage) idField.getScene().getWindow();</span>
-<span class="fc" id="L101">                stage.close();</span>
+<span class="nc bnc" id="L99" title="All 4 branches missed.">            if (idField.getScene() != null &amp;&amp; idField.getScene().getWindow() != null) {</span>
+<span class="nc" id="L100">                Stage stage = (Stage) idField.getScene().getWindow();</span>
+<span class="nc" id="L101">                stage.close();</span>
             }
         }
-<span class="fc" id="L104">    }</span>
+<span class="nc" id="L104">    }</span>
 
     private void mostrarError(String mensaje) {
-<span class="fc" id="L107">        Alert alert = new Alert(Alert.AlertType.ERROR);</span>
-<span class="fc" id="L108">        alert.setContentText(mensaje);</span>
-<span class="fc" id="L109">        alert.showAndWait();</span>
-<span class="fc" id="L110">    }</span>
+<span class="nc" id="L107">        Alert alert = new Alert(Alert.AlertType.ERROR);</span>
+<span class="nc" id="L108">        alert.setContentText(mensaje);</span>
+<span class="nc" id="L109">        alert.showAndWait();</span>
+<span class="nc" id="L110">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

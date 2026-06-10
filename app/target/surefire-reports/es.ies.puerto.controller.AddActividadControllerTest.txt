@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: es.ies.puerto.controller.AddActividadControllerTest
--------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.628 s -- in es.ies.puerto.controller.AddActividadControllerTest

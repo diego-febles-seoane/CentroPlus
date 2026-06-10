@@ -4,17 +4,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" prefWidth="900" prefHeight="700">
-    <top>
-        <VBox style="-fx-background-color: linear-gradient(to right, #1e3a8a, #3b82f6); -fx-padding: 30 40;" spacing="10">
-            <Label text="CentroPlus" style="-fx-text-fill: white; -fx-font-size: 32; -fx-font-weight: bold;"/>
-            <Label text="Plataforma de Gestión Académica y Deportiva" style="-fx-text-fill: #dbeafe; -fx-font-size: 14;"/>
-        </VBox>
-    </top>
-    
+<BorderPane xmlns:fx="http://javafx.com/fxml">
     <center>
-        <VBox spacing="25" style="-fx-background-color: #f1f5f9; -fx-padding: 35;">
-            <VBox alignment="CENTER" spacing="15">
+        <VBox spacing="22" style="-fx-background-color: #f1f5f9; -fx-padding: 35;">
+            <VBox alignment="CENTER" spacing="12">
                 <Label text="¡Bienvenido/a al Panel de Control!" style="-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
                 <Label text="Gestione de forma eficiente sus actividades, reservas, incidencias y usuarios desde una única plataforma" style="-fx-font-size: 15; -fx-text-fill: #475569; -fx-text-alignment: center; -fx-wrap-text: true; -fx-max-width: 700;"/>
             </VBox>
@@ -59,10 +52,4 @@
             </VBox>
         </VBox>
     </center>
-    
-    <bottom>
-        <VBox style="-fx-background-color: #e2e8f0; -fx-padding: 18 40;">
-            <Label text="© 2024 CentroPlus - Todos los derechos reservados" style="-fx-text-fill: #475569; -fx-font-size: 12; -fx-alignment: center;"/>
-        </VBox>
-    </bottom>
 </BorderPane>

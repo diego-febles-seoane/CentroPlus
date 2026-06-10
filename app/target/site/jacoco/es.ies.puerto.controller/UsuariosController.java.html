@@ -42,11 +42,11 @@ import javafx.stage.Stage;
     private MainController mainController;
 
     public void setService(UsuarioService service) {
-<span class="fc" id="L45">        this.service = service;</span>
-<span class="fc" id="L46">    }</span>
+<span class="nc" id="L45">        this.service = service;</span>
+<span class="nc" id="L46">    }</span>
 
     private UsuarioService getService() {
-<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (service == null) {</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        if (service == null) {</span>
 <span class="fc" id="L50">            service = new UsuarioService();</span>
         }
 <span class="fc" id="L52">        return service;</span>
@@ -72,7 +72,7 @@ import javafx.stage.Stage;
     public void loadData() {
 <span class="fc" id="L73">        data.clear();</span>
 <span class="fc" id="L74">        List&lt;Usuario&gt; list = getService().findAll();</span>
-<span class="fc bfc" id="L75" title="All 2 branches covered.">        if (list != null) {</span>
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">        if (list != null) {</span>
 <span class="fc" id="L76">            data.addAll(list);</span>
         }
 <span class="fc" id="L78">        usuariosTable.setItems(data);</span>
@@ -80,59 +80,59 @@ import javafx.stage.Stage;
 
     @FXML
     public void deleteUsuario() {
-<span class="fc" id="L83">        Usuario selected = usuariosTable.getSelectionModel().getSelectedItem();</span>
-<span class="fc bfc" id="L84" title="All 2 branches covered.">        if (selected != null) {</span>
-<span class="fc" id="L85">            getService().delete(selected.getId());</span>
-<span class="fc" id="L86">            loadData();</span>
+<span class="nc" id="L83">        Usuario selected = usuariosTable.getSelectionModel().getSelectedItem();</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (selected != null) {</span>
+<span class="nc" id="L85">            getService().delete(selected.getId());</span>
+<span class="nc" id="L86">            loadData();</span>
         }
-<span class="fc" id="L88">    }</span>
+<span class="nc" id="L88">    }</span>
 
     @FXML
     public void nuevoUsuario() {
-<span class="fc bfc" id="L92" title="All 2 branches covered.">        if (mainController != null) {</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        if (mainController != null) {</span>
             try {
-<span class="fc" id="L94">                URL url = getClass().getResource(&quot;/es/ies/puerto/view/add_usuario.fxml&quot;);</span>
-<span class="fc" id="L95">                FXMLLoader loader = new FXMLLoader(url);</span>
-<span class="fc" id="L96">                Parent view = loader.load();</span>
+<span class="nc" id="L94">                URL url = getClass().getResource(&quot;/es/ies/puerto/view/add_usuario.fxml&quot;);</span>
+<span class="nc" id="L95">                FXMLLoader loader = new FXMLLoader(url);</span>
+<span class="nc" id="L96">                Parent view = loader.load();</span>
                 
-<span class="fc" id="L98">                AddUsuarioController addController = loader.getController();</span>
-<span class="fc" id="L99">                addController.setMainController(mainController);</span>
-<span class="fc" id="L100">                addController.setPreviousController(this);</span>
+<span class="nc" id="L98">                AddUsuarioController addController = loader.getController();</span>
+<span class="nc" id="L99">                addController.setMainController(mainController);</span>
+<span class="nc" id="L100">                addController.setPreviousController(this);</span>
                 
-<span class="fc" id="L102">                mainController.setContent(view);</span>
+<span class="nc" id="L102">                mainController.setContent(view);</span>
                 
-<span class="fc" id="L104">            } catch (IOException e) {</span>
-<span class="fc" id="L105">                e.printStackTrace();</span>
-<span class="fc" id="L106">            }</span>
-        } else {
+<span class="nc" id="L104">            } catch (IOException e) {</span>
+<span class="nc" id="L105">                e.printStackTrace();</span>
+            }
+<span class="nc" id="L107">        } else {</span>
             // Modo retrocompatibilidad: abrimos ventana modal
             try {
-<span class="fc" id="L110">                FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/es/ies/puerto/view/add_usuario.fxml&quot;));</span>
-<span class="fc" id="L111">                Parent root = loader.load();</span>
+<span class="nc" id="L110">                FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/es/ies/puerto/view/add_usuario.fxml&quot;));</span>
+<span class="nc" id="L111">                Parent root = loader.load();</span>
 
-<span class="fc" id="L113">                AddUsuarioController controller = loader.getController();</span>
+<span class="nc" id="L113">                AddUsuarioController controller = loader.getController();</span>
 
-<span class="fc bfc" id="L115" title="All 2 branches covered.">                boolean isHeadless = Boolean.getBoolean(&quot;java.awt.headless&quot;) || </span>
-<span class="pc bpc" id="L116" title="1 of 2 branches missed.">                                     java.awt.GraphicsEnvironment.isHeadless();</span>
-<span class="fc bfc" id="L117" title="All 2 branches covered.">                if (!isHeadless) {</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">                boolean isHeadless = Boolean.getBoolean(&quot;java.awt.headless&quot;) || </span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">                                     java.awt.GraphicsEnvironment.isHeadless();</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">                if (!isHeadless) {</span>
                     try {
-<span class="fc" id="L119">                        Stage stage = new Stage();</span>
-<span class="fc" id="L120">                        stage.initModality(Modality.APPLICATION_MODAL);</span>
-<span class="fc" id="L121">                        stage.setTitle(&quot;Añadir Usuario&quot;);</span>
-<span class="fc" id="L122">                        stage.setScene(new Scene(root));</span>
-<span class="fc" id="L123">                        stage.showAndWait();</span>
+<span class="nc" id="L119">                        Stage stage = new Stage();</span>
+<span class="nc" id="L120">                        stage.initModality(Modality.APPLICATION_MODAL);</span>
+<span class="nc" id="L121">                        stage.setTitle(&quot;Añadir Usuario&quot;);</span>
+<span class="nc" id="L122">                        stage.setScene(new Scene(root));</span>
+<span class="nc" id="L123">                        stage.showAndWait();</span>
 <span class="nc" id="L124">                    } catch (Exception e) {</span>
                         // No se puede mostrar la ventana, pero seguimos comprobando guardado
-<span class="fc" id="L126">                    }</span>
+                    }
                 }
 
-<span class="fc bfc" id="L129" title="All 2 branches covered.">                if (controller.isGuardado()) {</span>
-<span class="fc" id="L130">                    loadData();</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">                if (controller.isGuardado()) {</span>
+<span class="nc" id="L130">                    loadData();</span>
                 }
-<span class="fc" id="L132">            } catch (IOException e) {</span>
-<span class="fc" id="L133">                e.printStackTrace();</span>
-<span class="fc" id="L134">            }</span>
+<span class="nc" id="L132">            } catch (IOException e) {</span>
+<span class="nc" id="L133">                e.printStackTrace();</span>
+            }
         }
-<span class="fc" id="L136">    }</span>
+<span class="nc" id="L136">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

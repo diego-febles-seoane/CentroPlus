@@ -1,19 +1,24 @@
 package es.ies.puerto.controller;
 
+import java.io.IOException;
+import java.net.URL;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 
-import java.io.IOException;
-import java.net.URL;
-
 public class MainController {
 
     @FXML
     private StackPane contentArea;
-    
+
     private Parent welcomeView;
+
+    @FXML
+    public void initialize() {
+        loadWelcomeView();
+    }
 
     // Método para establecer el contenido directamente
     public void setContent(Parent view) {
@@ -22,20 +27,15 @@ public class MainController {
         }
     }
 
-    @FXML
-    public void initialize() {
-        loadWelcomeView();
-    }
-
-    // Para testear, hacemos este método package-private
-    void loadWelcomeView() {
+    // Método público para cargar la vista de bienvenida
+    public void loadWelcomeView() {
         try {
             URL url = getClass().getResource("/es/ies/puerto/view/welcome.fxml");
             if (url != null) {
                 FXMLLoader loader = new FXMLLoader(url);
                 loader.setController(this);
                 welcomeView = loader.load();
-                
+
                 if (contentArea != null) {
                     contentArea.getChildren().setAll(welcomeView);
                 }
@@ -100,7 +100,7 @@ public class MainController {
             }
             FXMLLoader loader = new FXMLLoader(url);
             Parent view = loader.load();
-            
+
             // Intentamos establecer la referencia a MainController en el controlador cargado
             Object controller = loader.getController();
             try {

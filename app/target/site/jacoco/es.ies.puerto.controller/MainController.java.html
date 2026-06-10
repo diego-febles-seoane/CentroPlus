@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MainController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">centroplus</a> &gt; <a href="index.source.html" class="el_package">es.ies.puerto.controller</a> &gt; <span class="el_source">MainController.java</span></div><h1>MainController.java</h1><pre class="source lang-java linenums">package es.ies.puerto.controller;
 
+import java.io.IOException;
+import java.net.URL;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 
-import java.io.IOException;
-import java.net.URL;
-
 <span class="fc" id="L11">public class MainController {</span>
 
     @FXML
     private StackPane contentArea;
-    
-    private Parent welcomeView;
 
-    // Método para establecer el contenido directamente
-    public void setContent(Parent view) {
-<span class="fc bfc" id="L20" title="All 2 branches covered.">        if (contentArea != null) {</span>
-<span class="fc" id="L21">            contentArea.getChildren().setAll(view);</span>
-        }
-<span class="fc" id="L23">    }</span>
+    private Parent welcomeView;
 
     @FXML
     public void initialize() {
-<span class="fc" id="L27">        loadWelcomeView();</span>
+<span class="fc" id="L20">        loadWelcomeView();</span>
+<span class="fc" id="L21">    }</span>
+
+    // Método para establecer el contenido directamente
+    public void setContent(Parent view) {
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        if (contentArea != null) {</span>
+<span class="fc" id="L26">            contentArea.getChildren().setAll(view);</span>
+        }
 <span class="fc" id="L28">    }</span>
 
-    // Para testear, hacemos este método package-private
-    void loadWelcomeView() {
+    // Método público para cargar la vista de bienvenida
+    public void loadWelcomeView() {
         try {
 <span class="fc" id="L33">            URL url = getClass().getResource(&quot;/es/ies/puerto/view/welcome.fxml&quot;);</span>
-<span class="fc bfc" id="L34" title="All 2 branches covered.">            if (url != null) {</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">            if (url != null) {</span>
 <span class="fc" id="L35">                FXMLLoader loader = new FXMLLoader(url);</span>
 <span class="fc" id="L36">                loader.setController(this);</span>
 <span class="fc" id="L37">                welcomeView = loader.load();</span>
-                
-<span class="pc bpc" id="L39" title="1 of 2 branches missed.">                if (contentArea != null) {</span>
+
+<span class="fc bfc" id="L39" title="All 2 branches covered.">                if (contentArea != null) {</span>
 <span class="fc" id="L40">                    contentArea.getChildren().setAll(welcomeView);</span>
                 }
             }
 <span class="fc" id="L43">        } catch (IOException e) {</span>
 <span class="fc" id="L44">            e.printStackTrace();</span>
-<span class="fc" id="L45">        }</span>
+        }
 <span class="fc" id="L46">    }</span>
 
     // Métodos para navegar a las listas principales
@@ -100,21 +100,21 @@ import java.net.URL;
             }
 <span class="fc" id="L101">            FXMLLoader loader = new FXMLLoader(url);</span>
 <span class="fc" id="L102">            Parent view = loader.load();</span>
-            
+
             // Intentamos establecer la referencia a MainController en el controlador cargado
 <span class="fc" id="L105">            Object controller = loader.getController();</span>
             try {
 <span class="fc" id="L107">                controller.getClass().getMethod(&quot;setMainController&quot;, MainController.class).invoke(controller, this);</span>
-<span class="nc" id="L108">            } catch (Exception e) {</span>
+<span class="pc" id="L108">            } catch (Exception e) {</span>
                 // Si el controlador no tiene setMainController, no pasa nada
-<span class="fc" id="L110">            }</span>
+            }
 
-<span class="pc bpc" id="L112" title="1 of 2 branches missed.">            if (contentArea != null) {</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">            if (contentArea != null) {</span>
 <span class="fc" id="L113">                contentArea.getChildren().setAll(view);</span>
             }
 <span class="fc" id="L115">        } catch (IOException e) {</span>
 <span class="fc" id="L116">            e.printStackTrace();</span>
-<span class="fc" id="L117">        }</span>
+        }
 <span class="fc" id="L118">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -11,12 +11,12 @@ public class Incidencias extends Reservas{
     String estado;
 
     public Incidencias(){
-<span class="fc" id="L14">        super();</span>
-<span class="fc" id="L15">    }</span>
+<span class="nc" id="L14">        super();</span>
+<span class="nc" id="L15">    }</span>
 
-<span class="fc" id="L17">    public Incidencias(int idIncidencia){</span>
-<span class="fc" id="L18">        this.idIncidencia = idIncidencia;</span>
-<span class="fc" id="L19">    }</span>
+<span class="nc" id="L17">    public Incidencias(int idIncidencia){</span>
+<span class="nc" id="L18">        this.idIncidencia = idIncidencia;</span>
+<span class="nc" id="L19">    }</span>
 
     public Incidencias(int idIncidencia, int idUsuario, String asunto, String descripcion, String fecha, String estado) {
 <span class="fc" id="L22">        super();</span>
@@ -29,73 +29,73 @@ public class Incidencias extends Reservas{
 <span class="fc" id="L29">    }</span>
 
     public int getIdIncidencia() {
-<span class="fc" id="L32">        return this.idIncidencia;</span>
+<span class="nc" id="L32">        return this.idIncidencia;</span>
     }
 
     public void setIdIncidencia(int idIncidencia) {
-<span class="fc" id="L36">        this.idIncidencia = idIncidencia;</span>
-<span class="fc" id="L37">    }</span>
+<span class="nc" id="L36">        this.idIncidencia = idIncidencia;</span>
+<span class="nc" id="L37">    }</span>
 
     public String getAsunto() {
-<span class="fc" id="L40">        return this.asunto;</span>
+<span class="nc" id="L40">        return this.asunto;</span>
     }
 
     public void setAsunto(String asunto) {
-<span class="fc" id="L44">        this.asunto = asunto;</span>
-<span class="fc" id="L45">    }</span>
+<span class="nc" id="L44">        this.asunto = asunto;</span>
+<span class="nc" id="L45">    }</span>
 
     public String getDescripcion() {
-<span class="fc" id="L48">        return this.descripcion;</span>
+<span class="nc" id="L48">        return this.descripcion;</span>
     }
 
     public void setDescripcion(String descripcion) {
-<span class="fc" id="L52">        this.descripcion = descripcion;</span>
-<span class="fc" id="L53">    }</span>
+<span class="nc" id="L52">        this.descripcion = descripcion;</span>
+<span class="nc" id="L53">    }</span>
 
     public String getFecha() {
-<span class="fc" id="L56">        return this.fecha;</span>
+<span class="nc" id="L56">        return this.fecha;</span>
     }
 
     public void setFecha(String fecha) {
-<span class="fc" id="L60">        this.fecha = fecha;</span>
-<span class="fc" id="L61">    }</span>
+<span class="nc" id="L60">        this.fecha = fecha;</span>
+<span class="nc" id="L61">    }</span>
 
     public String getEstado() {
-<span class="fc" id="L64">        return this.estado;</span>
+<span class="nc" id="L64">        return this.estado;</span>
     }
 
     public void setEstado(String estado) {
-<span class="fc" id="L68">        this.estado = estado;</span>
-<span class="fc" id="L69">    }</span>
+<span class="nc" id="L68">        this.estado = estado;</span>
+<span class="nc" id="L69">    }</span>
 
  
 
     @Override
     public boolean equals(Object o) {
-<span class="fc bfc" id="L75" title="All 2 branches covered.">        if (o == this)</span>
-<span class="fc" id="L76">            return true;</span>
-<span class="fc bfc" id="L77" title="All 2 branches covered.">        if (!(o instanceof Incidencias)) {</span>
-<span class="fc" id="L78">            return false;</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">        if (o == this)</span>
+<span class="nc" id="L76">            return true;</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        if (!(o instanceof Incidencias)) {</span>
+<span class="nc" id="L78">            return false;</span>
         }
-<span class="fc" id="L80">        Incidencias incidencias = (Incidencias) o;</span>
-<span class="fc bfc" id="L81" title="All 2 branches covered.">        return idIncidencia == incidencias.idIncidencia;</span>
+<span class="nc" id="L80">        Incidencias incidencias = (Incidencias) o;</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        return idIncidencia == incidencias.idIncidencia;</span>
     }
 
     @Override
     public int hashCode() {
-<span class="fc" id="L86">        return Objects.hash(idIncidencia);</span>
+<span class="nc" id="L86">        return Objects.hash(idIncidencia);</span>
     }
     
 
     @Override
     public String toString() {
-<span class="fc" id="L92">        return &quot;{&quot; +</span>
-<span class="fc" id="L93">            &quot; idIncidencia='&quot; + getIdIncidencia() + &quot;'&quot; +</span>
-<span class="fc" id="L94">            &quot;, idUsuario='&quot; + getId() +&quot;'&quot;+</span>
-<span class="fc" id="L95">            &quot;, asunto='&quot; + getAsunto() + &quot;'&quot; +</span>
-<span class="fc" id="L96">            &quot;, descripcion='&quot; + getDescripcion() + &quot;'&quot; +</span>
-<span class="fc" id="L97">            &quot;, fecha='&quot; + getFecha() + &quot;'&quot; +</span>
-<span class="fc" id="L98">            &quot;, estado='&quot; + getEstado() + &quot;'&quot; +</span>
+<span class="nc" id="L92">        return &quot;{&quot; +</span>
+<span class="nc" id="L93">            &quot; idIncidencia='&quot; + getIdIncidencia() + &quot;'&quot; +</span>
+<span class="nc" id="L94">            &quot;, idUsuario='&quot; + getId() +&quot;'&quot;+</span>
+<span class="nc" id="L95">            &quot;, asunto='&quot; + getAsunto() + &quot;'&quot; +</span>
+<span class="nc" id="L96">            &quot;, descripcion='&quot; + getDescripcion() + &quot;'&quot; +</span>
+<span class="nc" id="L97">            &quot;, fecha='&quot; + getFecha() + &quot;'&quot; +</span>
+<span class="nc" id="L98">            &quot;, estado='&quot; + getEstado() + &quot;'&quot; +</span>
             &quot;}&quot;;
     }
 

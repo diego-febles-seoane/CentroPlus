@@ -34,14 +34,14 @@ import javafx.stage.Stage;
     private IncidenciasController previousController;
 
     public void setService(IncidenciasService service) {
-<span class="fc" id="L37">        this.service = service;</span>
-<span class="fc" id="L38">    }</span>
+<span class="nc" id="L37">        this.service = service;</span>
+<span class="nc" id="L38">    }</span>
 
     private IncidenciasService getService() {
-<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (service == null) {</span>
-<span class="fc" id="L42">            service = new IncidenciasService();</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        if (service == null) {</span>
+<span class="nc" id="L42">            service = new IncidenciasService();</span>
         }
-<span class="fc" id="L44">        return service;</span>
+<span class="nc" id="L44">        return service;</span>
     }
 
     public void setMainController(MainController mainController) {
@@ -49,8 +49,8 @@ import javafx.stage.Stage;
 <span class="fc" id="L49">    }</span>
 
     public void setPreviousController(IncidenciasController previousController) {
-<span class="fc" id="L52">        this.previousController = previousController;</span>
-<span class="fc" id="L53">    }</span>
+<span class="nc" id="L52">        this.previousController = previousController;</span>
+<span class="nc" id="L53">    }</span>
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -59,55 +59,55 @@ import javafx.stage.Stage;
 <span class="fc" id="L59">    }</span>
 
     public boolean isGuardado() {
-<span class="fc" id="L62">        return guardado;</span>
+<span class="nc" id="L62">        return guardado;</span>
     }
 
     @FXML
     public void guardar() {
         try {
-<span class="fc" id="L68">            int idIncidencia = Integer.parseInt(idIncidenciaField.getText());</span>
-<span class="fc" id="L69">            int idUsuario = Integer.parseInt(idUsuarioField.getText());</span>
-<span class="fc" id="L70">            String asunto = asuntoField.getText();</span>
-<span class="fc" id="L71">            String descripcion = descripcionArea.getText();</span>
-<span class="fc" id="L72">            String fecha = LocalDateTime.now().format(DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd HH:mm&quot;));</span>
-<span class="fc" id="L73">            String estado = estadoCombo.getValue();</span>
+<span class="nc" id="L68">            int idIncidencia = Integer.parseInt(idIncidenciaField.getText());</span>
+<span class="nc" id="L69">            int idUsuario = Integer.parseInt(idUsuarioField.getText());</span>
+<span class="nc" id="L70">            String asunto = asuntoField.getText();</span>
+<span class="nc" id="L71">            String descripcion = descripcionArea.getText();</span>
+<span class="nc" id="L72">            String fecha = LocalDateTime.now().format(DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd HH:mm&quot;));</span>
+<span class="nc" id="L73">            String estado = estadoCombo.getValue();</span>
 
-<span class="fc" id="L75">            Incidencias incidencia = new Incidencias(idIncidencia, idUsuario, asunto, descripcion, fecha, estado);</span>
-<span class="fc bfc" id="L76" title="All 2 branches covered.">            if (getService().save(incidencia)) {</span>
-<span class="fc" id="L77">                guardado = true;</span>
-<span class="fc" id="L78">                cerrar();</span>
-            } else {
-<span class="fc" id="L80">                mostrarError(&quot;No se pudo guardar la incidencia.&quot;);</span>
+<span class="nc" id="L75">            Incidencias incidencia = new Incidencias(idIncidencia, idUsuario, asunto, descripcion, fecha, estado);</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">            if (getService().save(incidencia)) {</span>
+<span class="nc" id="L77">                guardado = true;</span>
+<span class="nc" id="L78">                cerrar();</span>
+<span class="nc" id="L79">            } else {</span>
+<span class="nc" id="L80">                mostrarError(&quot;No se pudo guardar la incidencia.&quot;);</span>
             }
-<span class="fc" id="L82">        } catch (NumberFormatException e) {</span>
-<span class="fc" id="L83">            mostrarError(&quot;Los campos de ID deben ser números.&quot;);</span>
-<span class="fc" id="L84">        }</span>
-<span class="fc" id="L85">    }</span>
+<span class="nc" id="L82">        } catch (NumberFormatException e) {</span>
+<span class="nc" id="L83">            mostrarError(&quot;Los campos de ID deben ser números.&quot;);</span>
+        }
+<span class="nc" id="L85">    }</span>
 
     @FXML
     public void cancelar() {
-<span class="fc" id="L89">        cerrar();</span>
-<span class="fc" id="L90">    }</span>
+<span class="nc" id="L89">        cerrar();</span>
+<span class="nc" id="L90">    }</span>
 
     private void cerrar() {
-<span class="pc bpc" id="L93" title="1 of 4 branches missed.">        if (mainController != null &amp;&amp; previousController != null) {</span>
-<span class="fc" id="L94">            mainController.showIncidencias();</span>
-<span class="fc bfc" id="L95" title="All 2 branches covered.">            if (guardado) {</span>
-<span class="fc" id="L96">                previousController.loadData();</span>
+<span class="nc bnc" id="L93" title="All 4 branches missed.">        if (mainController != null &amp;&amp; previousController != null) {</span>
+<span class="nc" id="L94">            mainController.showIncidencias();</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">            if (guardado) {</span>
+<span class="nc" id="L96">                previousController.loadData();</span>
             }
-        } else {
+<span class="nc" id="L98">        } else {</span>
             // Modo retrocompatibilidad: cerramos la ventana si existe
-<span class="pc bpc" id="L100" title="2 of 4 branches missed.">            if (idIncidenciaField.getScene() != null &amp;&amp; idIncidenciaField.getScene().getWindow() != null) {</span>
-<span class="fc" id="L101">                Stage stage = (Stage) idIncidenciaField.getScene().getWindow();</span>
-<span class="fc" id="L102">                stage.close();</span>
+<span class="nc bnc" id="L100" title="All 4 branches missed.">            if (idIncidenciaField.getScene() != null &amp;&amp; idIncidenciaField.getScene().getWindow() != null) {</span>
+<span class="nc" id="L101">                Stage stage = (Stage) idIncidenciaField.getScene().getWindow();</span>
+<span class="nc" id="L102">                stage.close();</span>
             }
         }
-<span class="fc" id="L105">    }</span>
+<span class="nc" id="L105">    }</span>
 
     private void mostrarError(String mensaje) {
-<span class="fc" id="L108">        Alert alert = new Alert(Alert.AlertType.ERROR);</span>
-<span class="fc" id="L109">        alert.setContentText(mensaje);</span>
-<span class="fc" id="L110">        alert.showAndWait();</span>
-<span class="fc" id="L111">    }</span>
+<span class="nc" id="L108">        Alert alert = new Alert(Alert.AlertType.ERROR);</span>
+<span class="nc" id="L109">        alert.setContentText(mensaje);</span>
+<span class="nc" id="L110">        alert.showAndWait();</span>
+<span class="nc" id="L111">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

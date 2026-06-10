@@ -28,7 +28,7 @@ public class Usuario {
 <span class="fc" id="L28">    }</span>
 
     public int getId() {
-<span class="fc" id="L31">        return this.id;</span>
+<span class="nc" id="L31">        return this.id;</span>
     }
 
     public void setId(int id) {
@@ -36,71 +36,71 @@ public class Usuario {
 <span class="fc" id="L36">    }</span>
 
     public String getNombre() {
-<span class="fc" id="L39">        return this.nombre;</span>
+<span class="nc" id="L39">        return this.nombre;</span>
     }
 
     public void setNombre(String nombre) {
-<span class="fc" id="L43">        this.nombre = nombre;</span>
-<span class="fc" id="L44">    }</span>
+<span class="nc" id="L43">        this.nombre = nombre;</span>
+<span class="nc" id="L44">    }</span>
 
     public String getDni() {
-<span class="fc" id="L47">        return this.dni;</span>
+<span class="nc" id="L47">        return this.dni;</span>
     }
 
     public void setDni(String dni) {
-<span class="fc" id="L51">        this.dni = dni;</span>
-<span class="fc" id="L52">    }</span>
+<span class="nc" id="L51">        this.dni = dni;</span>
+<span class="nc" id="L52">    }</span>
 
     public String getEmail() {
-<span class="fc" id="L55">        return this.email;</span>
+<span class="nc" id="L55">        return this.email;</span>
     }
 
     public void setEmail(String email) {
-<span class="fc" id="L59">        this.email = email;</span>
-<span class="fc" id="L60">    }</span>
+<span class="nc" id="L59">        this.email = email;</span>
+<span class="nc" id="L60">    }</span>
 
     public String getTelefono() {
-<span class="fc" id="L63">        return this.telefono;</span>
+<span class="nc" id="L63">        return this.telefono;</span>
     }
 
     public void setTelefono(String telefono) {
-<span class="fc" id="L67">        this.telefono = telefono;</span>
-<span class="fc" id="L68">    }</span>
+<span class="nc" id="L67">        this.telefono = telefono;</span>
+<span class="nc" id="L68">    }</span>
 
     public String getTipo_usuario() {
-<span class="fc" id="L71">        return this.tipo_usuario;</span>
+<span class="nc" id="L71">        return this.tipo_usuario;</span>
     }
 
     public void setTipo_usuario(String tipo_usuario) {
-<span class="fc" id="L75">        this.tipo_usuario = tipo_usuario;</span>
-<span class="fc" id="L76">    }</span>
+<span class="nc" id="L75">        this.tipo_usuario = tipo_usuario;</span>
+<span class="nc" id="L76">    }</span>
 
     @Override
     public boolean equals(Object o) {
-<span class="fc bfc" id="L80" title="All 2 branches covered.">        if (o == this)</span>
-<span class="fc" id="L81">            return true;</span>
-<span class="fc bfc" id="L82" title="All 2 branches covered.">        if (!(o instanceof Usuario)) {</span>
-<span class="fc" id="L83">            return false;</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">        if (o == this)</span>
+<span class="nc" id="L81">            return true;</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        if (!(o instanceof Usuario)) {</span>
+<span class="nc" id="L83">            return false;</span>
         }
-<span class="fc" id="L85">        Usuario usuario = (Usuario) o;</span>
-<span class="fc bfc" id="L86" title="All 2 branches covered.">        return id == usuario.id;</span>
+<span class="nc" id="L85">        Usuario usuario = (Usuario) o;</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">        return id == usuario.id;</span>
     }
 
     @Override
     public int hashCode() {
-<span class="fc" id="L91">        return Objects.hash(id);</span>
+<span class="nc" id="L91">        return Objects.hash(id);</span>
     }
     
 
     @Override
     public String toString() {
-<span class="fc" id="L97">        return &quot;{&quot; +</span>
-<span class="fc" id="L98">            &quot; id='&quot; + getId() + &quot;'&quot; +</span>
-<span class="fc" id="L99">            &quot;, nombre='&quot; + getNombre() + &quot;'&quot; +</span>
-<span class="fc" id="L100">            &quot;, dni='&quot; + getDni() + &quot;'&quot; +</span>
-<span class="fc" id="L101">            &quot;, email='&quot; + getEmail() + &quot;'&quot; +</span>
-<span class="fc" id="L102">            &quot;, telefono='&quot; + getTelefono() + &quot;'&quot; +</span>
-<span class="fc" id="L103">            &quot;, tipo_usuario='&quot; + getTipo_usuario() + &quot;'&quot; +</span>
+<span class="nc" id="L97">        return &quot;{&quot; +</span>
+<span class="nc" id="L98">            &quot; id='&quot; + getId() + &quot;'&quot; +</span>
+<span class="nc" id="L99">            &quot;, nombre='&quot; + getNombre() + &quot;'&quot; +</span>
+<span class="nc" id="L100">            &quot;, dni='&quot; + getDni() + &quot;'&quot; +</span>
+<span class="nc" id="L101">            &quot;, email='&quot; + getEmail() + &quot;'&quot; +</span>
+<span class="nc" id="L102">            &quot;, telefono='&quot; + getTelefono() + &quot;'&quot; +</span>
+<span class="nc" id="L103">            &quot;, tipo_usuario='&quot; + getTipo_usuario() + &quot;'&quot; +</span>
             &quot;}&quot;;
     }
 

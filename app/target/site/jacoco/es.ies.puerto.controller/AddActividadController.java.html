@@ -28,18 +28,18 @@ import javafx.stage.Stage;
     private ActividadesController previousController;
 
     public void setService(ActividadesService service) {
-<span class="fc" id="L31">        this.service = service;</span>
-<span class="fc" id="L32">    }</span>
+<span class="nc" id="L31">        this.service = service;</span>
+<span class="nc" id="L32">    }</span>
 
     private ActividadesService getService() {
-<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (service == null) {</span>
-<span class="fc" id="L36">            service = new ActividadesService();</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        if (service == null) {</span>
+<span class="nc" id="L36">            service = new ActividadesService();</span>
         }
-<span class="fc" id="L38">        return service;</span>
+<span class="nc" id="L38">        return service;</span>
     }
 
     public boolean isGuardado() {
-<span class="fc" id="L42">        return guardado;</span>
+<span class="nc" id="L42">        return guardado;</span>
     }
 
     public void setMainController(MainController mainController) {
@@ -47,59 +47,59 @@ import javafx.stage.Stage;
 <span class="fc" id="L47">    }</span>
 
     public void setPreviousController(ActividadesController previousController) {
-<span class="fc" id="L50">        this.previousController = previousController;</span>
-<span class="fc" id="L51">    }</span>
+<span class="nc" id="L50">        this.previousController = previousController;</span>
+<span class="nc" id="L51">    }</span>
 
     @FXML
     public void guardar() {
         try {
-<span class="fc" id="L56">            int id = Integer.parseInt(idField.getText());</span>
-<span class="fc" id="L57">            String nombre = nombreField.getText();</span>
-<span class="fc" id="L58">            String tipo = tipoField.getText();</span>
-<span class="fc" id="L59">            int duracion = Integer.parseInt(duracionField.getText());</span>
-<span class="fc" id="L60">            double precio = Double.parseDouble(precioField.getText());</span>
-<span class="fc" id="L61">            int max = Integer.parseInt(maxField.getText());</span>
+<span class="nc" id="L56">            int id = Integer.parseInt(idField.getText());</span>
+<span class="nc" id="L57">            String nombre = nombreField.getText();</span>
+<span class="nc" id="L58">            String tipo = tipoField.getText();</span>
+<span class="nc" id="L59">            int duracion = Integer.parseInt(duracionField.getText());</span>
+<span class="nc" id="L60">            double precio = Double.parseDouble(precioField.getText());</span>
+<span class="nc" id="L61">            int max = Integer.parseInt(maxField.getText());</span>
 
-<span class="fc" id="L63">            Actividades actividad = new Actividades(id, nombre, tipo, duracion, precio, max, 0);</span>
-<span class="fc bfc" id="L64" title="All 2 branches covered.">            if (getService().save(actividad)) {</span>
-<span class="fc" id="L65">                guardado = true;</span>
-<span class="fc" id="L66">                cerrar();</span>
-            } else {
-<span class="fc" id="L68">                mostrarError(&quot;No se pudo guardar la actividad en la base de datos.&quot;);</span>
+<span class="nc" id="L63">            Actividades actividad = new Actividades(id, nombre, tipo, duracion, precio, max, 0);</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">            if (getService().save(actividad)) {</span>
+<span class="nc" id="L65">                guardado = true;</span>
+<span class="nc" id="L66">                cerrar();</span>
+<span class="nc" id="L67">            } else {</span>
+<span class="nc" id="L68">                mostrarError(&quot;No se pudo guardar la actividad en la base de datos.&quot;);</span>
             }
-<span class="fc" id="L70">        } catch (NumberFormatException e) {</span>
-<span class="fc" id="L71">            mostrarError(&quot;Por favor, introduce valores numéricos válidos en los campos correspondientes.&quot;);</span>
-<span class="fc" id="L72">        }</span>
-<span class="fc" id="L73">    }</span>
+<span class="nc" id="L70">        } catch (NumberFormatException e) {</span>
+<span class="nc" id="L71">            mostrarError(&quot;Por favor, introduce valores numéricos válidos en los campos correspondientes.&quot;);</span>
+        }
+<span class="nc" id="L73">    }</span>
 
     @FXML
     public void cancelar() {
-<span class="fc" id="L77">        cerrar();</span>
-<span class="fc" id="L78">    }</span>
+<span class="nc" id="L77">        cerrar();</span>
+<span class="nc" id="L78">    }</span>
 
     private void cerrar() {
-<span class="pc bpc" id="L81" title="1 of 4 branches missed.">        if (mainController != null &amp;&amp; previousController != null) {</span>
+<span class="nc bnc" id="L81" title="All 4 branches missed.">        if (mainController != null &amp;&amp; previousController != null) {</span>
             // Volvemos a la vista anterior
-<span class="fc" id="L83">            mainController.showActividades();</span>
+<span class="nc" id="L83">            mainController.showActividades();</span>
             // Recargamos los datos si se guardó
-<span class="fc bfc" id="L85" title="All 2 branches covered.">            if (guardado) {</span>
-<span class="fc" id="L86">                previousController.loadData();</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">            if (guardado) {</span>
+<span class="nc" id="L86">                previousController.loadData();</span>
             }
-        } else {
+<span class="nc" id="L88">        } else {</span>
             // Modo retrocompatibilidad: cerramos la ventana si existe
-<span class="pc bpc" id="L90" title="2 of 4 branches missed.">            if (idField.getScene() != null &amp;&amp; idField.getScene().getWindow() != null) {</span>
-<span class="fc" id="L91">                Stage stage = (Stage) idField.getScene().getWindow();</span>
-<span class="fc" id="L92">                stage.close();</span>
+<span class="nc bnc" id="L90" title="All 4 branches missed.">            if (idField.getScene() != null &amp;&amp; idField.getScene().getWindow() != null) {</span>
+<span class="nc" id="L91">                Stage stage = (Stage) idField.getScene().getWindow();</span>
+<span class="nc" id="L92">                stage.close();</span>
             }
         }
-<span class="fc" id="L95">    }</span>
+<span class="nc" id="L95">    }</span>
 
     private void mostrarError(String mensaje) {
-<span class="fc" id="L98">        Alert alert = new Alert(Alert.AlertType.ERROR);</span>
-<span class="fc" id="L99">        alert.setTitle(&quot;Error&quot;);</span>
-<span class="fc" id="L100">        alert.setHeaderText(null);</span>
-<span class="fc" id="L101">        alert.setContentText(mensaje);</span>
-<span class="fc" id="L102">        alert.showAndWait();</span>
-<span class="fc" id="L103">    }</span>
+<span class="nc" id="L98">        Alert alert = new Alert(Alert.AlertType.ERROR);</span>
+<span class="nc" id="L99">        alert.setTitle(&quot;Error&quot;);</span>
+<span class="nc" id="L100">        alert.setHeaderText(null);</span>
+<span class="nc" id="L101">        alert.setContentText(mensaje);</span>
+<span class="nc" id="L102">        alert.showAndWait();</span>
+<span class="nc" id="L103">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

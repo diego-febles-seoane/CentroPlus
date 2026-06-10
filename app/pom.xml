@@ -77,6 +77,20 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>.</directory>
+                <includes>
+                    <include>logging.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -85,8 +99,6 @@
                 <configuration>
                     <source>17</source>
                     <target>17</target>
-                    <executable>C:\Users\diego\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\17\bin\javac</executable>
-                    <fork>true</fork>
                 </configuration>
             </plugin>
             <plugin>
@@ -97,11 +109,12 @@
                     <systemPropertyVariables>
                         <java.awt.headless>true</java.awt.headless>
                     </systemPropertyVariables>
-                    <jvm>C:\Users\diego\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\17\bin\java</jvm>
                     <argLine>
                         @{argLine}
                         --add-opens java.base/java.lang=ALL-UNNAMED
                         --add-opens java.base/java.util=ALL-UNNAMED
+                        --add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                        --add-opens javafx.graphics/com.sun.glass.ui=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>
@@ -136,7 +149,16 @@
                         <option>-Dstdout.encoding=UTF-8</option>
                         <option>-Dstderr.encoding=UTF-8</option>
                         <option>-Dprism.marlin=false</option>
+                        <option>-Djavafx.verbose=false</option>
                         <option>-Djava.util.logging.config.file=logging.properties</option>
+                        <option>-Dprism.verbose=false</option>
+                        <option>-Dquantum.verbose=false</option>
+                        <option>-Dglass.verbose=false</option>
+                        <option>--add-opens=java.base/java.lang=ALL-UNNAMED</option>
+                        <option>--add-opens=java.base/java.util=ALL-UNNAMED</option>
+                        <option>--add-opens=java.base/java.lang.reflect=ALL-UNNAMED</option>
+                        <option>--add-opens=javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</option>
+                        <option>--add-opens=javafx.graphics/com.sun.glass.ui=ALL-UNNAMED</option>
                     </options>
                 </configuration>
             </plugin>

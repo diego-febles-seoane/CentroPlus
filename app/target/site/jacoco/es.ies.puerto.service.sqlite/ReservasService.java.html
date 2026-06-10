@@ -16,23 +16,23 @@ public class ReservasService implements IReservasService{
 <span class="fc" id="L16">        this.repository = new ReservasRepository();                    </span>
 <span class="fc" id="L17">    }</span>
 
-<span class="fc" id="L19">    public ReservasService(IReservasRepository repository){</span>
-<span class="fc" id="L20">        this.repository = repository;</span>
-<span class="fc" id="L21">    }</span>
+<span class="nc" id="L19">    public ReservasService(IReservasRepository repository){</span>
+<span class="nc" id="L20">        this.repository = repository;</span>
+<span class="nc" id="L21">    }</span>
 
     @Override
     public boolean save(Reservas reserva) {
-<span class="fc" id="L25">        return repository.save(reserva);</span>
+<span class="nc" id="L25">        return repository.save(reserva);</span>
     }
 
     @Override
     public boolean update(Reservas reserva) {
-<span class="fc" id="L30">        return repository.update(reserva);</span>
+<span class="nc" id="L30">        return repository.update(reserva);</span>
     }
 
     @Override
     public boolean delete(int id) {
-<span class="fc" id="L35">        return repository.delete(id);</span>
+<span class="nc" id="L35">        return repository.delete(id);</span>
     }
 
     @Override
@@ -42,7 +42,7 @@ public class ReservasService implements IReservasService{
 
     @Override
     public Reservas findById(int id) {
-<span class="fc" id="L45">        return repository.findById(id);</span>
+<span class="nc" id="L45">        return repository.findById(id);</span>
     }
 
 }

@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: es.ies.puerto.controller.IncidenciasControllerTest
--------------------------------------------------------------------------------
-Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.006 s -- in es.ies.puerto.controller.IncidenciasControllerTest
