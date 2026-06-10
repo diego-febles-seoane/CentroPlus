@@ -177,21 +177,11 @@ git --version
 
 ### 11.1 Clonar el repositorio
 ```bash
-git clone https://github.com/diegofeblesseoane/CentroPlus-Connect.git
+git clone https://github.com/diego-febles-seoane/CentroPlus.git
 cd CentroPlus-Connect
 ```
 
-### 11.2 Compilar el proyecto
-```bash
-# Compilar todo el proyecto
-mvn clean install
-
-# O compilar módulos específicos
-cd app && mvn clean install
-cd ../backend.api && mvn clean install
-```
-
-### 11.3 Configuración de la base de datos H2
+### 11.2 Configuración de la base de datos H2
 La base de datos H2 se inicializa automáticamente con los scripts SQL ubicados en `database/.sql/`:
 - `schema.sql`: Estructura de la base de datos
 - `seed.sql`: Datos iniciales (opcional)
@@ -270,7 +260,7 @@ mvn test jacoco:report
 ## 14. Documentación Adicional
 
 - **API REST**: Consulta la documentación interactiva en [Swagger UI](http://localhost:8080/swagger-ui.html) cuando ejecutes el backend
-- **Base de datos**: Ver [database/README.md](database/README.md)
+- **Base de datos**: Ver [database/drawio/](database/README.md)
 - **Diagramas**: Los diagramas de arquitectura están en `database/drawio/`
 
 ---
