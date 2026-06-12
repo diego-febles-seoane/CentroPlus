@@ -1,5 +1,6 @@
 package es.ies.puerto.exception;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -29,5 +30,17 @@ public class GlobalExceptionHandler {
         Map<String, String> error = new HashMap<>();
         error.put("error", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Map<String, String>> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        Map<String, String> error = new HashMap<>();
+        String message = ex.getMessage();
+        if (message != null && message.contains("dni")) {
+            error.put("error", "El DNI ya está registrado");
+        } else {
+            error.put("error", "Error de integridad de datos");
+        }
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 }
